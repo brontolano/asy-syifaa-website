@@ -10,10 +10,6 @@ const filterForm = document.getElementById("filterForm");
 const resetFilterBtn = document.getElementById("resetFilter");
 const viewListBtn = document.getElementById("viewListBtn");
 const viewGridBtn = document.getElementById("viewGridBtn");
-const pdfReaderModal = document.getElementById("pdfReaderModal");
-const pdfFrame = document.getElementById("pdfFrame");
-const pdfTitle = document.getElementById("pdfTitle");
-const closePdfModal = document.getElementById("closePdfModal");
 
 let currentFilter = { q: "", category: "", language: "" };
 let viewMode = "list";
@@ -47,21 +43,10 @@ function setViewMode(mode) {
   viewGridBtn.classList.toggle("active-toggle", mode === "grid");
 }
 
-function openPdfInApp(url, title) {
-  pdfTitle.textContent = title || "Reader PDF";
-  pdfFrame.src = url;
-  pdfReaderModal.hidden = false;
-}
-
-function closePdfInApp() {
-  pdfReaderModal.hidden = true;
-  pdfFrame.src = "";
-}
-
 function row(item) {
   const uploaded = new Date(item.uploadedAt).toLocaleString("id-ID");
   const tags = (item.tags || []).length ? item.tags.map((v) => `<span class="tag-chip">${escapeHtml(v)}</span>`).join("") : "-";
-  return `<article class="library-item"><div><h3>${escapeHtml(item.title)}</h3><p>Penulis: ${escapeHtml(item.author || "-")}</p><p>Kategori: ${escapeHtml(item.category || "-")} • Bahasa: ${escapeHtml(item.language || "-")}</p><p>Tag: ${tags}</p><p>${escapeHtml(item.originalName)} • ${formatBytes(item.fileSize)} • ${uploaded}</p></div><div class="actions"><button class="btn ghost js-open-pdf" type="button" data-url="${escapeHtml(item.fileUrl)}" data-title="${escapeHtml(item.title)}">Buka PDF</button><button class="btn ghost js-save-bookmark" type="button" data-book-id="${escapeHtml(item.id)}">Bookmark</button></div></article>`;
+  return `<article class="library-item"><div><h3>${escapeHtml(item.title)}</h3><p>Penulis: ${escapeHtml(item.author || "-")}</p><p>Kategori: ${escapeHtml(item.category || "-")} • Bahasa: ${escapeHtml(item.language || "-")}</p><p>Tag: ${tags}</p><p>${escapeHtml(item.originalName)} • ${formatBytes(item.fileSize)} • ${uploaded}</p></div><div class="actions"><a class="btn ghost" href="/perpustakaan/reader?id=${escapeHtml(item.id)}">Buka PDF</a><button class="btn ghost js-save-bookmark" type="button" data-book-id="${escapeHtml(item.id)}">Bookmark</button></div></article>`;
 }
 
 function bookmarkRow(item) {
@@ -122,20 +107,7 @@ filterForm.addEventListener("submit", async (e) => {
 resetFilterBtn.addEventListener("click", async () => { filterForm.reset(); currentFilter = { q: "", category: "", language: "" }; await loadLibrary(); });
 viewListBtn.addEventListener("click", () => setViewMode("list"));
 viewGridBtn.addEventListener("click", () => setViewMode("grid"));
-closePdfModal.addEventListener("click", closePdfInApp);
-pdfReaderModal.addEventListener("click", (e) => { if (e.target === pdfReaderModal) closePdfInApp(); });
-pdfFrame.addEventListener("error", () => {
-  bookmarkMsgEl.textContent = "PDF gagal dimuat di reader internal.";
-});
 listEl.addEventListener("click", async (e) => {
-  const openBtn = e.target.closest(".js-open-pdf");
-  if (openBtn) {
-    const url = openBtn.getAttribute("data-url");
-    const title = openBtn.getAttribute("data-title");
-    openPdfInApp(url, title);
-    return;
-  }
-
   const bookmarkBtn = e.target.closest(".js-save-bookmark");
   if (bookmarkBtn) {
     const bookId = bookmarkBtn.getAttribute("data-book-id");

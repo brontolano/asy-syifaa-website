@@ -235,4 +235,5 @@ app.get("/dashboard", (req, res) => {
 });
 
 app.get("/perpustakaan", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "library.html")));
+app.get("/perpustakaan/reader", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "reader.html")));
 app.listen(PORT, () => console.log(`ERP MVP berjalan di http://localhost:${PORT}`));

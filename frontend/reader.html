@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reader PDF - Asy-Syifaa ERP</title>
+  <link rel="icon" type="image/x-icon" href="/AsySyifaa.ico" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <div class="topbar-title">
+        <img src="/assets/img/logo.png" alt="Logo Asy-Syifaa" class="brand-logo small" />
+        <h1 id="readerTitle">Reader PDF</h1>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" type="button" data-theme-toggle>Mode Gelap</button>
+        <a class="btn ghost" href="/perpustakaan">Kembali</a>
+      </div>
+    </header>
+
+    <section class="widget-box">
+      <p id="readerMeta" class="note"></p>
+      <div class="reader-shell">
+        <iframe id="readerFrame" class="pdf-frame" title="PDF Reader Full Page"></iframe>
+      </div>
+    </section>
+
+    <section class="widget-box">
+      <h2>Simpan Bookmark</h2>
+      <form id="readerBookmarkForm" class="library-form-inline">
+        <input id="readerPage" type="number" min="1" placeholder="Halaman" required />
+        <input id="readerNote" type="text" placeholder="Catatan (opsional)" />
+        <button class="btn primary" type="submit">Simpan</button>
+      </form>
+      <p id="readerMsg" class="note"></p>
+    </section>
+  </main>
+
+  <script src="/theme.js"></script>
+  <script src="/reader.js"></script>
+</body>
+</html>

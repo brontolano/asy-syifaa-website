@@ -38,3 +38,7 @@ build/
 # Local runtime data
 *.sqlite
 *.db
+
+# Runtime uploads
+backend/storage/library-pdfs/*
+!backend/storage/library-pdfs/.gitkeep

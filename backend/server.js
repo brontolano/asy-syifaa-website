@@ -65,6 +65,37 @@ function resolveHost(hostHeader) {
   return "erp";
 }
 
+function normalizeTags(input) {
+  return (input || "")
+    .toString()
+    .split(",")
+    .map((v) => v.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+function applyLibraryFilters(items, query) {
+  const q = (query.q || "").toString().trim().toLowerCase();
+  const category = (query.category || "").toString().trim().toLowerCase();
+  const language = (query.language || "").toString().trim().toLowerCase();
+  const author = (query.author || "").toString().trim().toLowerCase();
+
+  return items.filter((item) => {
+    if (category && (item.category || "").toLowerCase() !== category) return false;
+    if (language && (item.language || "").toLowerCase() !== language) return false;
+    if (author && !(item.author || "").toLowerCase().includes(author)) return false;
+
+    if (!q) return true;
+    const searchable = [item.title, item.author, item.category, item.language, item.originalName, ...(item.tags || [])]
+      .join(" ")
+      .toLowerCase();
+    return searchable.includes(q);
+  });
+}
+
+function toLibraryList(items, query) {
+  return applyLibraryFilters(items, query).sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+}
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, LIBRARY_DIR),
   filename: (_req, file, cb) => {
@@ -138,25 +169,61 @@ app.get("/api/dashboard/summary", requireSuperadmin, (req, res) => {
   res.json({ role, summary: base, widgets: byRole[role] || byRole.ustadz });
 });
 
-app.get("/api/library", (_req, res) => {
-  const items = readLibrary().sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-  res.json({ total: items.length, data: items });
+app.get("/api/library", (req, res) => {
+  const items = readLibrary();
+  const data = toLibraryList(items, req.query);
+  res.json({ total: data.length, data });
+});
+
+app.get("/api/perpustakaan/books", (req, res) => {
+  const items = readLibrary();
+  const data = toLibraryList(items, req.query);
+  res.json({ total: data.length, data });
+});
+
+app.get("/api/perpustakaan/search", (req, res) => {
+  const items = readLibrary();
+  const data = toLibraryList(items, req.query);
+  res.json({ total: data.length, data });
+});
+
+app.get("/api/perpustakaan/books/:id/content", (req, res) => {
+  const items = readLibrary();
+  const book = items.find((v) => v.id === req.params.id);
+  if (!book) return res.status(404).json({ message: "Buku tidak ditemukan" });
+  res.redirect(book.fileUrl);
 });
 
 app.post("/api/library/upload", requireSuperadmin, upload.single("pdf"), (req, res) => {
   const title = (req.body.title || "").toString().trim();
+  const author = (req.body.author || "").toString().trim();
+  const category = (req.body.category || "").toString().trim();
+  const language = (req.body.language || "").toString().trim() || "id";
+  const tags = normalizeTags(req.body.tags);
+
   if (!req.file) return res.status(400).json({ message: "File PDF wajib diunggah" });
 
   const items = readLibrary();
+  const duplicate = items.find((item) => item.originalName === req.file.originalname && item.fileSize === req.file.size);
+  if (duplicate) {
+    try { fs.unlinkSync(path.join(LIBRARY_DIR, req.file.filename)); } catch {}
+    return res.status(409).json({ message: "Dokumen duplikat: nama file dan ukuran sama sudah ada." });
+  }
+
+  const now = new Date().toISOString();
   const item = {
     id: crypto.randomUUID(),
     title: title || req.file.originalname,
+    author,
+    category,
+    language,
+    tags,
     originalName: req.file.originalname,
     fileName: req.file.filename,
     fileUrl: `/library-files/${req.file.filename}`,
     fileSize: req.file.size,
-    uploadedAt: new Date().toISOString(),
-    createdAt: new Date().toISOString()
+    uploadedAt: now,
+    createdAt: now
   };
 
   items.push(item);

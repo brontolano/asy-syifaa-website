@@ -24,6 +24,14 @@
       <form id="uploadForm" class="library-form">
         <label>Judul Dokumen</label>
         <input id="title" type="text" placeholder="Contoh: Kitab Fiqih Kelas 1" />
+        <label>Penulis</label>
+        <input id="author" type="text" placeholder="Contoh: Ustadz Ahmad" />
+        <label>Kategori</label>
+        <input id="category" type="text" placeholder="Contoh: Fiqih" />
+        <label>Bahasa</label>
+        <input id="language" type="text" value="id" placeholder="id / ar / en" />
+        <label>Tag (pisahkan dengan koma)</label>
+        <input id="tags" type="text" placeholder="kitab, fiqih, kelas-1" />
         <label>File PDF</label>
         <input id="pdf" type="file" accept="application/pdf" required />
         <button class="btn primary" type="submit">Upload PDF</button>
@@ -32,13 +40,26 @@
       <p class="note">Metadata tersimpan di: <code>backend/data/library.json</code></p>
       <p id="uploadMsg" class="note"></p>
     </section>
+
     <section id="lockedSection" class="widget-box" hidden>
       <h2>Upload PDF Terkunci</h2>
       <p class="note">Fitur upload hanya untuk superadmin. User publik hanya dapat membaca koleksi PDF.</p>
     </section>
 
     <section class="widget-box">
+      <h2>Pencarian & Filter</h2>
+      <form id="filterForm" class="library-form-inline">
+        <input id="q" type="text" placeholder="Cari judul, penulis, kategori, tag..." />
+        <input id="filterCategory" type="text" placeholder="Kategori" />
+        <input id="filterLanguage" type="text" placeholder="Bahasa" />
+        <button class="btn ghost" type="submit">Terapkan</button>
+        <button id="resetFilter" class="btn ghost" type="button">Reset</button>
+      </form>
+    </section>
+
+    <section class="widget-box">
       <h2>Koleksi PDF</h2>
+      <p id="listInfo" class="note"></p>
       <div id="libraryList" class="library-list"></div>
     </section>
 

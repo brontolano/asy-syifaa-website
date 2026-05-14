@@ -53,6 +53,20 @@ Buka:
   - Landing (`/`)
   - Perpustakaan (`/perpustakaan`) untuk lihat/baca PDF (tanpa upload).
 
+## Modul Perpustakaan (Tahap Lanjut)
+- Metadata buku saat upload:
+  - `title`, `author`, `category`, `language`, `tags`
+- Fitur pencarian & filter koleksi:
+  - query teks (`q`)
+  - filter kategori (`category`)
+  - filter bahasa (`language`)
+- Deteksi duplikat upload:
+  - menolak file dengan kombinasi nama file + ukuran yang sama
+- Endpoint tambahan selaras PRD:
+  - `GET /api/perpustakaan/books`
+  - `GET /api/perpustakaan/search`
+  - `GET /api/perpustakaan/books/{id}/content`
+
 ## Penyimpanan PDF Perpustakaan
 - Upload dilakukan dari halaman `http://localhost:3000/perpustakaan`
 - File PDF fisik disimpan di `backend/storage/library-pdfs`

@@ -231,8 +231,16 @@ select:focus,
   gap: 8px;
 }
 
+.library-form-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
 .library-form input[type="text"],
-.library-form input[type="file"] {
+.library-form input[type="file"],
+.library-form-inline input[type="text"] {
   border: 1px solid var(--input-border);
   border-radius: 8px;
   padding: 10px 12px;
@@ -264,6 +272,17 @@ select:focus,
 .library-item h3,
 .library-item p {
   margin: 0 0 6px;
+}
+
+.tag-chip {
+  display: inline-block;
+  margin-right: 6px;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--bg-highlight);
+  color: var(--color-primary);
+  font-size: 12px;
 }
 
 .compact-auth {

@@ -258,6 +258,10 @@ select:focus,
   gap: 12px;
 }
 
+.library-list.library-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
 .library-item {
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -267,6 +271,11 @@ select:focus,
   gap: 12px;
   align-items: center;
   background: var(--card-bg);
+}
+
+.library-list.library-grid .library-item {
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .library-item h3,
@@ -291,4 +300,56 @@ select:focus,
 
 .hidden-by-access {
   display: none;
+}
+
+.app-toolbar {
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.active-toggle {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+}
+
+.pdf-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.pdf-modal-shell {
+  width: min(980px, 100%);
+  height: min(92vh, 920px);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pdf-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pdf-modal-head h3 {
+  margin: 0;
+}
+
+.pdf-frame {
+  border: 0;
+  width: 100%;
+  flex: 1;
+  background: #111;
 }

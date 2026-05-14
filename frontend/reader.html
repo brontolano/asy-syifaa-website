@@ -7,8 +7,8 @@
   <link rel="icon" type="image/x-icon" href="/AsySyifaa.ico" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-  <main class="dashboard">
+<body class="app-base">
+  <main class="dashboard app-main">
     <header class="topbar">
       <div class="topbar-title">
         <img src="/assets/img/logo.png" alt="Logo Asy-Syifaa" class="brand-logo small" />
@@ -16,12 +16,18 @@
       </div>
       <div class="actions">
         <button class="btn ghost" type="button" data-theme-toggle>Mode Gelap</button>
-        <a class="btn ghost" href="/perpustakaan">Kembali</a>
       </div>
     </header>
 
     <section class="widget-box">
       <p id="readerMeta" class="note"></p>
+      <div class="actions app-toolbar">
+        <button id="prevPageBtn" class="btn ghost" type="button">Prev</button>
+        <button id="nextPageBtn" class="btn ghost" type="button">Next</button>
+        <input id="gotoPageInput" type="number" min="1" placeholder="Page" class="page-input" />
+        <button id="gotoPageBtn" class="btn ghost" type="button">Goto</button>
+        <span id="pageInfo" class="note"></span>
+      </div>
       <div class="reader-shell">
         <iframe id="readerFrame" class="pdf-frame" title="PDF Reader Full Page"></iframe>
       </div>
@@ -37,6 +43,12 @@
       <p id="readerMsg" class="note"></p>
     </section>
   </main>
+
+  <nav class="app-nav">
+    <a class="app-nav-btn" href="/">Beranda</a>
+    <a class="app-nav-btn active" href="/perpustakaan">Perpustakaan</a>
+    <a class="app-nav-btn" href="/dashboard">Dashboard</a>
+  </nav>
 
   <script src="/theme.js"></script>
   <script src="/reader.js"></script>

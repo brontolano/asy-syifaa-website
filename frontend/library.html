@@ -7,8 +7,8 @@
   <link rel="icon" type="image/x-icon" href="/AsySyifaa.ico" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-  <main class="dashboard">
+<body class="app-base">
+  <main class="dashboard app-main">
     <header class="topbar">
       <div class="topbar-title">
         <img src="/assets/img/logo.png" alt="Logo Asy-Syifaa" class="brand-logo small" />
@@ -66,9 +66,13 @@
       <p id="bookmarkMsg" class="note"></p>
       <div id="bookmarkList" class="library-list"></div>
     </section>
-
-    <a class="back-link" href="/">← Kembali ke Landing</a>
   </main>
+
+  <nav class="app-nav">
+    <a class="app-nav-btn" href="/">Beranda</a>
+    <a class="app-nav-btn active" href="/perpustakaan">Perpustakaan</a>
+    <a class="app-nav-btn" href="/dashboard">Dashboard</a>
+  </nav>
 
   <script src="/theme.js"></script>
   <script src="/auth.js"></script>

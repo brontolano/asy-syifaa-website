@@ -302,6 +302,15 @@ select:focus,
   display: none;
 }
 
+.app-base {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.app-main {
+  padding-bottom: 92px;
+}
+
 .app-toolbar {
   margin-top: 4px;
   margin-bottom: 10px;
@@ -322,6 +331,10 @@ select:focus,
   align-items: center;
   justify-content: center;
   padding: 12px;
+}
+
+.pdf-modal[hidden] {
+  display: none !important;
 }
 
 .pdf-modal-shell {
@@ -352,4 +365,46 @@ select:focus,
   width: 100%;
   flex: 1;
   background: #111;
+}
+
+.reader-shell {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  height: min(72vh, 760px);
+}
+
+.app-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+}
+
+.app-nav-btn {
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-secondary);
+  padding: 10px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-weight: 600;
+}
+
+.app-nav-btn.active {
+  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.page-input {
+  width: 86px;
 }

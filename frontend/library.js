@@ -39,8 +39,6 @@ async function saveBookmark(bookId) {
   bookmarkMsgEl.textContent = `Bookmark tersimpan di halaman ${data.page}`;
   await loadBookmarks();
 }
-window.saveBookmark = saveBookmark;
-window.openPdfInApp = openPdfInApp;
 
 function setViewMode(mode) {
   viewMode = mode;
@@ -63,7 +61,7 @@ function closePdfInApp() {
 function row(item) {
   const uploaded = new Date(item.uploadedAt).toLocaleString("id-ID");
   const tags = (item.tags || []).length ? item.tags.map((v) => `<span class="tag-chip">${escapeHtml(v)}</span>`).join("") : "-";
-  return `<article class="library-item"><div><h3>${escapeHtml(item.title)}</h3><p>Penulis: ${escapeHtml(item.author || "-")}</p><p>Kategori: ${escapeHtml(item.category || "-")} • Bahasa: ${escapeHtml(item.language || "-")}</p><p>Tag: ${tags}</p><p>${escapeHtml(item.originalName)} • ${formatBytes(item.fileSize)} • ${uploaded}</p></div><div class="actions"><button class="btn ghost" type="button" onclick="openPdfInApp('${item.fileUrl}','${escapeHtml(item.title)}')">Buka PDF</button><button class="btn ghost" type="button" onclick="saveBookmark('${item.id}')">Bookmark</button></div></article>`;
+  return `<article class="library-item"><div><h3>${escapeHtml(item.title)}</h3><p>Penulis: ${escapeHtml(item.author || "-")}</p><p>Kategori: ${escapeHtml(item.category || "-")} • Bahasa: ${escapeHtml(item.language || "-")}</p><p>Tag: ${tags}</p><p>${escapeHtml(item.originalName)} • ${formatBytes(item.fileSize)} • ${uploaded}</p></div><div class="actions"><button class="btn ghost js-open-pdf" type="button" data-url="${escapeHtml(item.fileUrl)}" data-title="${escapeHtml(item.title)}">Buka PDF</button><button class="btn ghost js-save-bookmark" type="button" data-book-id="${escapeHtml(item.id)}">Bookmark</button></div></article>`;
 }
 
 function bookmarkRow(item) {
@@ -126,6 +124,24 @@ viewListBtn.addEventListener("click", () => setViewMode("list"));
 viewGridBtn.addEventListener("click", () => setViewMode("grid"));
 closePdfModal.addEventListener("click", closePdfInApp);
 pdfReaderModal.addEventListener("click", (e) => { if (e.target === pdfReaderModal) closePdfInApp(); });
+pdfFrame.addEventListener("error", () => {
+  bookmarkMsgEl.textContent = "PDF gagal dimuat di reader internal.";
+});
+listEl.addEventListener("click", async (e) => {
+  const openBtn = e.target.closest(".js-open-pdf");
+  if (openBtn) {
+    const url = openBtn.getAttribute("data-url");
+    const title = openBtn.getAttribute("data-title");
+    openPdfInApp(url, title);
+    return;
+  }
+
+  const bookmarkBtn = e.target.closest(".js-save-bookmark");
+  if (bookmarkBtn) {
+    const bookId = bookmarkBtn.getAttribute("data-book-id");
+    await saveBookmark(bookId);
+  }
+});
 
 applyUploadAccess();
 setViewMode("list");

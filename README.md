@@ -73,3 +73,20 @@ Buka:
 - Upload dilakukan dari halaman `http://localhost:3000/perpustakaan`
 - File PDF fisik disimpan di `backend/storage/library-pdfs`
 - Metadata koleksi disimpan di `backend/data/library.json`
+## Deploy VPS + Docker (ERP Full)
+
+Struktur deploy untuk ERP penuh sudah disiapkan di folder `deploy/`:
+- `deploy/docker-compose.vps.yml` -> app ERP + PostgreSQL + MinIO + Traefik labels
+- `deploy/.env.vps.example` -> template environment VPS
+
+### Langkah deploy di VPS
+1. Copy `deploy/.env.vps.example` menjadi `deploy/.env.vps` lalu isi credential kuat.
+2. Pastikan network Traefik eksternal tersedia sesuai `TRAEFIK_NETWORK`.
+3. Jalankan dari folder `deploy`:
+   - `docker compose -f docker-compose.vps.yml --env-file .env.vps up -d --build`
+
+### Tes Docker lokal (tanpa Traefik)
+Untuk tes lokal di OS ini gunakan:
+- `docker compose up -d --build`
+- Akses `http://localhost:3000/`
+

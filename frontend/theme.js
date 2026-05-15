@@ -4,7 +4,12 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     const btn = document.querySelector("[data-theme-toggle]");
-    if (btn) btn.textContent = theme === "dark" ? "Mode Terang" : "Mode Gelap";
+    if (btn) {
+      const isDark = theme === "dark";
+      btn.textContent = isDark ? "☀️" : "🌙";
+      btn.setAttribute("aria-label", isDark ? "Aktifkan mode terang" : "Aktifkan mode gelap");
+      btn.setAttribute("title", isDark ? "Mode terang" : "Mode gelap");
+    }
   }
 
   function getPreferredTheme() {

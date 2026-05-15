@@ -4,43 +4,61 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "/vendor/pdfjs/pdf.worker.mjs";
 const form = document.getElementById("uploadForm");
 const msgEl = document.getElementById("uploadMsg");
 const listEl = document.getElementById("libraryList");
-const bookmarkListEl = document.getElementById("bookmarkList");
 const bookmarkMsgEl = document.getElementById("bookmarkMsg");
 const uploadSection = document.getElementById("uploadSection");
-const lockedSection = document.getElementById("lockedSection");
 const filterForm = document.getElementById("filterForm");
 const viewListBtn = document.getElementById("viewListBtn");
 const viewGridBtn = document.getElementById("viewGridBtn");
 const filterLanguageSelect = document.getElementById("filterLanguage");
 const tabLibraryBtn = document.getElementById("tabLibraryBtn");
 const tabBookmarkBtn = document.getElementById("tabBookmarkBtn");
-const bookmarkPanel = document.getElementById("bookmarkPanel");
 
 let currentFilter = { q: "", language: "" };
 let lastLibraryCount = 0;
-let lastBookmarkCount = 0;
 let isSuperadmin = false;
+let bookmarkIdSet = new Set();
+let activeTab = "library";
 
-function formatBytes(bytes) { if (bytes < 1024) return `${bytes} B`; if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`; return `${(bytes / (1024 * 1024)).toFixed(2)} MB`; }
+function getInitialTab() {
+  const fromQuery = (new URLSearchParams(window.location.search).get("tab") || "").toLowerCase();
+  if (fromQuery === "bookmark") return "bookmark";
+  const saved = (localStorage.getItem("library_active_tab") || "").toLowerCase();
+  return saved === "bookmark" ? "bookmark" : "library";
+}
+
+function setActiveTab(nextTab) {
+  activeTab = nextTab === "bookmark" ? "bookmark" : "library";
+  localStorage.setItem("library_active_tab", activeTab);
+  const url = new URL(window.location.href);
+  if (activeTab === "bookmark") url.searchParams.set("tab", "bookmark");
+  else url.searchParams.delete("tab");
+  window.history.replaceState({}, "", url.toString());
+}
+
 function escapeHtml(value) { return (value || "").toString().replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;"); }
 
-async function saveBookmark(bookId) {
-  const pageRaw = window.prompt("Simpan bookmark halaman berapa?", "1");
-  if (!pageRaw) return;
-  const page = Number(pageRaw);
-  if (!Number.isFinite(page) || page < 1) return alert("Halaman harus angka >= 1");
-  const note = window.prompt("Catatan bookmark (opsional)", "") || "";
+async function toggleBookmark(bookId) {
+  if (!bookId) return;
+  if (bookmarkIdSet.has(bookId)) {
+    const resp = await fetch(`/api/perpustakaan/bookmarks/${encodeURIComponent(bookId)}`, { method: "DELETE" });
+    const data = await resp.json();
+    if (!resp.ok) return alert(data.message || "Gagal menghapus bookmark");
+    bookmarkMsgEl.textContent = "Bookmark dinonaktifkan.";
+    await loadBookmarks();
+    await loadLibrary();
+    return;
+  }
 
   const resp = await fetch("/api/perpustakaan/bookmarks", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ bookId, page, note })
+    body: JSON.stringify({ bookId, page: 1, note: "" })
   });
   const data = await resp.json();
   if (!resp.ok) return alert(data.message || "Gagal menyimpan bookmark");
-
-  bookmarkMsgEl.textContent = `Bookmark tersimpan di halaman ${data.page}`;
+  bookmarkMsgEl.textContent = "Bookmark diaktifkan.";
   await loadBookmarks();
+  await loadLibrary();
 }
 
 function setViewMode(mode) {
@@ -80,28 +98,29 @@ async function renderGridCovers() {
 }
 
 function row(item) {
-  const uploaded = new Date(item.uploadedAt).toLocaleString("id-ID");
   const tags = (item.tags || []).length ? item.tags.map((v) => `<span class="tag-chip">${escapeHtml(v)}</span>`).join("") : "-";
-  return `<article class="library-item"><div class="library-cover-wrap"><canvas class="library-cover" data-cover-url="${escapeHtml(item.fileUrl)}"></canvas></div><div class="library-meta"><h3>${escapeHtml(item.title)}</h3><p class="library-sub">Penulis: ${escapeHtml(item.author || "-")}</p><p class="library-sub">Kategori: ${escapeHtml(item.category || "-")} • Bahasa: ${escapeHtml(item.language || "-")}</p><p class="library-tags">Tag: ${tags}</p><p class="library-sub">${escapeHtml(item.originalName)} • ${formatBytes(item.fileSize)} • ${uploaded}</p></div><div class="library-card-actions"><a class="btn ghost" href="/perpustakaan/reader?id=${escapeHtml(item.id)}">Baca</a><button class="btn ghost icon-btn js-save-bookmark" type="button" data-book-id="${escapeHtml(item.id)}" aria-label="Simpan bookmark" title="Simpan bookmark">★</button></div></article>`;
+  const active = bookmarkIdSet.has(item.id);
+  const bookmarkIcon = `<svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 4.48242C5 3.23978 6.00736 2.23242 7.25 2.23242H17.75C18.9926 2.23242 20 3.23978 20 4.48242V21.4824C20 21.759 19.8478 22.0132 19.6039 22.1437C19.36 22.2742 19.0641 22.2599 18.834 22.1065L12.916 18.1612C12.6641 17.9932 12.3359 17.9932 12.084 18.1612L6.16603 22.1065C5.93588 22.2599 5.63997 22.2742 5.39611 22.1437C5.15224 22.0132 5 21.759 5 21.4824V4.48242ZM7.25 3.73242C6.83579 3.73242 6.5 4.06821 6.5 4.48242V20.081L11.2519 16.9131C12.0077 16.4092 12.9923 16.4092 13.7481 16.9131L18.5 20.081V4.48242C18.5 4.06821 18.1642 3.73242 17.75 3.73242H7.25Z" fill="currentColor"/></svg>`;
+  return `<article class="library-item js-open-reader" data-book-id="${escapeHtml(item.id)}"><div class="library-cover-wrap"><canvas class="library-cover" data-cover-url="${escapeHtml(item.fileUrl)}"></canvas></div><div class="library-meta"><h3>${escapeHtml(item.title)}</h3><p class="library-sub">Kategori: ${escapeHtml(item.category || "-")}</p><p class="library-tags">Tag: ${tags}</p></div><div class="library-card-actions"><button class="btn ghost icon-btn js-save-bookmark ${active ? "active-toggle" : ""}" type="button" data-book-id="${escapeHtml(item.id)}" aria-label="Toggle bookmark" title="Toggle bookmark">${bookmarkIcon}</button></div></article>`;
 }
 
-function bookmarkRow(item) {
-  const upd = new Date(item.updatedAt).toLocaleString("id-ID");
-  return `<article class="library-item bookmark-item"><div><h3>${escapeHtml(item.bookTitle)}</h3><p class="library-sub">Halaman: ${item.page}</p><p class="library-sub">Catatan: ${escapeHtml(item.note || "-")}</p><p class="library-sub">Diperbarui: ${upd}</p></div></article>`;
+function toQueryString(filter) {
+  const q = new URLSearchParams();
+  if (filter.q) q.set("q", filter.q);
+  if (filter.language) q.set("language", filter.language);
+  return q.toString();
 }
-
-function toQueryString(filter) { const q = new URLSearchParams(); if (filter.q) q.set("q", filter.q); return q.toString(); }
 
 async function loadLibrary() {
   const qs = toQueryString(currentFilter);
   const resp = await fetch(`/api/perpustakaan/search${qs ? `?${qs}` : ""}`);
   const data = await resp.json();
-  const filteredRows = (data.data || []).filter((item) => {
-    if (!currentFilter.language) return true;
-    return (item.language || "").toLowerCase() === currentFilter.language;
-  });
+  let filteredRows = data.data || [];
+  if (activeTab === "bookmark") {
+    filteredRows = filteredRows.filter((item) => bookmarkIdSet.has(item.id));
+  }
   lastLibraryCount = filteredRows.length || 0;
-  tabLibraryBtn.textContent = `Koleksi PDF (${lastLibraryCount})`;
+  tabLibraryBtn.textContent = `Koleksi PDF (${activeTab === "library" ? lastLibraryCount : (data.data || []).length})`;
   if (!filteredRows.length) { listEl.innerHTML = "<p class='note'>Belum ada dokumen sesuai filter.</p>"; return; }
   listEl.innerHTML = filteredRows.map(row).join("");
   await renderGridCovers();
@@ -110,10 +129,8 @@ async function loadLibrary() {
 async function loadBookmarks() {
   const resp = await fetch("/api/perpustakaan/bookmarks");
   const data = await resp.json();
-  lastBookmarkCount = (data.data || []).length;
-  tabBookmarkBtn.textContent = `Bookmark Saya (${lastBookmarkCount})`;
-  if (!data.data.length) { bookmarkListEl.innerHTML = "<p class='note'>Belum ada bookmark tersimpan.</p>"; return; }
-  bookmarkListEl.innerHTML = data.data.map(bookmarkRow).join("");
+  bookmarkIdSet = new Set((data.data || []).map((v) => v.bookId));
+  tabBookmarkBtn.textContent = `Bookmark Saya (${(data.data || []).length})`;
 }
 
 async function applyUploadAccess() {
@@ -158,33 +175,49 @@ filterForm.addEventListener("submit", async (e) => {
   await loadLibrary();
 });
 
+filterLanguageSelect.addEventListener("change", async () => {
+  currentFilter.language = (filterLanguageSelect.value || "").trim().toLowerCase();
+  await loadLibrary();
+});
+
 viewListBtn.addEventListener("click", () => setViewMode("list"));
 viewGridBtn.addEventListener("click", () => setViewMode("grid"));
 tabLibraryBtn.addEventListener("click", () => {
+  setActiveTab("library");
   tabLibraryBtn.classList.add("active-toggle");
   tabBookmarkBtn.classList.remove("active-toggle");
-  listEl.hidden = false;
-  bookmarkPanel.hidden = true;
+  loadLibrary();
 });
 tabBookmarkBtn.addEventListener("click", () => {
+  setActiveTab("bookmark");
   tabBookmarkBtn.classList.add("active-toggle");
   tabLibraryBtn.classList.remove("active-toggle");
-  listEl.hidden = true;
-  bookmarkPanel.hidden = false;
+  loadLibrary();
 });
 listEl.addEventListener("click", async (e) => {
   const bookmarkBtn = e.target.closest(".js-save-bookmark");
   if (bookmarkBtn) {
     e.preventDefault();
-    await saveBookmark(bookmarkBtn.getAttribute("data-book-id"));
+    await toggleBookmark(bookmarkBtn.getAttribute("data-book-id"));
+    return;
   }
+  const card = e.target.closest(".js-open-reader");
+  if (card) window.location.href = `/perpustakaan/reader?id=${encodeURIComponent(card.getAttribute("data-book-id"))}`;
 });
 
 async function initLibraryPage() {
+  setActiveTab(getInitialTab());
+  if (activeTab === "bookmark") {
+    tabBookmarkBtn.classList.add("active-toggle");
+    tabLibraryBtn.classList.remove("active-toggle");
+  } else {
+    tabLibraryBtn.classList.add("active-toggle");
+    tabBookmarkBtn.classList.remove("active-toggle");
+  }
   await applyUploadAccess();
   setViewMode("grid");
-  await loadLibrary();
   await loadBookmarks();
+  await loadLibrary();
 }
 
 initLibraryPage();

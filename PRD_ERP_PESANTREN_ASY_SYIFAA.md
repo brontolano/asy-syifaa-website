@@ -309,6 +309,7 @@ Background Black:  #000000 (True black for dark mode)
 Foreground White:  #ffffff (Pure white for contrast)
 Accent Pink:       #FE2C55 (TikTok-inspired, bold accent for dark mode)
 Accent Cyan:       #25F4EE (Splash of color, futuristic feel)
+                   #397684 
 ```
 
 #### Extended Palette

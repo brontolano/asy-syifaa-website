@@ -36,11 +36,11 @@ export class ReaderDetailController {
   }
 
   get activeFitMode() {
-    return this.isMobile ? "width" : this.fitMode;
+    return this.fitMode;
   }
 
   fitLabel() {
-    return this.activeFitMode === "width" ? "Fit Width" : "Fit Height";
+    return this.activeFitMode === "auto" ? "⤡" : "⤢";
   }
 
   fullScreenLabel() {
@@ -70,21 +70,34 @@ export class ReaderDetailController {
     const baseViewport = page.getViewport({ scale: 1 });
     const widthScale = maxWidth / baseViewport.width;
     const heightScale = maxHeight / baseViewport.height;
-    const fitScale = this.activeFitMode === "height" ? Math.max(0.2, heightScale) : Math.max(0.2, widthScale);
+    const fitScale = this.activeFitMode === "auto"
+      ? Math.max(0.2, Math.min(widthScale, heightScale))
+      : this.activeFitMode === "height"
+        ? Math.max(0.2, heightScale)
+        : Math.max(0.2, widthScale);
     const scale = fitScale * this.zoomLevel;
     const viewport = page.getViewport({ scale });
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const outputScale = dpr;
+    const outputViewport = page.getViewport({ scale: scale * outputScale });
 
-    this.canvasEl.width = viewport.width;
-    this.canvasEl.height = viewport.height;
+    this.canvasEl.width = Math.floor(outputViewport.width);
+    this.canvasEl.height = Math.floor(outputViewport.height);
+    this.canvasEl.style.width = `${Math.floor(viewport.width)}px`;
+    this.canvasEl.style.height = `${Math.floor(viewport.height)}px`;
     const ctx = this.canvasEl.getContext("2d");
-    await page.render({ canvasContext: ctx, viewport }).promise;
+    await page.render({ canvasContext: ctx, viewport: outputViewport }).promise;
 
     if (this.pageInput) this.pageInput.value = String(this.currentPage);
     if (this.pageTotalEl) this.pageTotalEl.textContent = `/ ${this.totalPages}`;
     this.stateEl.textContent = `${this.currentPage}/${this.totalPages}`;
     if (this.prevPageBtn) this.prevPageBtn.disabled = this.currentPage <= 1;
     if (this.nextPageBtn) this.nextPageBtn.disabled = this.currentPage >= this.totalPages;
-    if (this.fitToggleBtn) this.fitToggleBtn.textContent = this.fitLabel();
+    if (this.fitToggleBtn) {
+      this.fitToggleBtn.textContent = this.fitLabel();
+      this.fitToggleBtn.setAttribute("title", this.activeFitMode === "auto" ? "Auto fit aktif" : "Auto fit nonaktif");
+      this.fitToggleBtn.setAttribute("aria-label", this.activeFitMode === "auto" ? "Nonaktifkan auto fit" : "Aktifkan auto fit");
+    }
     if (this.fullScreenBtn) {
       this.fullScreenBtn.textContent = this.fullScreenLabel();
       this.fullScreenBtn.disabled = !this.isSupported;
@@ -145,7 +158,8 @@ export class ReaderDetailController {
       this.renderPage(this.currentPage);
     });
     if (this.fitToggleBtn) this.fitToggleBtn.addEventListener("click", () => {
-      this.fitMode = this.fitMode === "width" ? "height" : "width";
+      this.fitMode = this.fitMode === "auto" ? "width" : "auto";
+      this.zoomLevel = 1;
       this.renderPage(this.currentPage);
     });
     if (this.fullScreenBtn) this.fullScreenBtn.addEventListener("click", async () => {

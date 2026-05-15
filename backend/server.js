@@ -79,6 +79,12 @@ function normalizeTags(input) {
   return (input || "").toString().split(",").map((v) => v.trim().toLowerCase()).filter(Boolean);
 }
 
+function normalizeStatus(input) {
+  const raw = (input || "").toString().trim().toLowerCase();
+  if (raw === "publish") return "publish";
+  return "draft";
+}
+
 function applyLibraryFilters(items, query) {
   const q = (query.q || "").toString().trim().toLowerCase();
   const category = (query.category || "").toString().trim().toLowerCase();
@@ -105,11 +111,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (_req, file, cb) => (file.mimetype === "application/pdf" ? cb(null, true) : cb(new Error("Hanya file PDF yang diizinkan"))),
-  limits: { fileSize: 20 * 1024 * 1024 }
+  limits: { fileSize: 500 * 1024 * 1024 }
 });
 
 app.use(express.json());
-app.use(express.static(FRONTEND_DIR));
+app.use(express.static(FRONTEND_DIR, { index: false }));
 app.use("/library-files", express.static(LIBRARY_DIR));
 app.use("/vendor/pdfjs", express.static(path.join(__dirname, "..", "node_modules", "pdfjs-dist", "build")));
 
@@ -196,6 +202,16 @@ app.post("/api/perpustakaan/bookmarks", (req, res) => {
   res.status(201).json(row);
 });
 
+app.delete("/api/perpustakaan/bookmarks/:bookId", (req, res) => {
+  const readerId = getReaderId(req, res);
+  const bookId = req.params.bookId;
+  const all = readBookmarks();
+  const before = all.length;
+  const next = all.filter((b) => !(b.readerId === readerId && b.bookId === bookId));
+  writeBookmarks(next);
+  res.json({ ok: true, removed: before - next.length });
+});
+
 app.post("/api/library/upload", requireSuperadmin, upload.single("pdf"), (req, res) => {
   const title = (req.body.title || "").toString().trim();
   const author = (req.body.author || "").toString().trim();
@@ -212,14 +228,106 @@ app.post("/api/library/upload", requireSuperadmin, upload.single("pdf"), (req, r
   }
 
   const now = new Date().toISOString();
-  const item = { id: crypto.randomUUID(), title: title || req.file.originalname, author, category, language, tags, originalName: req.file.originalname, fileName: req.file.filename, fileUrl: `/library-files/${req.file.filename}`, fileSize: req.file.size, uploadedAt: now, createdAt: now };
+  const item = { id: crypto.randomUUID(), title: title || req.file.originalname, author, category, language, tags, status: "draft", originalName: req.file.originalname, fileName: req.file.filename, fileUrl: `/library-files/${req.file.filename}`, fileSize: req.file.size, uploadedAt: now, createdAt: now };
   items.push(item);
   writeLibrary(items);
   res.status(201).json(item);
 });
 
+app.put("/api/library/:id", requireSuperadmin, (req, res) => {
+  const id = req.params.id;
+  const items = readLibrary();
+  const idx = items.findIndex((v) => v.id === id);
+  if (idx < 0) return res.status(404).json({ message: "Dokumen tidak ditemukan" });
+
+  const title = (req.body.title ?? items[idx].title).toString().trim();
+  const category = (req.body.category ?? items[idx].category ?? "").toString().trim();
+  const tags = req.body.tags == null ? items[idx].tags || [] : normalizeTags(req.body.tags);
+  const status = req.body.status == null ? normalizeStatus(items[idx].status) : normalizeStatus(req.body.status);
+
+  items[idx] = { ...items[idx], title: title || items[idx].originalName, category, tags, status, updatedAt: new Date().toISOString() };
+  writeLibrary(items);
+  res.json(items[idx]);
+});
+
+app.delete("/api/library/:id", requireSuperadmin, (req, res) => {
+  const id = req.params.id;
+  const items = readLibrary();
+  const idx = items.findIndex((v) => v.id === id);
+  if (idx < 0) return res.status(404).json({ message: "Dokumen tidak ditemukan" });
+
+  const [row] = items.splice(idx, 1);
+  writeLibrary(items);
+  if (row.fileName) {
+    try { fs.unlinkSync(path.join(LIBRARY_DIR, row.fileName)); } catch {}
+  }
+  res.json({ ok: true, id });
+});
+
+app.get("/api/library/:id", requireSuperadmin, (req, res) => {
+  const row = readLibrary().find((v) => v.id === req.params.id);
+  if (!row) return res.status(404).json({ message: "Dokumen tidak ditemukan" });
+  res.json(row);
+});
+
+app.post("/api/library/:id/replace", requireSuperadmin, upload.single("pdf"), (req, res) => {
+  const items = readLibrary();
+  const idx = items.findIndex((v) => v.id === req.params.id);
+  if (idx < 0) return res.status(404).json({ message: "Dokumen tidak ditemukan" });
+  if (!req.file) return res.status(400).json({ message: "File PDF wajib diunggah" });
+
+  const prev = items[idx];
+  items[idx] = {
+    ...prev,
+    originalName: req.file.originalname,
+    fileName: req.file.filename,
+    fileUrl: `/library-files/${req.file.filename}`,
+    fileSize: req.file.size,
+    updatedAt: new Date().toISOString()
+  };
+  writeLibrary(items);
+  if (prev.fileName && prev.fileName !== req.file.filename) {
+    try { fs.unlinkSync(path.join(LIBRARY_DIR, prev.fileName)); } catch {}
+  }
+  res.json(items[idx]);
+});
+
+app.post("/api/library/bulk", requireSuperadmin, (req, res) => {
+  const ids = Array.isArray(req.body.ids) ? req.body.ids.map((v) => v.toString()) : [];
+  const action = (req.body.action || "").toString().trim().toLowerCase();
+  if (!ids.length) return res.status(400).json({ message: "ids wajib diisi" });
+  if (!["delete", "publish", "draft"].includes(action)) return res.status(400).json({ message: "action tidak valid" });
+
+  const idSet = new Set(ids);
+  const now = new Date().toISOString();
+  let items = readLibrary();
+
+  if (action === "delete") {
+    const removed = items.filter((v) => idSet.has(v.id));
+    items = items.filter((v) => !idSet.has(v.id));
+    writeLibrary(items);
+    removed.forEach((row) => {
+      if (!row.fileName) return;
+      try { fs.unlinkSync(path.join(LIBRARY_DIR, row.fileName)); } catch {}
+    });
+    return res.json({ ok: true, updated: 0, deleted: removed.length });
+  }
+
+  let updated = 0;
+  items = items.map((row) => {
+    if (!idSet.has(row.id)) return row;
+    updated += 1;
+    return { ...row, status: action, updatedAt: now };
+  });
+  writeLibrary(items);
+  res.json({ ok: true, updated, deleted: 0 });
+});
+
 app.use((err, _req, res, next) => {
   if (!err) return next();
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(400).json({ message: "File terlalu besar. Maksimal 500 MB." });
+  }
   res.status(400).json({ message: err.message || "Upload gagal" });
 });
 
@@ -227,15 +335,40 @@ app.get("/", (req, res) => {
   const sub = resolveHost(req.headers.host);
   if (sub === "perpustakaan") return res.sendFile(path.join(FRONTEND_DIR, "library-public.html"));
   if (sub === "website-public") return res.redirect(302, "https://asy-syifaa.com");
+  const session = getSession(req);
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
   return res.sendFile(path.join(FRONTEND_DIR, "index.html"));
+});
+
+app.get("/login", (req, res) => {
+  const session = getSession(req);
+  if (session && session.role === "superadmin") return res.redirect(302, "/");
+  return res.sendFile(path.join(FRONTEND_DIR, "login.html"));
 });
 
 app.get("/dashboard", (req, res) => {
   const session = getSession(req);
-  if (!session || session.role !== "superadmin") return res.redirect(302, "/?login=required");
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
   return res.sendFile(path.join(FRONTEND_DIR, "dashboard.html"));
+});
+
+app.get("/profil", (req, res) => {
+  const session = getSession(req);
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
+  return res.sendFile(path.join(FRONTEND_DIR, "profile.html"));
+});
+
+app.get("/website", (req, res) => {
+  const session = getSession(req);
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
+  return res.sendFile(path.join(FRONTEND_DIR, "website-undermaintenance.html"));
 });
 
 app.get("/perpustakaan", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "library-public.html")));
 app.get("/perpustakaan/reader", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "reader.html")));
+app.get("/dashboard/perpustakaan/edit", (req, res) => {
+  const session = getSession(req);
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
+  return res.sendFile(path.join(FRONTEND_DIR, "library-edit.html"));
+});
 app.listen(PORT, () => console.log(`ERP MVP berjalan di http://localhost:${PORT}`));

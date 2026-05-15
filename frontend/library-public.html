@@ -17,7 +17,10 @@
           <h1 id="libraryTitle">Perpustakaan Digital</h1>
         </div>
       </div>
-      <a class="btn ghost" href="/">Beranda</a>
+      <div class="hero-actions-min">
+        <a class="profile-icon-btn" href="/profil" aria-label="Profil">👤</a>
+        <button class="theme-icon-toggle" type="button" data-theme-toggle aria-label="Ganti tema">🌙</button>
+      </div>
     </header>
 
     <section class="library-section library-search-box">
@@ -45,10 +48,7 @@
         <button id="tabBookmarkBtn" class="btn ghost" type="button">Bookmark Saya (0)</button>
       </div>
       <div id="libraryList" class="library-list"></div>
-      <div id="bookmarkPanel" hidden>
-        <p id="bookmarkMsg" class="note"></p>
-        <div id="bookmarkList" class="library-list bookmark-list"></div>
-      </div>
+      <p id="bookmarkMsg" class="note"></p>
     </section>
   </main>
 

@@ -8,34 +8,76 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <main class="dashboard">
-    <header class="topbar">
-      <div class="topbar-title">
+  <main class="dashboard dashboard-shell">
+    <aside class="dash-sidebar">
+      <div class="dash-brand">
         <img src="/assets/img/logo.png" alt="Logo Asy-Syifaa" class="brand-logo small" />
-        <h1>Dashboard</h1>
-      </div>
-      <div class="actions">
         <div>
-          <label for="role">Role:</label>
-          <select id="role">
-            <option value="ustadz">Ustadz</option>
-            <option value="mudiraam">Mudir'aam</option>
-            <option value="abuya">Abuya</option>
-          </select>
+          <p class="brand-kicker">ERP Pesantren</p>
+          <p class="brand-sub">Admin Console</p>
         </div>
-        <button class="btn ghost" type="button" data-theme-toggle>Mode Gelap</button>
       </div>
-    </header>
+      <nav class="dash-nav">
+        <a class="dash-nav-item active" href="/dashboard">Ringkasan</a>
+        <a class="dash-nav-item" href="/perpustakaan">Perpustakaan Digital</a>
+      </nav>
+      <a class="back-link dash-back" href="/">← Kembali ke Landing</a>
+    </aside>
 
-    <p id="dashboardMsg" class="note"></p>
-    <section class="kpi-grid" id="kpiGrid"></section>
+    <section class="dash-content">
+      <header class="topbar dash-topbar">
+        <div class="topbar-title">
+          <h1>Dashboard</h1>
+          <p id="dashboardMsg" class="note"></p>
+        </div>
+        <div class="actions">
+          <div>
+            <label for="role">Role:</label>
+            <select id="role">
+              <option value="ustadz">Ustadz</option>
+              <option value="mudiraam">Mudir'aam</option>
+              <option value="abuya">Abuya</option>
+            </select>
+          </div>
+          <button class="btn ghost" type="button" data-theme-toggle>Mode Gelap</button>
+        </div>
+      </header>
 
-    <section class="widget-box">
-      <h2>Widget Prioritas</h2>
-      <ul id="widgetList"></ul>
+      <section class="dash-stats" id="kpiGrid"></section>
+
+      <section class="dash-panels">
+        <article class="widget-box">
+          <h2>Widget Prioritas</h2>
+          <ul id="widgetList"></ul>
+        </article>
+        <article class="widget-box">
+          <h2>Akses Cepat</h2>
+          <div class="menu-grid dash-quick">
+            <a class="menu-card" href="/perpustakaan">
+              <span class="menu-icon">📚</span>
+              <h3>Perpustakaan Digital</h3>
+              <p>Kelola PDF, metadata, bookmark.</p>
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <section class="widget-box">
+        <h2>Aktivitas Sistem</h2>
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Status</th>
+                <th>Catatan</th>
+              </tr>
+            </thead>
+            <tbody id="activityRows"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
-
-    <a class="back-link" href="/">← Kembali ke Landing</a>
   </main>
 
   <script src="/theme.js"></script>

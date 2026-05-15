@@ -7,73 +7,66 @@
   <link rel="icon" type="image/x-icon" href="/AsySyifaa.ico" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-  <main class="landing">
-    <section class="hero">
+<body class="landing-body">
+  <main class="landing landing-modern">
+    <section class="hero hero-modern hero-minimal">
       <div class="brand-head">
         <img src="/assets/img/logo.png" alt="Logo Asy-Syifaa" class="brand-logo" />
         <div>
-          <p class="brand-kicker">Asy-Syifaa Framework</p>
-          <p class="brand-sub">ERP Pesantren Terpadu</p>
+          <p class="brand-kicker">ERP Pesantren</p>
+          <p class="brand-sub">Asy-Syifaa Wal Mahmuudiyyah</p>
         </div>
       </div>
-      <p class="badge">ERP Pesantren</p>
-      <h1>ERP Pesantren Asy-Syifaa Wal Mahmuudiyyah</h1>
-      <p class="lead">Pintu masuk informasi operasional pesantren: akademik, administrasi, dan keuangan dalam satu platform terpadu.</p>
-      <div class="actions">
-        <a class="btn primary" href="/dashboard">Masuk Dashboard</a>
-        <a class="btn ghost" href="/api/health">Cek Status API</a>
+      <div class="hero-actions-min">
+        <button id="loginToggleBtn" class="icon-login-btn" type="button" aria-label="Login Superadmin">🔐</button>
+        <a class="btn ghost" href="/perpustakaan">Perpustakaan</a>
         <button class="btn ghost" type="button" data-theme-toggle>Mode Gelap</button>
       </div>
-      <p id="sessionInfo" class="note"></p>
     </section>
 
-    <section class="widget-box compact-auth">
-      <h2>Login Superadmin</h2>
-      <form id="loginForm" class="library-form">
-        <label>Username</label>
-        <input id="username" type="text" placeholder="superadmin" required />
-        <label>Password</label>
-        <input id="password" type="password" placeholder="********" required />
-        <div class="actions">
-          <button class="btn primary" type="submit">Login</button>
-          <button id="logoutBtn" class="btn ghost" type="button" hidden>Logout</button>
-        </div>
-      </form>
-      <p id="authMsg" class="note"></p>
+    <p id="sessionInfo" class="note"></p>
+
+    <section id="loginModal" class="simple-modal" hidden>
+      <div class="simple-modal-backdrop" data-login-close></div>
+      <aside class="widget-box compact-auth hero-auth-card simple-modal-card">
+        <h2>Login Superadmin</h2>
+        <form id="loginForm" class="library-form">
+          <input id="username" type="text" placeholder="Username" required />
+          <input id="password" type="password" placeholder="Password" required />
+          <div class="actions">
+            <button class="btn primary" type="submit">Login</button>
+            <button id="logoutBtn" class="btn ghost" type="button" hidden>Logout</button>
+          </div>
+        </form>
+        <p id="authMsg" class="note"></p>
+        <button id="loginCloseBtn" class="btn ghost" type="button">Tutup</button>
+      </aside>
     </section>
 
-    <section class="menu-grid">
-      <a class="menu-card" href="/dashboard" data-protected="true">
-        <span class="menu-icon">📊</span>
-        <h3>Dashboard</h3>
-        <p>Khusus superadmin (non-publik).</p>
-      </a>
-      <article class="menu-card" data-protected="true">
-        <span class="menu-icon">🎓</span>
-        <h3>Akademik</h3>
-        <p>Jadwal, nilai, dan progres pembelajaran.</p>
-      </article>
-      <article class="menu-card" data-protected="true">
-        <span class="menu-icon">🧾</span>
-        <h3>Keuangan</h3>
-        <p>Tagihan, pembayaran, dan laporan kas.</p>
-      </article>
-      <article class="menu-card" data-protected="true">
-        <span class="menu-icon">🧑‍🎓</span>
-        <h3>Data Santri</h3>
-        <p>Biodata santri dan wali terpusat.</p>
-      </article>
-      <article class="menu-card" data-protected="true">
-        <span class="menu-icon">📣</span>
-        <h3>Komunikasi</h3>
-        <p>Pengumuman dan notifikasi harian.</p>
-      </article>
-      <a class="menu-card" href="/perpustakaan">
-        <span class="menu-icon">📚</span>
-        <h3>Perpustakaan Digital</h3>
-        <p>Publik untuk lihat PDF, upload hanya superadmin.</p>
-      </a>
+    <section class="landing-module-wrap">
+      <h2 class="landing-section-title">Menu Modul</h2>
+      <section class="menu-grid">
+        <a class="menu-card" href="/#"><span class="menu-icon">📊</span><h3>Dashboard</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🧾</span><h3>Data Santri</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📝</span><h3>PPDB</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">💳</span><h3>Keuangan</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🏦</span><h3>Tabungan</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📣</span><h3>WhatsApp</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🤖</span><h3>AI Agent</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🖨️</span><h3>Dokumen</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">⚙️</span><h3>Pengaturan</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🌐</span><h3>Website</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🏘️</span><h3>Kesantrian</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📚</span><h3>Akademik</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📖</span><h3>Tahfidz</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🎓</span><h3>LMS</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📑</span><h3>Perpustakaan</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🛒</span><h3>Marketplace</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">✅</span><h3>Tugas</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">💬</span><h3>Konseling</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">🧭</span><h3>CS</h3></a>
+        <a class="menu-card" href="/#"><span class="menu-icon">📅</span><h3>Event</h3></a>
+      </section>
     </section>
   </main>
 

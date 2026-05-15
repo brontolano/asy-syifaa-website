@@ -2,6 +2,7 @@ const roleEl = document.getElementById("role");
 const kpiGridEl = document.getElementById("kpiGrid");
 const widgetListEl = document.getElementById("widgetList");
 const dashboardMsg = document.getElementById("dashboardMsg");
+const activityRowsEl = document.getElementById("activityRows");
 
 function toKpis(summary) {
   return [
@@ -27,8 +28,8 @@ async function loadDashboard(role) {
   kpiGridEl.innerHTML = "";
   toKpis(data.summary).forEach(([label, value]) => {
     const card = document.createElement("article");
-    card.className = "kpi";
-    card.innerHTML = `<h3>${label}</h3><p>${value}</p>`;
+    card.className = "kpi dash-stat-card";
+    card.innerHTML = `<h3>${label}</h3><p>${value}</p><span class="dash-stat-pill">Live</span>`;
     kpiGridEl.appendChild(card);
   });
 
@@ -37,6 +38,18 @@ async function loadDashboard(role) {
     const li = document.createElement("li");
     li.textContent = w;
     widgetListEl.appendChild(li);
+  });
+
+  const rows = [
+    ["Sinkronisasi Data", "Normal", "API internal aktif dan responsif"],
+    ["Hak Akses Role", "Aman", `Mode role: ${data.role}`],
+    ["Perpustakaan Digital", "Tersedia", "Akses melalui menu Dashboard"]
+  ];
+  activityRowsEl.innerHTML = "";
+  rows.forEach(([item, status, note]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${item}</td><td><span class="dash-badge">${status}</span></td><td>${note}</td>`;
+    activityRowsEl.appendChild(tr);
   });
 }
 

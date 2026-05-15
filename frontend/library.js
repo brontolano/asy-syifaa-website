@@ -4,17 +4,22 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "/vendor/pdfjs/pdf.worker.mjs";
 const form = document.getElementById("uploadForm");
 const msgEl = document.getElementById("uploadMsg");
 const listEl = document.getElementById("libraryList");
-const listInfoEl = document.getElementById("listInfo");
 const bookmarkListEl = document.getElementById("bookmarkList");
 const bookmarkMsgEl = document.getElementById("bookmarkMsg");
 const uploadSection = document.getElementById("uploadSection");
 const lockedSection = document.getElementById("lockedSection");
 const filterForm = document.getElementById("filterForm");
-const resetFilterBtn = document.getElementById("resetFilter");
 const viewListBtn = document.getElementById("viewListBtn");
 const viewGridBtn = document.getElementById("viewGridBtn");
+const filterLanguageSelect = document.getElementById("filterLanguage");
+const tabLibraryBtn = document.getElementById("tabLibraryBtn");
+const tabBookmarkBtn = document.getElementById("tabBookmarkBtn");
+const bookmarkPanel = document.getElementById("bookmarkPanel");
 
-let currentFilter = { q: "", category: "", language: "" };
+let currentFilter = { q: "", language: "" };
+let lastLibraryCount = 0;
+let lastBookmarkCount = 0;
+let isSuperadmin = false;
 
 function formatBytes(bytes) { if (bytes < 1024) return `${bytes} B`; if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`; return `${(bytes / (1024 * 1024)).toFixed(2)} MB`; }
 function escapeHtml(value) { return (value || "").toString().replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;"); }
@@ -85,66 +90,101 @@ function bookmarkRow(item) {
   return `<article class="library-item bookmark-item"><div><h3>${escapeHtml(item.bookTitle)}</h3><p class="library-sub">Halaman: ${item.page}</p><p class="library-sub">Catatan: ${escapeHtml(item.note || "-")}</p><p class="library-sub">Diperbarui: ${upd}</p></div></article>`;
 }
 
-function toQueryString(filter) { const q = new URLSearchParams(); if (filter.q) q.set("q", filter.q); if (filter.category) q.set("category", filter.category); if (filter.language) q.set("language", filter.language); return q.toString(); }
+function toQueryString(filter) { const q = new URLSearchParams(); if (filter.q) q.set("q", filter.q); return q.toString(); }
 
 async function loadLibrary() {
   const qs = toQueryString(currentFilter);
   const resp = await fetch(`/api/perpustakaan/search${qs ? `?${qs}` : ""}`);
   const data = await resp.json();
-  listInfoEl.textContent = `${data.total || 0} dokumen ditemukan`;
-  if (!data.data.length) { listEl.innerHTML = "<p class='note'>Belum ada dokumen sesuai filter.</p>"; return; }
-  listEl.innerHTML = data.data.map(row).join("");
+  const filteredRows = (data.data || []).filter((item) => {
+    if (!currentFilter.language) return true;
+    return (item.language || "").toLowerCase() === currentFilter.language;
+  });
+  lastLibraryCount = filteredRows.length || 0;
+  tabLibraryBtn.textContent = `Koleksi PDF (${lastLibraryCount})`;
+  if (!filteredRows.length) { listEl.innerHTML = "<p class='note'>Belum ada dokumen sesuai filter.</p>"; return; }
+  listEl.innerHTML = filteredRows.map(row).join("");
   await renderGridCovers();
 }
 
 async function loadBookmarks() {
   const resp = await fetch("/api/perpustakaan/bookmarks");
   const data = await resp.json();
+  lastBookmarkCount = (data.data || []).length;
+  tabBookmarkBtn.textContent = `Bookmark Saya (${lastBookmarkCount})`;
   if (!data.data.length) { bookmarkListEl.innerHTML = "<p class='note'>Belum ada bookmark tersimpan.</p>"; return; }
   bookmarkListEl.innerHTML = data.data.map(bookmarkRow).join("");
 }
 
 async function applyUploadAccess() {
   const s = await window.erpAuth.getSession();
-  if (s.authenticated && s.role === "superadmin") { uploadSection.hidden = false; lockedSection.hidden = true; msgEl.textContent = "Mode superadmin aktif: upload PDF diizinkan."; return; }
-  uploadSection.hidden = true; lockedSection.hidden = false;
+  isSuperadmin = !!(s.authenticated && s.role === "superadmin");
+  if (isSuperadmin && uploadSection) {
+    uploadSection.hidden = false;
+    if (msgEl) msgEl.textContent = "Mode superadmin aktif: upload PDF diizinkan.";
+    return;
+  }
+  if (uploadSection) uploadSection.hidden = true;
 }
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const body = new FormData();
-  body.append("title", document.getElementById("title").value.trim());
-  body.append("author", document.getElementById("author").value.trim());
-  body.append("category", document.getElementById("category").value.trim());
-  body.append("language", document.getElementById("language").value.trim());
-  body.append("tags", document.getElementById("tags").value.trim());
-  const pdf = document.getElementById("pdf").files[0];
-  if (!pdf) return (msgEl.textContent = "Pilih file PDF dulu.");
-  body.append("pdf", pdf);
-  msgEl.textContent = "Sedang upload...";
-  const resp = await fetch("/api/library/upload", { method: "POST", body });
-  const data = await resp.json();
-  if (!resp.ok) return (msgEl.textContent = data.message || "Upload gagal.");
-  msgEl.textContent = `Upload berhasil: ${data.title}`;
-  form.reset();
-  await loadLibrary();
-});
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const body = new FormData();
+    body.append("title", document.getElementById("title").value.trim());
+    body.append("author", document.getElementById("author").value.trim());
+    body.append("category", document.getElementById("category").value.trim());
+    body.append("language", document.getElementById("language").value.trim());
+    body.append("tags", document.getElementById("tags").value.trim());
+    const pdf = document.getElementById("pdf").files[0];
+    if (!pdf) return (msgEl.textContent = "Pilih file PDF dulu.");
+    body.append("pdf", pdf);
+    msgEl.textContent = "Sedang upload...";
+    const resp = await fetch("/api/library/upload", { method: "POST", body });
+    const data = await resp.json();
+    if (!resp.ok) return (msgEl.textContent = data.message || "Upload gagal.");
+    msgEl.textContent = `Upload berhasil: ${data.title}`;
+    form.reset();
+    await loadLibrary();
+  });
+}
 
 filterForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  currentFilter = { q: document.getElementById("q").value.trim(), category: document.getElementById("filterCategory").value.trim(), language: document.getElementById("filterLanguage").value.trim() };
+  currentFilter = {
+    q: document.getElementById("q").value.trim(),
+    language: (filterLanguageSelect.value || "").trim().toLowerCase()
+  };
   await loadLibrary();
 });
 
-resetFilterBtn.addEventListener("click", async () => { filterForm.reset(); currentFilter = { q: "", category: "", language: "" }; await loadLibrary(); });
 viewListBtn.addEventListener("click", () => setViewMode("list"));
 viewGridBtn.addEventListener("click", () => setViewMode("grid"));
+tabLibraryBtn.addEventListener("click", () => {
+  tabLibraryBtn.classList.add("active-toggle");
+  tabBookmarkBtn.classList.remove("active-toggle");
+  listEl.hidden = false;
+  bookmarkPanel.hidden = true;
+});
+tabBookmarkBtn.addEventListener("click", () => {
+  tabBookmarkBtn.classList.add("active-toggle");
+  tabLibraryBtn.classList.remove("active-toggle");
+  listEl.hidden = true;
+  bookmarkPanel.hidden = false;
+});
 listEl.addEventListener("click", async (e) => {
   const bookmarkBtn = e.target.closest(".js-save-bookmark");
-  if (bookmarkBtn) await saveBookmark(bookmarkBtn.getAttribute("data-book-id"));
+  if (bookmarkBtn) {
+    e.preventDefault();
+    await saveBookmark(bookmarkBtn.getAttribute("data-book-id"));
+  }
 });
 
-applyUploadAccess();
-setViewMode("grid");
-loadLibrary();
-loadBookmarks();
+async function initLibraryPage() {
+  await applyUploadAccess();
+  setViewMode("grid");
+  await loadLibrary();
+  await loadBookmarks();
+}
+
+initLibraryPage();

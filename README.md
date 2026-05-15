@@ -3,18 +3,20 @@
 Repository implementasi bertahap ERP Pesantren berdasarkan PRD `PRD_ERP_PESANTREN_ASY_SYIFAA.md`.
 
 ## Progress Saat Ini
-- Module 0: Landing Page (selesai versi MVP)
-- Module 1: Dashboard role-based (selesai versi MVP)
-- Module 15: Perpustakaan Digital (upload + list + buka PDF)
-- Module 2+: belum dimulai pada branch ini
+- Module 0: Landing Page ERP (minimalis, grid menu modul, login popup icon)
+- Module 1: Dashboard role-based (khusus superadmin)
+- Module 15: Perpustakaan Digital publik + Reader in-app + Bookmark
+- Module lain (sesuai PRD 0-20): sudah tampil sebagai placeholder menu `/#` di beranda
 
 ## Struktur
 - `backend/server.js`: API dan static server Express
 - `frontend/index.html`: Module 0 Landing Page
 - `frontend/dashboard.html`: Module 1 Dashboard
 - `frontend/dashboard.js`: logika role-based dashboard
-- `frontend/library.html`: Modul Perpustakaan Digital
+- `frontend/library-public.html`: Modul Perpustakaan Digital (halaman publik)
 - `frontend/library.js`: logika upload dan list PDF
+- `frontend/reader.html`: halaman reader PDF full page
+- `frontend/controllers/reader-detail.controller.js`: controller reader detail
 - `frontend/theme.js`: toggle dark/light mode
 - `frontend/styles.css`: styling UI
 
@@ -28,6 +30,7 @@ Buka:
 - `http://localhost:3000/` (Module 0)
 - `http://localhost:3000/dashboard` (Module 1)
 - `http://localhost:3000/perpustakaan` (Module 15)
+- `http://localhost:3000/perpustakaan/reader?id=<bookId>` (Reader)
 
 ## Rencana Domain/Subdomain
 - `asy-syifaa.com` -> website public utama (di luar app ini)
@@ -67,8 +70,12 @@ Buka:
   - `GET /api/perpustakaan/books`
   - `GET /api/perpustakaan/search`
   - `GET /api/perpustakaan/books/{id}/content`
-  - `GET /api/perpustakaan/bookmarks`
-  - `POST /api/perpustakaan/bookmarks`
+- `GET /api/perpustakaan/bookmarks`
+- `POST /api/perpustakaan/bookmarks`
+
+Catatan:
+- Endpoint edit metadata `PUT /api/library/:id` sudah dihapus sesuai perubahan scope saat ini.
+- Route admin CMS perpustakaan khusus dashboard juga sudah dihapus, perpustakaan aktif di route publik.
 
 ## Penyimpanan PDF Perpustakaan
 - Upload dilakukan dari halaman `http://localhost:3000/perpustakaan`

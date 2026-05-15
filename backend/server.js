@@ -225,16 +225,17 @@ app.use((err, _req, res, next) => {
 
 app.get("/", (req, res) => {
   const sub = resolveHost(req.headers.host);
-  if (sub === "perpustakaan") return res.sendFile(path.join(FRONTEND_DIR, "library.html"));
+  if (sub === "perpustakaan") return res.sendFile(path.join(FRONTEND_DIR, "library-public.html"));
   if (sub === "website-public") return res.redirect(302, "https://asy-syifaa.com");
   return res.sendFile(path.join(FRONTEND_DIR, "index.html"));
 });
 
 app.get("/dashboard", (req, res) => {
-  if (!getSession(req)) return res.redirect(302, "/?login=required");
+  const session = getSession(req);
+  if (!session || session.role !== "superadmin") return res.redirect(302, "/?login=required");
   return res.sendFile(path.join(FRONTEND_DIR, "dashboard.html"));
 });
 
-app.get("/perpustakaan", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "library.html")));
+app.get("/perpustakaan", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "library-public.html")));
 app.get("/perpustakaan/reader", (_req, res) => res.sendFile(path.join(FRONTEND_DIR, "reader.html")));
 app.listen(PORT, () => console.log(`ERP MVP berjalan di http://localhost:${PORT}`));

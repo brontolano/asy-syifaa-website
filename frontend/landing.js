@@ -2,7 +2,19 @@ const loginForm = document.getElementById("loginForm");
 const authMsg = document.getElementById("authMsg");
 const sessionInfo = document.getElementById("sessionInfo");
 const logoutBtn = document.getElementById("logoutBtn");
+const loginToggleBtn = document.getElementById("loginToggleBtn");
+const loginModal = document.getElementById("loginModal");
+const loginCloseBtn = document.getElementById("loginCloseBtn");
+const loginBackdrops = Array.from(document.querySelectorAll("[data-login-close]"));
 const protectedCards = Array.from(document.querySelectorAll("[data-protected='true']"));
+
+function openLoginModal() {
+  if (loginModal) loginModal.hidden = false;
+}
+
+function closeLoginModal() {
+  if (loginModal) loginModal.hidden = true;
+}
 
 function setProtectedVisibility(isSuperadmin) {
   protectedCards.forEach((card) => {
@@ -12,14 +24,15 @@ function setProtectedVisibility(isSuperadmin) {
 
 async function refreshSession() {
   const s = await window.erpAuth.getSession();
-  if (s.authenticated) {
+  const isSuperadmin = !!(s.authenticated && s.role === "superadmin");
+  if (isSuperadmin) {
     sessionInfo.textContent = `Login aktif: ${s.username} (${s.role})`;
     logoutBtn.hidden = false;
     setProtectedVisibility(true);
     return;
   }
-  sessionInfo.textContent = "Mode publik: hanya modul yang dibagikan publik yang bisa diakses.";
-  logoutBtn.hidden = true;
+  sessionInfo.textContent = "";
+  logoutBtn.hidden = !s.authenticated;
   setProtectedVisibility(false);
 }
 
@@ -33,6 +46,7 @@ loginForm.addEventListener("submit", async (e) => {
     authMsg.textContent = "Login berhasil. Dashboard sekarang bisa diakses.";
     loginForm.reset();
     await refreshSession();
+    closeLoginModal();
   } catch (err) {
     authMsg.textContent = err.message;
   }
@@ -43,5 +57,9 @@ logoutBtn.addEventListener("click", async () => {
   authMsg.textContent = "Logout berhasil.";
   await refreshSession();
 });
+
+if (loginToggleBtn) loginToggleBtn.addEventListener("click", openLoginModal);
+if (loginCloseBtn) loginCloseBtn.addEventListener("click", closeLoginModal);
+loginBackdrops.forEach((el) => el.addEventListener("click", closeLoginModal));
 
 refreshSession();

@@ -370,6 +370,10 @@ app.get("/profil", (req, res) => {
 });
 
 app.get("/website", (req, res) => {
+  const host = (req.headers.host || "").toLowerCase();
+  if (host.startsWith("erp.asy-syifaa.com")) {
+    return res.redirect(301, "https://asy-syifaa.com");
+  }
   const session = getSession(req);
   if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
   return res.sendFile(path.join(FRONTEND_DIR, "website-undermaintenance.html"));

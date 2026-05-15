@@ -10,14 +10,14 @@ services:
     environment:
       - PORT=${APP_PORT}
       # Placeholder future module integration:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:${MYSQL_PORT}/${MYSQL_DATABASE}
       - STORAGE_ENDPOINT=minio
       - STORAGE_PORT=${MINIO_PORT}
     volumes:
       - ../backend/data:/app/backend/data
       - ../backend/storage/library-pdfs:/app/backend/storage/library-pdfs
     depends_on:
-      - postgres
+      - mysql
       - minio
     networks:
       - internal
@@ -28,23 +28,37 @@ services:
       - traefik.http.routers.erp.entrypoints=websecure
       - traefik.http.routers.erp.tls=true
       - traefik.http.services.erp.loadbalancer.server.port=${APP_PORT}
+      - traefik.http.routers.dashboard.rule=Host(`${DASHBOARD_SUBDOMAIN}.${BASE_DOMAIN}`)
+      - traefik.http.routers.dashboard.entrypoints=websecure
+      - traefik.http.routers.dashboard.tls=true
+      - traefik.http.services.dashboard.loadbalancer.server.port=${APP_PORT}
       - traefik.http.routers.perpustakaan.rule=Host(`${LIB_SUBDOMAIN}.${BASE_DOMAIN}`)
       - traefik.http.routers.perpustakaan.entrypoints=websecure
       - traefik.http.routers.perpustakaan.tls=true
       - traefik.http.services.perpustakaan.loadbalancer.server.port=${APP_PORT}
+      - traefik.http.routers.website.rule=Host(`${BASE_DOMAIN}`) || Host(`www.${BASE_DOMAIN}`)
+      - traefik.http.routers.website.entrypoints=websecure
+      - traefik.http.routers.website.tls=true
+      - traefik.http.services.website.loadbalancer.server.port=${APP_PORT}
+      - traefik.http.routers.modules.rule=HostRegexp(`{module:[a-z0-9-]+}.${BASE_DOMAIN}`)
+      - traefik.http.routers.modules.entrypoints=websecure
+      - traefik.http.routers.modules.tls=true
+      - traefik.http.routers.modules.priority=1
+      - traefik.http.services.modules.loadbalancer.server.port=${APP_PORT}
 
-  postgres:
-    image: postgres:16-alpine
-    container_name: erp-asy-syifaa-postgres
+  mysql:
+    image: mariadb:10.11
+    container_name: erp-asy-syifaa-mysql
     restart: unless-stopped
     env_file:
       - .env.vps
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     networks:
       - internal
 
@@ -64,7 +78,7 @@ services:
       - internal
 
 volumes:
-  postgres_data:
+  mysql_data:
   minio_data:
 
 networks:

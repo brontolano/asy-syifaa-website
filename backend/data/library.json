@@ -1,21 +1,5 @@
 [
   {
-    "id": "1fea29b0-b1d0-44b3-8006-3f7979293159",
-    "title": "Cover",
-    "originalName": "00 Cover.pdf",
-    "fileName": "1778764711405-b378968d-c7e9-41a2-865d-885a13c221cf.pdf",
-    "fileUrl": "/library-files/1778764711405-b378968d-c7e9-41a2-865d-885a13c221cf.pdf",
-    "fileSize": 6068668,
-    "uploadedAt": "2026-05-14T13:18:31.466Z",
-    "createdAt": "2026-05-14T13:18:31.466Z",
-    "category": "Aurod",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
     "id": "7aebc04e-cb6c-4d45-b0d7-285b0fe1391b",
     "title": "36 Maulid Simthudduror.pdf",
     "author": "",
@@ -31,352 +15,10 @@
     "fileSize": 97799212,
     "uploadedAt": "2026-05-15T01:39:43.787Z",
     "createdAt": "2026-05-15T01:39:43.787Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "d82ac87c-de58-4dde-8a3c-37b58913b651",
-    "title": "37 Maulid Ad-Diba'i.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "37 Maulid Ad-Diba'i.pdf",
-    "fileName": "1778809183796-b4df771c-4a43-4e76-ab2f-16b84d522cc5.pdf",
-    "fileUrl": "/library-files/1778809183796-b4df771c-4a43-4e76-ab2f-16b84d522cc5.pdf",
-    "fileSize": 73938896,
-    "uploadedAt": "2026-05-15T01:39:44.203Z",
-    "createdAt": "2026-05-15T01:39:44.203Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "075db504-efef-4458-bbad-de8b0baceda8",
-    "title": "38 Maulid Al-Barjanji.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "38 Maulid Al-Barjanji.pdf",
-    "fileName": "1778809184217-1e4a19fd-62ee-42b8-8be8-c900a56fd9ce.pdf",
-    "fileUrl": "/library-files/1778809184217-1e4a19fd-62ee-42b8-8be8-c900a56fd9ce.pdf",
-    "fileSize": 76015447,
-    "uploadedAt": "2026-05-15T01:39:45.244Z",
-    "createdAt": "2026-05-15T01:39:45.244Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "4bb49c73-26a6-446e-98f8-5e1ace25ad78",
-    "title": "39 Maulid Dhiya Ulami.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "39 Maulid Dhiya Ulami.pdf",
-    "fileName": "1778809185251-dd514f0e-6ffc-470e-a642-abb70860ead1.pdf",
-    "fileUrl": "/library-files/1778809185251-dd514f0e-6ffc-470e-a642-abb70860ead1.pdf",
-    "fileSize": 39086477,
-    "uploadedAt": "2026-05-15T01:39:45.789Z",
-    "createdAt": "2026-05-15T01:39:45.789Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "767f7ea7-795e-4a92-885e-256b2dc31e70",
-    "title": "40 Do'a Maulid.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "40 Do'a Maulid.pdf",
-    "fileName": "1778809185794-cd0b7bdc-e083-49bc-828d-bf5c1c44e79b.pdf",
-    "fileUrl": "/library-files/1778809185794-cd0b7bdc-e083-49bc-828d-bf5c1c44e79b.pdf",
-    "fileSize": 10954908,
-    "uploadedAt": "2026-05-15T01:39:45.946Z",
-    "createdAt": "2026-05-15T01:39:45.946Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "9eefbde4-1d57-4ffd-ba38-29b008067421",
-    "title": "41 Ziarah Kubur.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "41 Ziarah Kubur.pdf",
-    "fileName": "1778809185951-d1d96726-142b-4cb4-88a1-241f8213489e.pdf",
-    "fileUrl": "/library-files/1778809185951-d1d96726-142b-4cb4-88a1-241f8213489e.pdf",
-    "fileSize": 10909917,
-    "uploadedAt": "2026-05-15T01:39:46.136Z",
-    "createdAt": "2026-05-15T01:39:46.136Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "486c7cb3-918b-4154-af52-743fa6de009b",
-    "title": "42 Tawassul Ziarah.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "42 Tawassul Ziarah.pdf",
-    "fileName": "1778809186141-4dde7e52-96a7-4217-8b07-6bbe81441357.pdf",
-    "fileUrl": "/library-files/1778809186141-4dde7e52-96a7-4217-8b07-6bbe81441357.pdf",
-    "fileSize": 2953942,
-    "uploadedAt": "2026-05-15T01:39:46.196Z",
-    "createdAt": "2026-05-15T01:39:46.196Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "3b287f62-fc4f-4766-95f8-76b70e10b189",
-    "title": "43 Tahlil Ke 1.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "43 Tahlil Ke 1.pdf",
-    "fileName": "1778809186202-ffc155e3-c4b2-48c1-a15d-7bae38ab2377.pdf",
-    "fileUrl": "/library-files/1778809186202-ffc155e3-c4b2-48c1-a15d-7bae38ab2377.pdf",
-    "fileSize": 20640624,
-    "uploadedAt": "2026-05-15T01:39:46.461Z",
-    "createdAt": "2026-05-15T01:39:46.461Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "9c0d2bf3-f19b-4654-9f83-43f86ccf244f",
-    "title": "44 Tahlil Ke 2.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "44 Tahlil Ke 2.pdf",
-    "fileName": "1778809186466-f3a4c5a6-8373-4538-8526-704644a7b44f.pdf",
-    "fileUrl": "/library-files/1778809186466-f3a4c5a6-8373-4538-8526-704644a7b44f.pdf",
-    "fileSize": 15170578,
-    "uploadedAt": "2026-05-15T01:39:46.687Z",
-    "createdAt": "2026-05-15T01:39:46.687Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "58a0243f-7f75-417f-aabf-8fe2e0fafa25",
-    "title": "45 Wirid Sholat Jumat.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "45 Wirid Sholat Jumat.pdf",
-    "fileName": "1778809186692-fa3b4058-fabc-4c73-b846-c38b495e22e2.pdf",
-    "fileUrl": "/library-files/1778809186692-fa3b4058-fabc-4c73-b846-c38b495e22e2.pdf",
-    "fileSize": 2186229,
-    "uploadedAt": "2026-05-15T01:39:46.733Z",
-    "createdAt": "2026-05-15T01:39:46.733Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "58a01f7f-4a18-4cd6-82a4-277a2e55a2ec",
-    "title": "46 Solat Solat Sunnat.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "46 Solat Solat Sunnat.pdf",
-    "fileName": "1778809186738-f10fb2d3-c789-42f4-9f3b-bf43de1d135c.pdf",
-    "fileUrl": "/library-files/1778809186738-f10fb2d3-c789-42f4-9f3b-bf43de1d135c.pdf",
-    "fileSize": 36332661,
-    "uploadedAt": "2026-05-15T01:39:47.184Z",
-    "createdAt": "2026-05-15T01:39:47.184Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "e5577eda-3666-4177-8b93-55cf200055c7",
-    "title": "47 Aqidatul Awwam.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "47 Aqidatul Awwam.pdf",
-    "fileName": "1778809187189-7dfca959-5536-42df-a29d-bed8fce46f52.pdf",
-    "fileUrl": "/library-files/1778809187189-7dfca959-5536-42df-a29d-bed8fce46f52.pdf",
-    "fileSize": 20387396,
-    "uploadedAt": "2026-05-15T01:39:47.425Z",
-    "createdAt": "2026-05-15T01:39:47.425Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "201730b9-b49a-4688-8b73-1cdd8c974067",
-    "title": "48 Lamyahtalim.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "48 Lamyahtalim.pdf",
-    "fileName": "1778809187431-8f3ebf6a-0270-4d67-8064-8aba6f26bd60.pdf",
-    "fileUrl": "/library-files/1778809187431-8f3ebf6a-0270-4d67-8064-8aba6f26bd60.pdf",
-    "fileSize": 4763260,
-    "uploadedAt": "2026-05-15T01:39:47.484Z",
-    "createdAt": "2026-05-15T01:39:47.484Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "2c4aafd5-fcbe-4707-8486-16c04c240705",
-    "title": "49 Nadzom dan Lain lain.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "49 Nadzom dan Lain lain.pdf",
-    "fileName": "1778809187489-16f8f61d-55de-4ad7-8301-07a99aad0d37.pdf",
-    "fileUrl": "/library-files/1778809187489-16f8f61d-55de-4ad7-8301-07a99aad0d37.pdf",
-    "fileSize": 33570850,
-    "uploadedAt": "2026-05-15T01:39:47.962Z",
-    "createdAt": "2026-05-15T01:39:47.962Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "2a81c04e-92f0-40dd-8759-c80790c93959",
-    "title": "50 Cover Back.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "50 Cover Back.pdf",
-    "fileName": "1778809187967-95a4b959-e561-4f73-8f93-990827ab2b29.pdf",
-    "fileUrl": "/library-files/1778809187967-95a4b959-e561-4f73-8f93-990827ab2b29.pdf",
-    "fileSize": 4493903,
-    "uploadedAt": "2026-05-15T01:39:48.017Z",
-    "createdAt": "2026-05-15T01:39:48.017Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "1eb67acb-c409-4685-ac5f-10e472084565",
-    "title": "01 Katalog Dalam Terbitan.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "01 Katalog Dalam Terbitan.pdf",
-    "fileName": "1778809188022-1a6adfa5-e1a5-4f8e-921e-7408ffca3c00.pdf",
-    "fileUrl": "/library-files/1778809188022-1a6adfa5-e1a5-4f8e-921e-7408ffca3c00.pdf",
-    "fileSize": 1674158,
-    "uploadedAt": "2026-05-15T01:39:48.041Z",
-    "createdAt": "2026-05-15T01:39:48.041Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "121bf4d2-5879-48c7-94b1-d1faa81a3f9f",
-    "title": "02 Kata Pengantar.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "02 Kata Pengantar.pdf",
-    "fileName": "1778809188046-2524ff80-8a9c-4bf5-bb9f-caec50b6c979.pdf",
-    "fileUrl": "/library-files/1778809188046-2524ff80-8a9c-4bf5-bb9f-caec50b6c979.pdf",
-    "fileSize": 2190630,
-    "uploadedAt": "2026-05-15T01:39:48.080Z",
-    "createdAt": "2026-05-15T01:39:48.080Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "079d9eba-66e1-4f0e-945a-10f314609922",
-    "title": "03 Silsilah Pangersa Guru.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "03 Silsilah Pangersa Guru.pdf",
-    "fileName": "1778809188085-292b7f80-f6e2-4ca6-85c3-3af767ba4777.pdf",
-    "fileUrl": "/library-files/1778809188085-292b7f80-f6e2-4ca6-85c3-3af767ba4777.pdf",
-    "fileSize": 1518517,
-    "uploadedAt": "2026-05-15T01:39:48.110Z",
-    "createdAt": "2026-05-15T01:39:48.110Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "c62013e1-e94f-4e85-a2ae-db14248a95b7",
-    "title": "04 Silsilah Izajah Dalailul Khairat.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "04 Silsilah Izajah Dalailul Khairat.pdf",
-    "fileName": "1778809188115-55311d73-8bbf-48cf-b8c6-a4f5e61a8f03.pdf",
-    "fileUrl": "/library-files/1778809188115-55311d73-8bbf-48cf-b8c6-a4f5e61a8f03.pdf",
-    "fileSize": 2135410,
-    "uploadedAt": "2026-05-15T01:39:48.146Z",
-    "createdAt": "2026-05-15T01:39:48.146Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "93b32158-3d2f-4c22-bfad-8940d8a57d1b",
-    "title": "05 Silsilah Qodiriyyah Wan Naqsabandiyyah.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "05 Silsilah Qodiriyyah Wan Naqsabandiyyah.pdf",
-    "fileName": "1778809188150-b4397ae1-f424-4392-bfc4-45ddd64a10c5.pdf",
-    "fileUrl": "/library-files/1778809188150-b4397ae1-f424-4392-bfc4-45ddd64a10c5.pdf",
-    "fileSize": 3484589,
-    "uploadedAt": "2026-05-15T01:39:48.209Z",
-    "createdAt": "2026-05-15T01:39:48.209Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "393531f5-dd61-4db1-9c81-45333c4a351a",
+    "id": "580bf556-fbc3-4c55-b5d1-2e610066a33a",
     "title": "06 Silsilah Quran.pdf",
     "author": "",
     "category": "Aurod",
@@ -386,15 +28,15 @@
     ],
     "status": "publish",
     "originalName": "06 Silsilah Quran.pdf",
-    "fileName": "1778809188214-784801e5-518f-40ab-8735-dc4e387b8a65.pdf",
-    "fileUrl": "/library-files/1778809188214-784801e5-518f-40ab-8735-dc4e387b8a65.pdf",
+    "fileName": "1778823184713-575f17dd-b92c-431a-87b8-eba73150c251.pdf",
+    "fileUrl": "/library-files/1778823184713-575f17dd-b92c-431a-87b8-eba73150c251.pdf",
     "fileSize": 3330049,
-    "uploadedAt": "2026-05-15T01:39:48.258Z",
-    "createdAt": "2026-05-15T01:39:48.258Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:04.768Z",
+    "createdAt": "2026-05-15T05:33:04.768Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "1f5a9380-65e7-48a9-9b17-290114781baa",
+    "id": "eece8efb-db71-431f-9e7c-be669ba84469",
     "title": "07 Sanad Ijazah Dalam Ilmu-ilmu Wirid, Dzikir, Sholawat dan Do'a-do'a.pdf",
     "author": "",
     "category": "Aurod",
@@ -404,15 +46,15 @@
     ],
     "status": "publish",
     "originalName": "07 Sanad Ijazah Dalam Ilmu-ilmu Wirid, Dzikir, Sholawat dan Do'a-do'a.pdf",
-    "fileName": "1778809188264-4afee8e6-eb50-4a9c-8c20-2459fdc52511.pdf",
-    "fileUrl": "/library-files/1778809188264-4afee8e6-eb50-4a9c-8c20-2459fdc52511.pdf",
+    "fileName": "1778823184778-3649060a-3706-4565-8ce8-7ea878e2c604.pdf",
+    "fileUrl": "/library-files/1778823184778-3649060a-3706-4565-8ce8-7ea878e2c604.pdf",
     "fileSize": 4522185,
-    "uploadedAt": "2026-05-15T01:39:48.311Z",
-    "createdAt": "2026-05-15T01:39:48.311Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:04.842Z",
+    "createdAt": "2026-05-15T05:33:04.842Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "cc8281af-cd29-44d6-b7b0-b2704ab0dd9e",
+    "id": "83ab2110-6fe8-4360-822b-cf9d56801acc",
     "title": "08 Daftar Isi.pdf",
     "author": "",
     "category": "Aurod",
@@ -422,15 +64,15 @@
     ],
     "status": "publish",
     "originalName": "08 Daftar Isi.pdf",
-    "fileName": "1778809188316-42e052a3-a7fa-4205-a745-943cfb12a834.pdf",
-    "fileUrl": "/library-files/1778809188316-42e052a3-a7fa-4205-a745-943cfb12a834.pdf",
+    "fileName": "1778823184849-5d28aa90-938b-418c-8a57-4792ae17d234.pdf",
+    "fileUrl": "/library-files/1778823184849-5d28aa90-938b-418c-8a57-4792ae17d234.pdf",
     "fileSize": 2597162,
-    "uploadedAt": "2026-05-15T01:39:48.356Z",
-    "createdAt": "2026-05-15T01:39:48.356Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:04.893Z",
+    "createdAt": "2026-05-15T05:33:04.893Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "342be823-af5f-4722-a2ec-a4676befc4c4",
+    "id": "4161ed95-6ba6-47de-a0da-8bf33ff3999f",
     "title": "09 Tawasul.pdf",
     "author": "",
     "category": "Aurod",
@@ -440,15 +82,15 @@
     ],
     "status": "publish",
     "originalName": "09 Tawasul.pdf",
-    "fileName": "1778809188361-78934792-5661-4085-945d-67a480779b48.pdf",
-    "fileUrl": "/library-files/1778809188361-78934792-5661-4085-945d-67a480779b48.pdf",
+    "fileName": "1778823184898-eafdd029-c1c5-4ef8-b66c-80d8c1399260.pdf",
+    "fileUrl": "/library-files/1778823184898-eafdd029-c1c5-4ef8-b66c-80d8c1399260.pdf",
     "fileSize": 40624389,
-    "uploadedAt": "2026-05-15T01:39:48.910Z",
-    "createdAt": "2026-05-15T01:39:48.910Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:05.443Z",
+    "createdAt": "2026-05-15T05:33:05.443Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "79d6be35-8a68-4033-b0e5-687d028c05c5",
+    "id": "047c65c3-0420-46a0-ba89-30aab2e052bc",
     "title": "10 Surat Al Fatihah.pdf",
     "author": "",
     "category": "Aurod",
@@ -458,15 +100,15 @@
     ],
     "status": "publish",
     "originalName": "10 Surat Al Fatihah.pdf",
-    "fileName": "1778809188917-3b88d3cf-2974-49c3-bbec-7f566a1a3831.pdf",
-    "fileUrl": "/library-files/1778809188917-3b88d3cf-2974-49c3-bbec-7f566a1a3831.pdf",
+    "fileName": "1778823185448-6caa90ea-654f-400e-b617-ed84aa0b9281.pdf",
+    "fileUrl": "/library-files/1778823185448-6caa90ea-654f-400e-b617-ed84aa0b9281.pdf",
     "fileSize": 2517981,
-    "uploadedAt": "2026-05-15T01:39:48.956Z",
-    "createdAt": "2026-05-15T01:39:48.956Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:05.489Z",
+    "createdAt": "2026-05-15T05:33:05.489Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "a5d788a8-b728-48d5-9c17-d716006c8c23",
+    "id": "a3895988-4eff-4b26-8126-ffe81f81cb6b",
     "title": "11 Surat Yasin.pdf",
     "author": "",
     "category": "Aurod",
@@ -476,15 +118,15 @@
     ],
     "status": "publish",
     "originalName": "11 Surat Yasin.pdf",
-    "fileName": "1778809188961-ab9ebf0d-591f-411a-9283-65ccaab0b4ac.pdf",
-    "fileUrl": "/library-files/1778809188961-ab9ebf0d-591f-411a-9283-65ccaab0b4ac.pdf",
+    "fileName": "1778823185493-02af7af9-a877-4274-ad95-1fb1b74b6bad.pdf",
+    "fileUrl": "/library-files/1778823185493-02af7af9-a877-4274-ad95-1fb1b74b6bad.pdf",
     "fileSize": 18691117,
-    "uploadedAt": "2026-05-15T01:39:49.189Z",
-    "createdAt": "2026-05-15T01:39:49.189Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:05.689Z",
+    "createdAt": "2026-05-15T05:33:05.689Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "de5559d3-8ff0-473e-b80a-042c498d06e4",
+    "id": "bcc8782a-47fe-4f94-9e04-4eefe2d4aa77",
     "title": "12 Surat Waqi'ah.pdf",
     "author": "",
     "category": "Aurod",
@@ -494,15 +136,15 @@
     ],
     "status": "publish",
     "originalName": "12 Surat Waqi'ah.pdf",
-    "fileName": "1778809189194-ebce0eb4-1bc3-44c8-9f84-9fd498291062.pdf",
-    "fileUrl": "/library-files/1778809189194-ebce0eb4-1bc3-44c8-9f84-9fd498291062.pdf",
+    "fileName": "1778823185693-5786a69d-ec92-424a-bfd6-36cc4380f308.pdf",
+    "fileUrl": "/library-files/1778823185693-5786a69d-ec92-424a-bfd6-36cc4380f308.pdf",
     "fileSize": 14801301,
-    "uploadedAt": "2026-05-15T01:39:49.384Z",
-    "createdAt": "2026-05-15T01:39:49.384Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:05.847Z",
+    "createdAt": "2026-05-15T05:33:05.847Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "1c4bee81-a480-4ab0-99d6-fe7932ad6b4b",
+    "id": "fe6dcf7d-d7e9-4243-b199-6508d4a29d4e",
     "title": "13 Surat Al-Mulk.pdf",
     "author": "",
     "category": "Aurod",
@@ -512,15 +154,15 @@
     ],
     "status": "publish",
     "originalName": "13 Surat Al-Mulk.pdf",
-    "fileName": "1778809189389-283784f2-073b-482d-8596-6b22cb7f35d0.pdf",
-    "fileUrl": "/library-files/1778809189389-283784f2-073b-482d-8596-6b22cb7f35d0.pdf",
+    "fileName": "1778823185852-48c0a256-b1c7-45f3-a840-b4104498d1ab.pdf",
+    "fileUrl": "/library-files/1778823185852-48c0a256-b1c7-45f3-a840-b4104498d1ab.pdf",
     "fileSize": 6374756,
-    "uploadedAt": "2026-05-15T01:39:49.478Z",
-    "createdAt": "2026-05-15T01:39:49.478Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:05.930Z",
+    "createdAt": "2026-05-15T05:33:05.930Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "79b3ad59-340c-488c-9218-a15e3edee032",
+    "id": "2ea869b0-175d-435e-bab8-025ea47a6bf7",
     "title": "14 Surat Al-Kahfi.pdf",
     "author": "",
     "category": "Aurod",
@@ -530,15 +172,15 @@
     ],
     "status": "publish",
     "originalName": "14 Surat Al-Kahfi.pdf",
-    "fileName": "1778809189483-32b0a7d3-a22b-4a2f-bf63-0f8ca51c299b.pdf",
-    "fileUrl": "/library-files/1778809189483-32b0a7d3-a22b-4a2f-bf63-0f8ca51c299b.pdf",
+    "fileName": "1778823185934-34673e94-4627-4fb3-9572-df37f107875b.pdf",
+    "fileUrl": "/library-files/1778823185934-34673e94-4627-4fb3-9572-df37f107875b.pdf",
     "fileSize": 37690794,
-    "uploadedAt": "2026-05-15T01:39:49.947Z",
-    "createdAt": "2026-05-15T01:39:49.947Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:06.308Z",
+    "createdAt": "2026-05-15T05:33:06.308Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "687999f5-9687-4f65-8bf6-252d06f10dd1",
+    "id": "1b608c98-6587-45af-a20e-2628b108ceb9",
     "title": "15 Surat Pilihan.pdf",
     "author": "",
     "category": "Aurod",
@@ -548,15 +190,15 @@
     ],
     "status": "publish",
     "originalName": "15 Surat Pilihan.pdf",
-    "fileName": "1778809189953-7870902e-98cd-49d5-abdc-17de7fad6791.pdf",
-    "fileUrl": "/library-files/1778809189953-7870902e-98cd-49d5-abdc-17de7fad6791.pdf",
+    "fileName": "1778823186312-9162710f-351c-4238-9584-4bd38316e6dc.pdf",
+    "fileUrl": "/library-files/1778823186312-9162710f-351c-4238-9584-4bd38316e6dc.pdf",
     "fileSize": 6849821,
-    "uploadedAt": "2026-05-15T01:39:50.051Z",
-    "createdAt": "2026-05-15T01:39:50.051Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:06.399Z",
+    "createdAt": "2026-05-15T05:33:06.399Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "6d1968eb-d0c7-4185-a4d6-f5f1738f5370",
+    "id": "c6e8bb47-88e3-4a31-80f1-e188e3c4b1d2",
     "title": "16 Wirid Ba'da Sholat Fardhu.pdf",
     "author": "",
     "category": "Aurod",
@@ -566,15 +208,15 @@
     ],
     "status": "publish",
     "originalName": "16 Wirid Ba'da Sholat Fardhu.pdf",
-    "fileName": "1778809190056-b3ccb6a8-9f20-4026-ad41-af5ae49bc701.pdf",
-    "fileUrl": "/library-files/1778809190056-b3ccb6a8-9f20-4026-ad41-af5ae49bc701.pdf",
+    "fileName": "1778823186405-8381051a-5d70-4931-bedd-e5dccc914c63.pdf",
+    "fileUrl": "/library-files/1778823186405-8381051a-5d70-4931-bedd-e5dccc914c63.pdf",
     "fileSize": 18080509,
-    "uploadedAt": "2026-05-15T01:39:50.306Z",
-    "createdAt": "2026-05-15T01:39:50.306Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:06.584Z",
+    "createdAt": "2026-05-15T05:33:06.584Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "f259b1be-388e-4227-9ff8-54f2166e43e8",
+    "id": "2042bbaf-5472-415d-9544-c5ef4f343f65",
     "title": "17 Sholawat Masyhur.pdf",
     "author": "",
     "category": "Aurod",
@@ -584,15 +226,15 @@
     ],
     "status": "publish",
     "originalName": "17 Sholawat Masyhur.pdf",
-    "fileName": "1778809190311-c5450d56-de03-41a9-bbee-0b6c7ee3c791.pdf",
-    "fileUrl": "/library-files/1778809190311-c5450d56-de03-41a9-bbee-0b6c7ee3c791.pdf",
+    "fileName": "1778823186589-aff5c9c3-aa31-4638-87bb-f6e510eca935.pdf",
+    "fileUrl": "/library-files/1778823186589-aff5c9c3-aa31-4638-87bb-f6e510eca935.pdf",
     "fileSize": 20431808,
-    "uploadedAt": "2026-05-15T01:39:50.540Z",
-    "createdAt": "2026-05-15T01:39:50.540Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:06.828Z",
+    "createdAt": "2026-05-15T05:33:06.828Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "f6bb7d4f-2096-4791-9be7-a24fd109f665",
+    "id": "da94ec80-4589-43db-bc9e-9fe56b5904a9",
     "title": "18 Sholawat Mudoriyyah.pdf",
     "author": "",
     "category": "Aurod",
@@ -602,15 +244,15 @@
     ],
     "status": "publish",
     "originalName": "18 Sholawat Mudoriyyah.pdf",
-    "fileName": "1778809190546-d176891c-b6eb-4e04-9d10-546251657b08.pdf",
-    "fileUrl": "/library-files/1778809190546-d176891c-b6eb-4e04-9d10-546251657b08.pdf",
+    "fileName": "1778823186833-7f856dbb-041e-4474-99e1-4ce877b78741.pdf",
+    "fileUrl": "/library-files/1778823186833-7f856dbb-041e-4474-99e1-4ce877b78741.pdf",
     "fileSize": 7620626,
-    "uploadedAt": "2026-05-15T01:39:50.646Z",
-    "createdAt": "2026-05-15T01:39:50.646Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:06.941Z",
+    "createdAt": "2026-05-15T05:33:06.941Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "e00f230c-b9aa-4614-8f41-ef936daa7c9d",
+    "id": "9aa297c6-6bec-413a-8b40-b13691597d35",
     "title": "19 Nadzom Tawassul.pdf",
     "author": "",
     "category": "Aurod",
@@ -620,15 +262,15 @@
     ],
     "status": "publish",
     "originalName": "19 Nadzom Tawassul.pdf",
-    "fileName": "1778809190652-370b0a82-f08f-45b3-ae01-5f15014f507b.pdf",
-    "fileUrl": "/library-files/1778809190652-370b0a82-f08f-45b3-ae01-5f15014f507b.pdf",
+    "fileName": "1778823186945-f0f428f7-ab8f-422b-b038-8f683139a51b.pdf",
+    "fileUrl": "/library-files/1778823186945-f0f428f7-ab8f-422b-b038-8f683139a51b.pdf",
     "fileSize": 5215188,
-    "uploadedAt": "2026-05-15T01:39:50.734Z",
-    "createdAt": "2026-05-15T01:39:50.734Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:07.028Z",
+    "createdAt": "2026-05-15T05:33:07.028Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "db2e62f6-f232-490a-8101-44d68f848f7a",
+    "id": "e48d47b3-95cf-4278-9fcd-2d6f1702b22d",
     "title": "20 Hizb Nashr.pdf",
     "author": "",
     "category": "Aurod",
@@ -638,16 +280,16 @@
     ],
     "status": "publish",
     "originalName": "20 Hizb Nashr.pdf",
-    "fileName": "1778809190740-65350b3a-c359-49de-8895-f91da91136c2.pdf",
-    "fileUrl": "/library-files/1778809190740-65350b3a-c359-49de-8895-f91da91136c2.pdf",
+    "fileName": "1778823187032-6fafd4dd-3ab7-45c4-b7f6-f76f5bfe2cff.pdf",
+    "fileUrl": "/library-files/1778823187032-6fafd4dd-3ab7-45c4-b7f6-f76f5bfe2cff.pdf",
     "fileSize": 9398114,
-    "uploadedAt": "2026-05-15T01:39:50.857Z",
-    "createdAt": "2026-05-15T01:39:50.857Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "uploadedAt": "2026-05-15T05:33:07.090Z",
+    "createdAt": "2026-05-15T05:33:07.090Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "7b74e638-0c01-44be-a4ba-de579d7dea58",
-    "title": "21 Ratib Al-Haddad.pdf",
+    "id": "6d5383a8-0259-4899-ad23-53aa11f9d8a7",
+    "title": "01 Katalog Dalam Terbitan.pdf",
     "author": "",
     "category": "Aurod",
     "language": "id",
@@ -655,17 +297,17 @@
       "asy-syifaa"
     ],
     "status": "publish",
-    "originalName": "21 Ratib Al-Haddad.pdf",
-    "fileName": "1778809190863-64844ca5-f8bf-41ed-ace1-53d9d980db04.pdf",
-    "fileUrl": "/library-files/1778809190863-64844ca5-f8bf-41ed-ace1-53d9d980db04.pdf",
-    "fileSize": 23332464,
-    "uploadedAt": "2026-05-15T01:39:51.126Z",
-    "createdAt": "2026-05-15T01:39:51.126Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "originalName": "01 Katalog Dalam Terbitan.pdf",
+    "fileName": "1778823187095-f0726b8d-a6e0-4563-a94a-b3b4f6c2dec9.pdf",
+    "fileUrl": "/library-files/1778823187095-f0726b8d-a6e0-4563-a94a-b3b4f6c2dec9.pdf",
+    "fileSize": 1674158,
+    "uploadedAt": "2026-05-15T05:33:07.101Z",
+    "createdAt": "2026-05-15T05:33:07.101Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "acf78e9b-17c6-451d-b985-a8f44090a9a7",
-    "title": "22 Ratib Al-Aththas.pdf",
+    "id": "728d9710-9588-4626-b8a6-5d81c29361c2",
+    "title": "02 Kata Pengantar.pdf",
     "author": "",
     "category": "Aurod",
     "language": "id",
@@ -673,17 +315,17 @@
       "asy-syifaa"
     ],
     "status": "publish",
-    "originalName": "22 Ratib Al-Aththas.pdf",
-    "fileName": "1778809191131-0fc13323-eb4d-4ad6-91f0-f15bcb78f9f6.pdf",
-    "fileUrl": "/library-files/1778809191131-0fc13323-eb4d-4ad6-91f0-f15bcb78f9f6.pdf",
-    "fileSize": 20454499,
-    "uploadedAt": "2026-05-15T01:39:51.404Z",
-    "createdAt": "2026-05-15T01:39:51.404Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "originalName": "02 Kata Pengantar.pdf",
+    "fileName": "1778823187106-9e7be01d-bc05-4549-a229-9abe32ae958d.pdf",
+    "fileUrl": "/library-files/1778823187106-9e7be01d-bc05-4549-a229-9abe32ae958d.pdf",
+    "fileSize": 2190630,
+    "uploadedAt": "2026-05-15T05:33:07.129Z",
+    "createdAt": "2026-05-15T05:33:07.129Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "59566002-678f-468d-84db-e0d217730fa3",
-    "title": "23 Ratib Al-Wajih.pdf",
+    "id": "a9d7a474-294f-43e2-9de1-dea6db54e0c5",
+    "title": "03 Silsilah Pangersa Guru.pdf",
     "author": "",
     "category": "Aurod",
     "language": "id",
@@ -691,17 +333,17 @@
       "asy-syifaa"
     ],
     "status": "publish",
-    "originalName": "23 Ratib Al-Wajih.pdf",
-    "fileName": "1778809191410-9ef09d6d-b8cb-41f5-a21e-440242dbb455.pdf",
-    "fileUrl": "/library-files/1778809191410-9ef09d6d-b8cb-41f5-a21e-440242dbb455.pdf",
-    "fileSize": 24036061,
-    "uploadedAt": "2026-05-15T01:39:51.714Z",
-    "createdAt": "2026-05-15T01:39:51.714Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "originalName": "03 Silsilah Pangersa Guru.pdf",
+    "fileName": "1778823187134-7abd1799-1b1d-4584-900b-306c8ed8b772.pdf",
+    "fileUrl": "/library-files/1778823187134-7abd1799-1b1d-4584-900b-306c8ed8b772.pdf",
+    "fileSize": 1518517,
+    "uploadedAt": "2026-05-15T05:33:07.161Z",
+    "createdAt": "2026-05-15T05:33:07.161Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "5270e54f-cb62-4f5e-8078-8ee8d741af89",
-    "title": "24 Ratib Alaydrus.pdf",
+    "id": "b1c97520-5d34-41eb-897e-776cd125973b",
+    "title": "04 Silsilah Izajah Dalailul Khairat.pdf",
     "author": "",
     "category": "Aurod",
     "language": "id",
@@ -709,17 +351,17 @@
       "asy-syifaa"
     ],
     "status": "publish",
-    "originalName": "24 Ratib Alaydrus.pdf",
-    "fileName": "1778809191720-3459a98c-7d20-4b67-b4d9-74dab6ec08c0.pdf",
-    "fileUrl": "/library-files/1778809191720-3459a98c-7d20-4b67-b4d9-74dab6ec08c0.pdf",
-    "fileSize": 8671835,
-    "uploadedAt": "2026-05-15T01:39:51.832Z",
-    "createdAt": "2026-05-15T01:39:51.832Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "originalName": "04 Silsilah Izajah Dalailul Khairat.pdf",
+    "fileName": "1778823187167-e692323d-48a6-476c-ae99-7efe2fd079b7.pdf",
+    "fileUrl": "/library-files/1778823187167-e692323d-48a6-476c-ae99-7efe2fd079b7.pdf",
+    "fileSize": 2135410,
+    "uploadedAt": "2026-05-15T05:33:07.204Z",
+    "createdAt": "2026-05-15T05:33:07.204Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   },
   {
-    "id": "f89dcb86-fa33-47ae-ba03-28593ac1ad8f",
-    "title": "25 Wirid As-Sakran.pdf",
+    "id": "9da78454-5b6f-4084-8756-feaa1e3ca358",
+    "title": "05 Silsilah Qodiriyyah Wan Naqsabandiyyah.pdf",
     "author": "",
     "category": "Aurod",
     "language": "id",
@@ -727,192 +369,12 @@
       "asy-syifaa"
     ],
     "status": "publish",
-    "originalName": "25 Wirid As-Sakran.pdf",
-    "fileName": "1778809191837-64f9db4b-3c10-40cd-a843-4cc0f8fc1560.pdf",
-    "fileUrl": "/library-files/1778809191837-64f9db4b-3c10-40cd-a843-4cc0f8fc1560.pdf",
-    "fileSize": 5344950,
-    "uploadedAt": "2026-05-15T01:39:51.913Z",
-    "createdAt": "2026-05-15T01:39:51.913Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "ee4d462f-01cd-495b-92d8-0febfb7fadf2",
-    "title": "26 Ad-Da'awÄt.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "26 Ad-Da'awÄt.pdf",
-    "fileName": "1778809191918-d4aa60e3-c4e9-40b0-af75-9b7c3a33b4e9.pdf",
-    "fileUrl": "/library-files/1778809191918-d4aa60e3-c4e9-40b0-af75-9b7c3a33b4e9.pdf",
-    "fileSize": 7385720,
-    "uploadedAt": "2026-05-15T01:39:52.019Z",
-    "createdAt": "2026-05-15T01:39:52.019Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "0531f3e2-8a66-40b9-a177-895860a1b5eb",
-    "title": "27 Dizkrul Jalalah.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "27 Dizkrul Jalalah.pdf",
-    "fileName": "1778809192025-68936ca2-837c-4f71-b4b3-07fe8344e69e.pdf",
-    "fileUrl": "/library-files/1778809192025-68936ca2-837c-4f71-b4b3-07fe8344e69e.pdf",
-    "fileSize": 2566811,
-    "uploadedAt": "2026-05-15T01:39:52.067Z",
-    "createdAt": "2026-05-15T01:39:52.067Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "94f5321b-492f-4a3d-9a07-ab7d0607bf9b",
-    "title": "28 Qasidah Ya Arhamar Rahimin.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "28 Qasidah Ya Arhamar Rahimin.pdf",
-    "fileName": "1778809192072-f5cf0791-41e8-4e3a-bb44-71acf8af0aaa.pdf",
-    "fileUrl": "/library-files/1778809192072-f5cf0791-41e8-4e3a-bb44-71acf8af0aaa.pdf",
-    "fileSize": 7074710,
-    "uploadedAt": "2026-05-15T01:39:52.150Z",
-    "createdAt": "2026-05-15T01:39:52.150Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "e4531763-cc70-451b-850f-b828d25766a7",
-    "title": "29 Munajat Syekh As-Samman.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "29 Munajat Syekh As-Samman.pdf",
-    "fileName": "1778809192155-0d40b964-3794-46a7-96e8-fbaf6177ae57.pdf",
-    "fileUrl": "/library-files/1778809192155-0d40b964-3794-46a7-96e8-fbaf6177ae57.pdf",
-    "fileSize": 19107478,
-    "uploadedAt": "2026-05-15T01:39:52.427Z",
-    "createdAt": "2026-05-15T01:39:52.427Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "9f8a8bb7-15a5-4b33-b38f-016d0e2d0d9b",
-    "title": "30 Do'a Fajar.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "30 Do'a Fajar.pdf",
-    "fileName": "1778809192432-604cae88-e0d7-4d8c-a43d-cd3247ea1aef.pdf",
-    "fileUrl": "/library-files/1778809192432-604cae88-e0d7-4d8c-a43d-cd3247ea1aef.pdf",
-    "fileSize": 8088876,
-    "uploadedAt": "2026-05-15T01:39:52.567Z",
-    "createdAt": "2026-05-15T01:39:52.567Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "57bdf561-c6bf-4e88-91cf-2f61e0cc5a5b",
-    "title": "31 Wird Al-latief.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "31 Wird Al-latief.pdf",
-    "fileName": "1778809192572-62d6eb82-d414-456f-9858-8dbb6528350b.pdf",
-    "fileUrl": "/library-files/1778809192572-62d6eb82-d414-456f-9858-8dbb6528350b.pdf",
-    "fileSize": 21238249,
-    "uploadedAt": "2026-05-15T01:39:52.853Z",
-    "createdAt": "2026-05-15T01:39:52.853Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "40aae974-2e52-4b23-a3c0-24f8a0e88a9a",
-    "title": "32 Doa Tolak Bala'.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "32 Doa Tolak Bala'.pdf",
-    "fileName": "1778809192859-9fe98c8d-d360-466c-a565-c2e5503bacd3.pdf",
-    "fileUrl": "/library-files/1778809192859-9fe98c8d-d360-466c-a565-c2e5503bacd3.pdf",
-    "fileSize": 2183902,
-    "uploadedAt": "2026-05-15T01:39:52.896Z",
-    "createdAt": "2026-05-15T01:39:52.896Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "3a64bd58-a99a-41f9-9320-61df094f0a31",
-    "title": "33 Do'a Sebelum Belajar.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "33 Do'a Sebelum Belajar.pdf",
-    "fileName": "1778809192900-20de3a49-6d91-48fb-acb5-1297efdc128a.pdf",
-    "fileUrl": "/library-files/1778809192900-20de3a49-6d91-48fb-acb5-1297efdc128a.pdf",
-    "fileSize": 10228523,
-    "uploadedAt": "2026-05-15T01:39:53.037Z",
-    "createdAt": "2026-05-15T01:39:53.037Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "24439896-cc51-462c-80de-7fd6620d8b44",
-    "title": "34 Do'a Sesudah Belajar.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "34 Do'a Sesudah Belajar.pdf",
-    "fileName": "1778809193041-1c22f3d3-3e55-47ca-bb62-9bba6d12b70f.pdf",
-    "fileUrl": "/library-files/1778809193041-1c22f3d3-3e55-47ca-bb62-9bba6d12b70f.pdf",
-    "fileSize": 5830001,
-    "uploadedAt": "2026-05-15T01:39:53.118Z",
-    "createdAt": "2026-05-15T01:39:53.118Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
-  },
-  {
-    "id": "6e268da1-e9d8-427e-88ea-2fcb0195a221",
-    "title": "35 Qosidah Burdah.pdf",
-    "author": "",
-    "category": "Aurod",
-    "language": "id",
-    "tags": [
-      "asy-syifaa"
-    ],
-    "status": "publish",
-    "originalName": "35 Qosidah Burdah.pdf",
-    "fileName": "1778809193123-e4738565-cb1c-48f7-80c3-c1070a71d1dd.pdf",
-    "fileUrl": "/library-files/1778809193123-e4738565-cb1c-48f7-80c3-c1070a71d1dd.pdf",
-    "fileSize": 50130815,
-    "uploadedAt": "2026-05-15T01:39:53.344Z",
-    "createdAt": "2026-05-15T01:39:53.344Z",
-    "updatedAt": "2026-05-15T03:24:06.388Z"
+    "originalName": "05 Silsilah Qodiriyyah Wan Naqsabandiyyah.pdf",
+    "fileName": "1778823187208-0a7722d7-6107-4549-90df-76ca052df3df.pdf",
+    "fileUrl": "/library-files/1778823187208-0a7722d7-6107-4549-90df-76ca052df3df.pdf",
+    "fileSize": 3484589,
+    "uploadedAt": "2026-05-15T05:33:07.309Z",
+    "createdAt": "2026-05-15T05:33:07.309Z",
+    "updatedAt": "2026-05-15T05:33:28.922Z"
   }
 ]

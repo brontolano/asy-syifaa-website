@@ -1168,6 +1168,20 @@ select:focus,
   font-size: 1.15rem;
 }
 
+.dashboard-page .dash-topbar .actions {
+  margin-top: 0;
+  align-items: center;
+}
+
+.dashboard-compact .dash-sidebar {
+  grid-template-rows: auto 1fr auto;
+}
+
+.dashboard-compact .dash-nav-item {
+  padding: 6px 2px;
+  font-size: 13px;
+}
+
 .dash-search {
   border: 1px solid var(--input-border);
   border-radius: 10px;
@@ -1280,6 +1294,16 @@ select:focus,
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.cms-textarea {
+  min-height: 140px;
+  resize: vertical;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--field-bg);
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

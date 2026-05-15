@@ -66,12 +66,13 @@ function requireSuperadmin(req, res, next) {
 function resolveHost(hostHeader) {
   const host = (hostHeader || "").toLowerCase().split(":")[0];
   if (!host) return "erp";
-  if (host.startsWith("perpustakaan.")) return "perpustakaan";
+  if (host.startsWith("dashboard.")) return "dashboard";
   if (host.startsWith("erp.")) return "erp";
+  if (host.startsWith("perpustakaan.")) return "perpustakaan";
   if (host === "asy-syifaa.com" || host === "www.asy-syifaa.com") return "website-public";
   if (host === "localhost" || host === "127.0.0.1") return "erp";
   const parts = host.split(".");
-  if (parts.length >= 3) return parts[0];
+  if (parts.length >= 3) return `module:${parts[0]}`;
   return "erp";
 }
 
@@ -334,7 +335,17 @@ app.use((err, _req, res, next) => {
 app.get("/", (req, res) => {
   const sub = resolveHost(req.headers.host);
   if (sub === "perpustakaan") return res.sendFile(path.join(FRONTEND_DIR, "library-public.html"));
-  if (sub === "website-public") return res.redirect(302, "https://asy-syifaa.com");
+  if (sub === "dashboard") {
+    const session = getSession(req);
+    if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
+    return res.redirect(302, "/dashboard");
+  }
+  if (sub === "website-public") return res.sendFile(path.join(FRONTEND_DIR, "website-undermaintenance.html"));
+  if (sub.startsWith("module:")) {
+    const moduleName = sub.split(":")[1] || "unknown";
+    return res.status(404).send(`Subdomain modul '${moduleName}' belum tersedia. Gunakan erp.asy-syifaa.com atau dashboard.asy-syifaa.com.`);
+  }
+  if (sub === "erp") return res.sendFile(path.join(FRONTEND_DIR, "index.html"));
   const session = getSession(req);
   if (!session || session.role !== "superadmin") return res.redirect(302, "/login");
   return res.sendFile(path.join(FRONTEND_DIR, "index.html"));

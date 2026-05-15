@@ -64,3 +64,37 @@ Endpoint halaman utama:
 - `POST /api/perpustakaan/bookmarks`
 - `DELETE /api/perpustakaan/bookmarks/:bookId`
 
+## Domain Go-Live
+- `erp.asy-syifaa.com` -> Landing ERP (staff & publik)
+- `dashboard.asy-syifaa.com` -> Dashboard (staff)
+- `dashboard.asy-syifaa.com/dashboard?module=website` -> Dashboard Website (staff)
+- `dashboard.asy-syifaa.com/dashboard?module=perpustakaan` -> Dashboard Perpustakaan (staff)
+- `perpustakaan.asy-syifaa.com` -> Perpustakaan (publik)
+- `asy-syifaa.com` dan `www.asy-syifaa.com` -> Website publik (konten project ini)
+- `asy-syifaa.com/login` -> Sistem login & session
+
+## DNS Minimal
+- `A @` -> IP VPS
+- `A www` -> IP VPS
+- `A erp` -> IP VPS
+- `A dashboard` -> IP VPS
+- `A perpustakaan` -> IP VPS
+- Opsional `A *` -> IP VPS untuk fallback `[modul].asy-syifaa.com`
+
+## Catatan SQL Cloud Storage
+- Placeholder sudah disiapkan di deploy untuk integrasi database/storage.
+- Detail cloud storage SQL akan diaktifkan setelah parameter provider diberikan.
+
+## Eksekusi Go-Live di VPS
+Jalankan dari root project:
+
+```bash
+chmod +x deploy/one-click-deploy.sh deploy/verify-domains.sh
+./deploy/one-click-deploy.sh
+./deploy/verify-domains.sh
+```
+
+Jika DNS wildcard modul ingin otomatis:
+- Tambah `A * -> IP VPS`
+- Subdomain yang belum ada modul akan menampilkan pesan "belum tersedia".
+

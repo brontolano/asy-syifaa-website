@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Profile Pondok Pesantren - Asy-Syifaa Wal Mahmuudiyyah</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/style.css?v=20260517" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/footer.css?v=20260517">
+<link rel="icon" href="../..//assets/img/logo.png" type="image/png" sizes="32x32">
+
+  
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ <link rel="stylesheet" href="/assets/style.css?v=20260517">
+<script src="../../assets/script.js"></script>
+ <style>
+ /* =========================================
+   STYLE KHUSUS HALAMAN Profile (BOOK STYLE)
+   ========================================= */
+
+/* Container Utama Bab */
+.chapter-wrapper {
+    padding: 60px 0 100px 0;
+    position: relative;
+}
+
+/* Navigasi Sederhana Antar Bab (Opsional jika nanti Bab 2 masuk) */
+.chapter-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.chapter-pill {
+    padding: 10px 25px;
+    border-radius: 50px;
+    background: white;
+    border: 1px solid #eee;
+    color: var(--text-dark);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.chapter-pill.active, .chapter-pill:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(32, 108, 78, 0.3);
+    border-color: var(--primary-green);
+}
+
+/* Header Bab */
+.chapter-header-box {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+}
+
+.chapter-number {
+    display: inline-block;
+    background: var(--accent-gold);
+    color: var(--dark-green);
+    font-weight: 800;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
+
+.chapter-title-main {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--dark-green);
+    margin-bottom: 0.5rem;
+}
+
+/* Card Konten Kertas */
+.paper-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: clamp(2rem, 5vw, 4rem); /* Padding responsif yang lega */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* Shadow lembut */
+    margin-bottom: 3rem;
+    position: relative;
+    border-top: 5px solid var(--primary-green); /* Aksen garis hijau di atas */
+}
+
+/* Tipografi Konten */
+.paper-content h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.paper-content h4 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.3rem;
+    color: var(--dark-green);
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+.paper-content p {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #4a4a4a; /* Abu-abu tua agar nyaman dibaca */
+    font-size: 1.05rem;
+    line-height: 1.9; /* Line height lega */
+    margin-bottom: 1.5rem;
+    text-align: justify; /* Rata kanan kiri agar rapi seperti buku */
+}
+
+/* Dropcap (Huruf Awal Besar) */
+.dropcap::first-letter {
+    float: left;
+    font-family: 'Merriweather', serif;
+    font-size: 4rem;
+    line-height: 0.8;
+    color: var(--primary-green);
+    padding-right: 15px;
+    padding-top: 5px;
+    font-weight: 700;
+}
+
+/* Highlight Box (Untuk Makna & Quote) */
+.highlight-box {
+    background: #fcfcfc;
+    border-left: 4px solid var(--accent-gold);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.highlight-box::before {
+    content: '\f10d'; /* Ikon kutipan FontAwesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    font-size: 2rem;
+    color: var(--accent-gold);
+    background: white;
+    padding: 0 10px;
+}
+
+/* List Styling */
+.custom-list-number {
+    list-style: none;
+    padding: 0;
+    counter-reset: my-counter;
+}
+
+.custom-list-number li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    color: #4a4a4a;
+}
+
+.custom-list-number li::before {
+    counter-increment: my-counter;
+    content: counter(my-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    background: var(--primary-green);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 8px rgba(32, 108, 78, 0.3);
+}
+
+/* Asas Box (Kalimat Tauhid) */
+.asas-box {
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+    border-radius: 15px;
+    color: white;
+    margin: 2rem 0;
+    box-shadow: 0 10px 25px rgba(26, 62, 44, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.asas-box h4 {
+    color: var(--accent-gold) !important;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+}
+
+.kalimat-tauhid {
+    font-family: 'Merriweather', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: 700;
+}
+
+/* Grid Mazhab */
+.mazhab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+.mazhab-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #eee;
+    font-weight: 600;
+    color: var(--dark-green);
+    transition: 0.3s;
+}
+.mazhab-item:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-3px);
+}
+/* =========================================
+   GAYA FOTO LANDSCAPE (UKURAN STANDAR)
+   ========================================= */
+
+.chapter-visual {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* UBAH: Dibatasi lebarnya agar tidak terlalu besar */
+    height: 350px;    /* UBAH: Tinggi tetap yang pas (standar landscape) */
+    margin: 30px auto; /* Posisi rata tengah (Center) */
+    
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Shadow lebih tipis */
+    background-color: #f8f9fa;
+    border: 2px dashed #ddd;
+    transition: all 0.3s ease;
+}
+
+/* Sisa CSS di bawah ini tetap sama */
+.chapter-visual.loaded { border: none; }
+
+.chapter-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.chapter-visual:hover img { transform: scale(1.05); }
+
+.photo-caption {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 6px 15px; /* Padding sedikit diperkecil */
+    border-radius: 50px;
+    font-size: 0.8rem; /* Font caption sedikit diperkecil */
+    font-weight: 500;
+    color: var(--dark-green);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.chapter-visual:hover .photo-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.placeholder-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #adb5bd;
+    pointer-events: none;
+    width: 100%;
+}
+
+.placeholder-info i {
+    font-size: 2.5rem; /* Ikon diperkecil sedikit */
+    margin-bottom: 10px;
+    color: var(--accent-gold);
+}
+
+.placeholder-info span {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    display: block;
+}
+
+/* =========================================
+   STYLE TAMBAHAN BAB II (GRID FOTO)
+   ========================================= */
+
+/* Grid 4 Foto Kecil (2 baris x 2 kolom) */
+.gallery-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 3rem 0; /* Jarak atas bawah yang lega */
+}
+
+.gallery-item-small {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3; /* Rasio agak kotak (4:3) agar rapi di grid */
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px dashed #ddd;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item-small:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--primary-green);
+}
+
+.gallery-item-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Modifikasi untuk Foto Medium (Ukuran Sedang) */
+.chapter-visual.medium-size {
+    max-width: 500px; /* Lebih kecil dari standar (700px) */
+    height: 300px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Kotak Biografi (Untuk Profile Habib Umar) */
+.biography-section {
+    background: #fcfcfc;
+    border-left: 4px solid var(--primary-green);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.biography-title {
+    font-family: 'Merriweather', serif;
+    color: var(--dark-green);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =========================================
+   GRID 2 FOTO SEDANG (SIDE BY SIDE)
+   ========================================= */
+.gallery-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsif: Turun ke bawah jika layar HP */
+    gap: 20px;
+    margin: 2.5rem 0;
+}
+
+/* Penyesuaian agar foto pas di dalam grid 2 kolom */
+.gallery-grid-2 .chapter-visual {
+    max-width: 100%; /* Memenuhi kolom grid */
+    height: 250px;   /* Tinggi sedikit dikurangi agar proporsional */
+    margin: 0;       /* Hapus margin auto agar tidak ke tengah sendiri */
+}
+
+/* =========================================
+   STYLE TAMBAHAN BAB III (TABEL & ARAB)
+   ========================================= */
+
+/* Konsep Grid (Untuk Terpadu & Internasional) */
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 2rem;
+}
+
+.concept-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 12px;
+    border-top: 4px solid var(--primary-green);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
+
+.concept-card h4 {
+    font-size: 1.2rem;
+    color: var(--dark-green);
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 10px;
+}
+
+/* Grid 9 Karakter Muslim */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin: 2rem 0;
+}
+
+.character-item {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-gold);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.character-item:hover {
+    transform: translateY(-3px);
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.arabic-text {
+    font-family: 'Amiri', 'Traditional Arabic', serif; /* Pastikan font serif untuk Arab */
+    font-size: 1.4rem;
+    color: var(--primary-green);
+    text-align: right;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.latin-text {
+    font-weight: 600;
+    color: var(--dark-green);
+    font-size: 1rem;
+}
+
+.translate-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Tabel Modern */
+.program-table-wrapper {
+    overflow-x: auto; /* Agar bisa discroll di HP */
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.program-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 600px; /* Lebar minimum agar tidak gepeng di HP */
+}
+
+.program-table thead {
+    background: var(--primary-green);
+    color: white;
+}
+
+.program-table th, .program-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.program-table th {
+    font-family: 'Merriweather', serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.program-table tr:hover {
+    background-color: #f1f8f5;
+}
+
+.program-table td.arabic-col {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    text-align: right;
+    color: var(--dark-green);
+}
+
+/* Kotak Statistik Santri */
+.stats-box {
+    background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    margin-bottom: 0;
+}
+
+/* =========================================
+   REVISI BAB IV: DAFTAR GURU (LIST STYLE)
+   ========================================= */
+
+/* Container Utama Split (Tetap sama) */
+.split-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 2rem;
+}
+
+.left-visual {
+    flex: 1;
+    min-width: 300px;
+    position: sticky;
+    top: 100px;
+}
+
+.portrait-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #f8f9fa;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Bagian Kanan: Daftar Guru */
+.right-content {
+    flex: 1.5;
+    min-width: 300px;
+}
+
+.silsilah-intro {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #555;
+    margin-bottom: 25px;
+    font-style: italic;
+    background: #f0f7f4;
+    padding: 15px;
+    border-left: 4px solid var(--primary-green);
+    border-radius: 0 8px 8px 0;
+}
+
+/* Grid Daftar Guru (2 Kolom) */
+.guru-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsif 2 kolom */
+    gap: 15px;
+}
+
+.guru-item {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.guru-item:hover {
+    transform: translateX(5px);
+    border-color: var(--accent-gold);
+    background: #fffdf5; /* Sedikit kuning emas saat hover */
+}
+
+.guru-number {
+    background: var(--primary-green);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.guru-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.guru-name {
+    font-weight: 600;
+    color: var(--dark-green);
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.guru-loc {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+.guru-loc i {
+    color: var(--accent-gold);
+    margin-right: 3px;
+}
+
+/* =========================================
+   STYLE BAB V (DAFTAR TAMU VIP)
+   ========================================= */
+
+/* Intro Box dengan Icon Besar */
+.intro-benefit-box {
+    background: #f4fcf8;
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+    margin-bottom: 40px;
+    border: 1px dashed var(--primary-green);
+    text-align: center;
+}
+
+.intro-benefit-box i {
+    font-size: 3rem;
+    color: var(--primary-green);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Grid Kartu Ulama */
+.vip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Responsif */
+    gap: 20px;
+}
+
+.vip-card {
+    background: white;
+    border: 1px solid #eee;
+    border-left: 5px solid var(--accent-gold); /* Aksen Emas di kiri */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.vip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-left-color: var(--primary-green); /* Berubah hijau saat hover */
+}
+
+/* Highlight Khusus (Untuk Habib Umar) */
+.vip-card.premium {
+    background: linear-gradient(135deg, #fff 0%, #fffdf0 100%);
+    border: 1px solid var(--accent-gold);
+    border-left: 5px solid var(--primary-green);
+    grid-column: 1 / -1; /* Melebar penuh di baris pertama */
+}
+
+/* Avatar / Placeholder Foto Ulama */
+.vip-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #f1f3f5;
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.vip-avatar i {
+    font-size: 1.5rem;
+    color: #adb5bd;
+}
+
+.vip-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Teks dalam Kartu */
+.vip-content h5 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--dark-green);
+    line-height: 1.4;
+}
+
+.vip-role {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+}
+
+.vip-desc {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.5;
+    border-top: 1px dashed #eee;
+    padding-top: 8px;
+}
+
+/* Footer Note Bab 5 */
+.closing-note {
+    margin-top: 2rem;
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 50px;
+}
+
+
+/* =================================================================
+   RESPONSIVE MOBILE (DITARUH PALING BAWAH STYLE.CSS)
+   ================================================================= */
+
+@media screen and (max-width: 991px) {
+    /* --- 1. PENYESUAIAN GLOBAL (TABLET/LAPTOP KECIL) --- */
+    
+    /* Agar layout split (Bab 4) turun ke bawah */
+    .split-layout {
+        flex-direction: column; /* Foto di atas, Teks di bawah */
+        gap: 30px;
+    }
+
+    .left-visual {
+        position: static; /* Hilangkan efek sticky di mobile */
+        width: 100%;
+        max-width: 400px; /* Batasi lebar foto agar tidak raksasa */
+        margin: 0 auto; /* Tengah */
+    }
+
+    .right-content {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* --- 2. PENYESUAIAN KHUSUS HP (MOBILE) --- */
+
+    /* Container & Spacing */
+    .chapter-wrapper {
+        padding: 30px 0 60px 0; /* Kurangi padding atas bawah */
+    }
+
+    .paper-card {
+        padding: 1.5rem; /* Padding kertas lebih tipis di HP */
+        margin-bottom: 2rem;
+    }
+
+    /* Typography (Font) */
+    .chapter-title-main {
+        font-size: 1.8rem; /* Judul Bab lebih kecil */
+        line-height: 1.2;
+    }
+
+    .paper-content p, 
+    .paper-content li {
+        font-size: 0.95rem; /* Ukuran teks paragraf sedikit dikecilkan agar muat */
+        text-align: left; /* Rata kiri (justify kadang berantakan di HP) */
+    }
+
+    .dropcap::first-letter {
+        font-size: 3rem; /* Dropcap tidak terlalu besar */
+        padding-right: 8px;
+    }
+
+    /* Bab 1: Highlight Box */
+    .highlight-box, 
+    .biography-section, 
+    .intro-benefit-box {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .highlight-box::before {
+        top: -10px;
+        font-size: 1.5rem;
+    }
+
+    /* Bab 2: Gallery Grid */
+    .gallery-grid-4 {
+        grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom di HP (seperti galeri Instagram) */
+        gap: 10px;
+    }
+
+    .gallery-grid-2 {
+        grid-template-columns: 1fr; /* Foto Sedang jadi 1 kolom (atas bawah) */
+    }
+
+    .chapter-visual, 
+    .chapter-visual.medium-size {
+        height: 200px; /* Kurangi tinggi placeholder gambar */
+        margin: 20px auto;
+    }
+
+    /* Bab 3: Tabel & Grid */
+    .program-table th, 
+    .program-table td {
+        padding: 8px 10px; /* Padatkan sel tabel */
+        font-size: 0.85rem;
+    }
+    
+    .arabic-col {
+        font-size: 1rem !important;
+    }
+
+    .concept-grid, 
+    .character-grid {
+        grid-template-columns: 1fr; /* Card jadi 1 kolom ke bawah */
+        gap: 15px;
+    }
+    
+    .stats-box .stats-number {
+        font-size: 2rem;
+    }
+
+    /* Bab 4: Daftar Guru */
+    .guru-grid {
+        grid-template-columns: 1fr; /* Daftar guru jadi 1 list ke bawah */
+    }
+
+    .silsilah-title {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    /* Bab 5: VIP Card */
+    .vip-grid {
+        grid-template-columns: 1fr; /* Card Ulama jadi 1 kolom */
+    }
+
+    .vip-card {
+        flex-direction: column; /* Foto di atas, teks di bawah */
+        text-align: center;
+        align-items: center;
+    }
+
+    .vip-desc {
+        text-align: center;
+    }
+    
+    .intro-benefit-box i {
+        font-size: 2rem;
+    }
+
+    /* Navigasi Bab (Pill) */
+    .chapter-nav {
+        gap: 8px;
+    }
+    
+    .chapter-pill {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+        flex: 1 1 auto; /* Agar tombol memenuhi lebar layar */
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* --- 3. PENYESUAIAN UNTUK HP LAYAR KECIL (SMALL MOBILE) --- */
+    
+    .chapter-title-main {
+        font-size: 1.5rem;
+    }
+
+    .gallery-grid-4 {
+        grid-template-columns: 1fr; /* Foto kecil jadi 1 kolom saja di HP kecil */
+    }
+
+    .paper-card {
+        padding: 1.2rem; /* Lebih tipis lagi */
+    }
+}
+
+
+/* =======================================================
+   PERBAIKAN RESPONSIVE MOBILE (ASAS & DAFTAR ULAMA KECIL)
+   Paste kode ini di BARIS PALING BAWAH file style.css
+   ======================================================= */
+
+@media (max-width: 767.98px) {
+
+  /* =======================================================
+   PERBAIKAN FINAL: ASAS PESANTREN (Tengah Sempurna)
+   Paste/Ganti kode ini di paling bawah style.css
+   ======================================================= */
+
+@media (max-width: 767.98px) {
+
+    .asas-box {
+        /* Menggunakan Flexbox untuk Centering Mutlak */
+        display: flex !important;
+        flex-direction: column !important;  /* Susun elemen ke bawah */
+        justify-content: center !important; /* Tengah secara VERTIKAL (Atas-Bawah) */
+        align-items: center !important;     /* Tengah secara HORIZONTAL (Kiri-Kanan) */
+        text-align: center !important;      /* Pastikan teks itu sendiri rata tengah */
+        
+        min-height: 250px !important;       /* Beri tinggi minimal agar terlihat kotak */
+        padding: 20px !important;           /* Padding aman */
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .asas-box h4 {
+        margin-top: 0 !important;
+        margin-bottom: 15px !important;     /* Jarak ke tulisan Arab */
+        font-size: 0.9rem !important;       /* Ukuran judul pas */
+        width: 100% !important;
+    }
+
+    .kalimat-tauhid {
+        margin: 0 !important;               /* Reset margin */
+        font-size: 1.1rem !important;       /* Ukuran font disesuaikan agar tidak terpotong */
+        line-height: 1.6 !important;        /* Jarak antar baris lega */
+        width: 100% !important;             /* Lebar penuh */
+        word-wrap: break-word !important;   /* Patahkan kata jika kepanjangan (safety) */
+    }
+}
+
+    /* --- 2. PERBAIKAN DAFTAR ULAMA SUPER KECIL (BAB 5) --- */
+    
+    /* Ubah Grid jadi sangat rapat */
+    .vip-grid {
+        gap: 10px !important; /* Jarak antar kartu sangat dekat */
+        margin-top: 15px !important;
+    }
+
+    /* Ubah Kartu Ulama jadi List Menyamping (Kiri Foto, Kanan Teks) */
+    .vip-card {
+        flex-direction: row !important; /* JANGAN kolom, tapi baris (samping-sampingan) */
+        align-items: flex-start !important; /* Rata atas */
+        text-align: left !important; /* Teks rata kiri */
+        padding: 10px 12px !important; /* Padding sangat tipis */
+        gap: 12px !important; /* Jarak foto ke teks dekat */
+        min-height: auto !important;
+        border-radius: 8px !important;
+    }
+
+    /* Perkecil Foto/Avatar Ulama */
+    .vip-avatar {
+        width: 40px !important; /* Ukuran foto sangat kecil (seperti ikon WA) */
+        height: 40px !important;
+        min-width: 40px !important; /* Supaya tidak gepeng */
+        border-width: 1px !important;
+    }
+    
+    .vip-avatar i {
+        font-size: 1rem !important; /* Ikon orang lebih kecil */
+    }
+
+    /* Perkecil Semua Teks di dalam Kartu */
+    .vip-content h5 {
+        font-size: 0.85rem !important; /* Nama Ulama kecil */
+        font-weight: 700 !important;
+        margin-bottom: 2px !important;
+        line-height: 1.2 !important;
+    }
+
+    .vip-role {
+        font-size: 0.7rem !important; /* Jabatan/Asal sangat kecil */
+        margin-bottom: 4px !important;
+        color: #777 !important;
+    }
+
+    .vip-desc {
+        font-size: 0.7rem !important; /* Deskripsi sangat kecil */
+        line-height: 1.3 !important;
+        padding-top: 4px !important;
+        border-top: 1px solid #f0f0f0 !important;
+        text-align: left !important; /* Paksa rata kiri */
+        color: #555 !important;
+    }
+    
+    /* Khusus Kartu Premium (Habib Umar) agar garisnya tidak tebal */
+    .vip-card.premium {
+        border-left-width: 3px !important; 
+    }
+    
+    /* Perkecil Box Intro Bab 5 */
+    .intro-benefit-box {
+        padding: 15px !important;
+    }
+    .intro-benefit-box i {
+        font-size: 2rem !important;
+        margin-bottom: 10px !important;
+    }
+    .intro-benefit-box h3 {
+        font-size: 1.1rem !important;
+    }
+    .intro-benefit-box p {
+        font-size: 0.8rem !important;
+    }
+}
+
+
+ </style>
+
+</head>
+
+ 
+<body id="top">
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/index.html">
+        <img src="assets/img/logo.png" alt="Logo Asy-Syifaa Wal Mahmuudiyyah" width="70" height="70" class="me-2">
+        <span class="fs-4">Asy-Syifaa Wal Mahmuudiyyah</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fa-solid fa-house"></i> Beranda</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-school"></i> Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="ProfileDropdown">
+                    <li><a class="dropdown-item" href="/profil.html">Profil</a></li>
+                    <li><a class="dropdown-item" href="/profil-visi-misi.html">Visi & Misi</a></li>
+                    <li><a class="dropdown-item" href="/profil-kurikulum.html">Kurikulum</a></li>
+                    <li><a class="dropdown-item" href="/profil-fasilitas.html">Fasilitas Pesantren</a></li>
+                    <li><a class="dropdown-item" href="/profil-ekskul.html">Ekstrakurikuler</a></li>
+                    <li><a class="dropdown-item" href="/profil-struktur.html">Struktur Organisasi</a></li>
+                    <li><a class="dropdown-item" href="/profil-guru.html">Guru</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="direktoriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-address-book"></i> Direktori</a>
+                <ul class="dropdown-menu" aria-labelledby="direktoriDropdown">
+                    <li><a class="dropdown-item" href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                    <li><a class="dropdown-item" href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                    <li><a class="dropdown-item" href="/direktori-pengajar.html">Direktori Pengajar</a></li>
+                      <li><a class="dropdown-item" href="/direktori-alumni.html">Direktori Alumni</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user-plus"></i> Pendaftaran</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                    <li><a class="dropdown-item" href="/daftar-sekarang.html">Daftar Sekarang</a></li>
+                    <li><a class="dropdown-item" href="/hasil-seleksi.html">Hasil Seleksi</a></li>
+                </ul>
+            </li>
+
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="kegiatanSantriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-calendar-alt"></i> Kegiatan</a>
+                <ul class="dropdown-menu" aria-labelledby="kegiatanSantriDropdown">
+                    <li><a class="dropdown-item" href="/kegiatan-harian.html">Harian</a></li>
+                    <li><a class="dropdown-item" href="/kegiatan-mingguan.html">Mingguan, Bulanan, Tahunan</a></li>
+                </ul>
+            </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-info"></i>Informasi</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/info-pengumuman.html">Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="/info-prestasi.html">Prestasi</a></li>
+                    <li><a class="dropdown-item" href="/e-raport.html">E-Raport</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/galeri.html" id="galeri"  aria-expanded="false"><i class="fa-solid fa-images"></i> Galeri</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" id="apps-erp-link" aria-expanded="false"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="toggleSearch" title="Pencarian">
+                <i class="fa-solid fa-search"></i></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="chapter-spacer" style="height: 50px;"></div> <div class="chapter-header-box" data-aos="fade-up">
+    <span class="chapter-number">BAB I</span>
+    <h1 class="chapter-title-main">PENDAHULUAN</h1>
+    <img src="../../assets/img/divider-gold.png" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+</div>
+
+
+<article class="paper-card" id="bab-1-content" data-aos="fade-up" data-aos-delay="100">
+    
+    <div class="paper-content">
+        <h3 class="mt-0">1. Latar Belakang</h3>
+        <p class="dropcap">
+            Agama Islam adalah rahmat bagi seluruh alam. Hanya dengan Islam, manusia bakal hidup selamat, bahagia dan mulia di dunia dan akhirat. RosuluLLOOH SAW bersama para Sahabat dan orang-orang yang beriman sesudahnya telah membuktikan bahwa hidup dengan cara Islam telah mampu mewujudkan pola kehidupan yang aman, damai dan sejahtera bagi ummat Islam pada khususnya dan umat manusia pada umumnya.
+        </p>
+
+        <div class="chapter-visual">
+            <img src="Pondok Pesantren/Simpang 1200x675.png" alt="Foto Bangunan Pesantren Asy-Syifaa" onerror="this.style.display='none'">
+            <div class="photo-caption">
+                <i class="bi bi-camera-fill me-2"></i>Gedung Pusat Asy-Syifaa
+            </div>
+        </div>
+        <p>
+            Ketika itu, umat Islam benar-benar telah menjadi poros kehidupan yang menakjubkan. Kesemuanya itu bisa terjadi karena RosuluLLOOH SAW bersama para Sahabat dan orang-orang yang beriman sesudahnya mampu menerapkan pola kehidupan yang diatur oleh syari’at Islam.
+        </p>
+        <p>
+            Bagaimana dengan umat Islam sekarang? Secara jujur tampaknya Era globalisasi yang menguat telah membawa dampak yang tidak hanya menggembirakan karena memberi sejumlah harapan, melainkan juga dampak negatif yang justru memprihatinkan. Pola ucap dan tingkah laku umat Islam saat ini banyak yang belum menampakkan keberhasilan internalisasi nilai-nilai Islam.
+        </p>
+        
+        <div class="highlight-box">
+            <p class="mb-0">
+                <strong>Pendirian Pesantren:</strong><br>
+                Berdasarkan pada hal di atas, pada tanggal <strong>24 Jumadil Awwal 1421 H</strong> bertepatan dengan tanggal <strong>24 Agustus 2000 M</strong>, secara formal dideklarasikan dihadapan publik oleh Abuya pada momentum Peringatan Maulid Nabi Muhammad SAW di Alun-alun Sumedang didirikannya Pondok Pesantren, Majlis Ta'lim dan Da’wah yang diberi nama <strong>Asy-Syifaa Wal Mahmuudiyyah</strong>.
+            </p>
+        </div>
+
+        <p>
+            Pesantren ini berdiri di atas faham <strong>Ahlussunnah Wal Jama’ah</strong> dan menganut salah satu dari empat mazhab:
+        </p>
+        
+        <div class="mazhab-grid">
+            <div class="mazhab-item">Mazhab Syafi’i</div>
+            <div class="mazhab-item">Mazhab Hanafi</div>
+            <div class="mazhab-item">Mazhab Maliki</div>
+            <div class="mazhab-item">Mazhab Hambali</div>
+        </div>
+
+        <h3>2. Makna Asy-Syifaa Wal Mahmuudiyyah</h3>
+        <p>
+            Menurut Abuya, penamaan <strong>Asy-Syifaa Wal Mahmuudiyyah</strong> tujuannya supaya tempat tersebut menjadi tempat pengobatan kegelisahan ummat di tengah hiruk pikuknya kehidupan masa kini.
+        </p>
+        <ul>
+            <li><strong>Asy-Syifaa (Obat Penyembuh):</strong> Diharapkan menjadi "Rumah Sakit Bathin" bagi ummat yang memiliki penyakit ruhani, sehingga ummat bisa sampai pada ridho Allah SWT.</li>
+            <li><strong>Wal Mahmuudiyyah (Dan Terpuji):</strong> Diambil atau disandarkan pada karuhun atau leluhur Abuya yakni Waliyulloh Mahmuud (Syekh Abdul Manaf) di Cipatik Cigondewah Bandung, sebagai bentuk <em>tabarruk</em> (mengambil berkah).</li>
+        </ul>
+
+        <h3>3. Tujuan, Asas dan Sifat</h3>
+        
+        <h4>a. Tujuan</h4>
+        <ul class="custom-list-number">
+            <li>
+                <strong>Menghidupkan Kembali Ilmu Agama</strong><br>
+                Menghidupkan kembali ilmu-ilmu Agama (Ihya 'Ulumiddiin) dan Sunnah-sunnah Rasulullah SAW menuju terciptanya lebih banyak insan yang menjadi Ulama Rabbani dan hamba yang taqwa kepada Allah serta berakhlak mulia.
+            </li>
+            <li>
+                <strong>Mencetak Lulusan Berkualitas Internasional</strong><br>
+                Bagi para santri, diharapkan lulusannya sejajar dengan lulusan pesantren kelas dunia seperti di Tarim (Yaman), Mesir, Makkah, dan Madinah.
+            </li>
+        </ul>
+
+        <h4>b. Asas</h4>
+        <div class="asas-box">
+            <h4>Asas Pesantren</h4>
+            <div class="kalimat-tauhid">
+                Laa ilaaha illALLAAH MuhammadurrosuuluLLOOH
+            </div>
+        </div>
+
+        <h4>c. Sifat</h4>
+        <p>
+            Jama’ah / santri (ikhwannya) bersifat terbuka bagi setiap muslim, bersifat sukarela, tidak membedakan suku dan ras. Pesantren ini <strong>bukan organisasi sosial politik</strong>.
+        </p>
+
+    </div>
+</article>
+
+<div class="chapter-spacer" style="height: 50px;"></div> <div class="chapter-header-box" data-aos="fade-up">
+    <span class="chapter-number">BAB II</span>
+    <h1 class="chapter-title-main">Perkembangan Pembangunan Fisik</h1>
+    <img src="../../assets/img/divider-gold.png" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+</div>
+
+<article class="paper-card" id="bab-2-content" data-aos="fade-up">
+    <div class="paper-content">
+        
+        <h3 class="mt-0">1. Pendirian Pondok Pesantren</h3>
+        <p class="dropcap">
+            Pondok Pesantren, Majlis Ta'lim dan Da’wah Asy-Syifaa Wal Mahmuudiyyah awalnya didirikan oleh Ayahanda Abuya yakni <strong>Al-’Alim, Al-’Allamah K. H. Ahmad Toha Mustawi Al-’Arif Billah</strong> bin Al-’Alim, Al-’Allamah K. H. Muhammad Hasan Manafi Al-’Arif Billah. Pesantren ini mulai berdiri di Jl. Raya Soreang – Cipatik Km 8,6 Kampung Badaraksa Desa Jelegong Kecamatan Kutawaringin Kabupaten Bandung.
+        </p>
+        <p>
+            Pondok Pesantren kemudian tumbuh dan berkembang dengan pesat dan berdiri cabangnya di:
+        </p>
+        <ul class="custom-list-number">
+            <li>Lingkungan Pangaduan Heubeul RT 02 RW 11 Kelurahan Situ Kecamatan Sumedang Utara Kabupaten Sumedang.</li>
+            <li>Jl. Lanjung No. 6 Tanjungsari (Samping Timur Puskesmas Kecamatan Tanjungsari) Kabupaten Sumedang.</li>
+            <li>Kampung Rancakihiyang Desa Bojongloa Kecamatan Rancaekek Kabupaten Bandung.</li>
+        </ul>
+
+        <h3>2. Pengembangan Pondok Pesantren</h3>
+        <p>
+            Sehubungan dengan tuntutan kebutuhan, Abuya memandang bahwa Pondok Pesantren perlu dikembangkan menjadi lebih besar yang sekaligus menjadi pusat kegiatan. Setelah melalui proses pengkajian yang cukup panjang dan mendasar oleh Abuya termasuk melalui <strong>Shalat Istikhoroh yang sampai 3 tahun</strong>, maka dipilihlah lokasi di <strong>Kampung Simpang Desa Haurngombong</strong> Kecamatan Pamulihan Kabupaten Sumedang.
+        </p>
+        <p>
+            Tanah seluas 2 hektar ini merupakan wakaf dari Bapak H. Munadi, ST. (Bapak H. Suwandi, ST.) dan Ibu Hj. Wiwi binti H. Oyod Samsudin.
+        </p>
+        
+        <div class="highlight-box">
+            <p class="mb-0">
+                <strong>Kondisi Awal:</strong><br>
+                Berdasarkan kajian kasat mata saat survei lapangan (21 Shafar 1431 H / 6 Februari 2010 M), lokasi ini sungguh cukup berat. Kondisi tanah tidak rata, berbukit kecil, dan berada di pinggir tebing.
+            </p>
+        </div>
+
+        <p>
+            Ada proses yang “unik” ketika Abuya mengajak salah seorang Pengurus dan pemilik lahan melihat-lihat (mendo’akan) calon lokasi pesantren yang dilaksanakan pada <strong>malam hari kira-kira jam 02.00 WIB sampai dengan Subuh</strong> dengan penerangan lampu sederhana. Blusukan (apruk-aprukan) di tengah lahan sawah dan lahan kering yang cukup renjul (tidak rata).
+        </p>
+        <p>
+            Langkah berikutnya adalah sosialisasi rencana pembangunan, perataan tanah dengan alat berat (doser), hingga pembangunan Saung Pertemuan sederhana dari bambu sebagai tempat awal pengajian dan koordinasi.
+        </p>
+
+       
+        <h3>3. Peletakan Batu Pertama</h3>
+         <div class="gallery-grid-4">
+            <div class="gallery-item-small">
+                <img src="Pondok Pesantren/Peletakkan Batu Pertama 1.png" alt="Foto Sejarah " onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-item-small">
+                <img src="Pondok Pesantren/Peletakkan Batu Pertama 2.png" alt="Foto Sejarah 2" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-item-small">
+                <img src="Pondok Pesantren/Peletakkan Batu Pertama 3.png" alt="Foto Sejarah 3" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-item-small">
+                <img src="Pondok Pesantren/Peletakkan Batu Pertama 4.png" alt="Foto Sejarah 4" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <p>
+            Mengawali pembangunan fisik pondok pesantren, dilaksanakan peletakan batu pertama oleh Ulama Besar kelas internasional, yaitu <strong>Yang Mulia Al Alim Al ‘Allaamah Adda’I IlALLAH Al Habib Umar Bin Muhammad Bin Salim Bin Hafidz</strong> (Rektor Pusat Studi Islam Darul Musthofa Tarim Yaman) pada hari Selasa, 28 Muharram 1432 H (3 Januari 2011 M).
+        </p>
+        <p>
+            Dalam acara tersebut, beliau berharap pesantren ini menjadi <em>”Pabrik Ulama dan Wali Allah”</em>. Ada bisyaroh yang menggembirakan saat itu, yaitu munculnya awan bertuliskan lafadz Allah yang disaksikan oleh para hadirin dan sempat dimuat media cetak lokal.
+        </p>
+
+  <div class="biography-section">
+            <div class="biography-title">
+                <i class="fas fa-user-circle"></i> Sekilas Profile Al-Habib Umar
+            </div>
+            <p>
+                Sosok Al-Habib Umar Bin Muhammad Bin Salim Bin Hafidz merupakan anugerah besar bagi muslimin saat ini. Beliau lahir di Tarim, "Kota Seribu Wali", pada Senin, 4 Muharram 1388 H (27 Mei 1963 M).
+            </p>
+            <p>
+                Nasab beliau bersambung langsung kepada Rasulullah SAW melalui jalur Sayyidina Husein r.a. Beliau mendirikan <strong>Pondok Pesantren Darul Mustafa</strong> di Tarim pada tahun 1993 M dengan tujuan mengajarkan ilmu secara talaqqi, menyucikan diri, dan berdakwah. Murid beliau tersebar di seluruh dunia, termasuk Indonesia.
+            </p>
+        </div>
+
+      
+        <h3>4. Bangunan Khas Daerah / Negara</h3>
+          <div class="gallery-grid-2">
+            
+            <div class="chapter-visual">
+                <img src="Pondok Pesantren/Simpang 1 1500x600.png" alt="Foto Bangunan 1" onerror="this.style.display='none'">
+                <div class="photo-caption">Sudut Pandang 1</div>
+            </div>
+
+            <div class="chapter-visual">
+                <img src="Pondok Pesantren/Simpang 2 1500x600.png" alt="Foto Bangunan 2" onerror="this.style.display='none'">
+                <div class="photo-caption">Sudut Pandang 2</div>
+            </div>
+
+        </div>
+        <p>
+            Pencanangan pembangunan fisik dimulai dengan bahan bambu pada 16 Oktober 2011. Abuya berencana membuat bangunan pondokan santri dengan desain khas bangunan daerah atau khas negara masing-masing. Tujuannya agar santri merasa betah, sekaligus meningkatkan rasa persatuan bangsa dan internasional.
+        </p>
+        <p>
+            Salah satu yang unik adalah bangunan berbentuk <strong>Rumah Gadang (Minang)</strong>. Konsep ini dipilih karena Abuya mencintai Padang dan bertabaruk kepada Syekh Yasin Al-Fadaani (Musnid Dunia).
+        </p>
+        <p>
+            Bangunan-bangunan ini berada di dataran tinggi, sehingga terlihat jelas dan unik dari kejauhan. Beberapa fasilitas yang telah dibangun meliputi Masjid, Gedung Multi Fungsi Raudhah (gaya Makkah-Madinah), gazebo (saung), asrama, hingga helipad.
+        </p>
+
+        <h3>5. Sumber Dana Pembangunan</h3>
+        <p>
+            Pondok Pesantren hampir sepenuhnya dibangun dengan dana dari Abuya, Jama’ah, dan simpatisan. Hal ini dipandang penting agar semua merasa memiliki dan mendapatkan pahala jariyah, serta menjaga keberkahan ilmu karena terhindar dari dana syubhat.
+        </p>
+        <p>
+            Dana dihimpun melalui infaq langsung, gelar sorban saat pengajian, Kotak Tabungan Masa Depan, dan transfer bank. Pihak pesantren <strong>tidak menerbitkan proposal pembangunan</strong>, namun menerima dukungan ikhlas berupa materi, tenaga, maupun doa.
+        </p>
+        <p>
+            <em>Catatan: Satu-satunya bangunan pemerintah adalah RUSUNAWA (2013) dari Kementrian Perumahan Rakyat RI yang diterima dalam kondisi sudah jadi.</em>
+        </p>
+
+    </div>
+</article>
+
+<div class="chapter-spacer" style="height: 50px;"></div>
+
+<div class="chapter-header-box" data-aos="fade-up">
+    <span class="chapter-number">BAB III</span>
+    <h1 class="chapter-title-main">Perkembangan Kepesantrenan</h1>
+    <img src="../../assets/img/divider-gold.png" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+</div>
+
+<article class="paper-card" id="bab-3-content" data-aos="fade-up">
+    <div class="paper-content">
+
+        <h3 class="mt-0">1. Pesantren Kelas Dunia</h3>
+        <p class="dropcap">
+            Dengan peletakan batu pertama yang monumental oleh Yang Mulia Al Habib Umar Bin Hafidz, Abuya berharap pesantren ini menjadi sarana untuk mencetak santri-santri dari seluruh penjuru dunia yang menjadi <strong>Ulama Rabbani</strong>.
+        </p>
+        <p>
+            Lulusannya diharapkan berkualitas internasional, sejajar dengan lulusan pesantren kelas dunia seperti di Tarim (Yaman), Mesir, Makkah, dan Madinah. Tujuannya adalah mendorong terwujudnya tatanan kehidupan global yang <em>"Baldatun Thayyibatun Wa Rabbun Ghafuur"</em>.
+        </p>
+        
+        <div class="concept-grid">
+            <div class="concept-card">
+                <h4><i class="fas fa-layer-group me-2"></i>Sistem Terpadu</h4>
+                <ul class="custom-list-number" style="font-size: 0.9rem;">
+                    <li><strong>Integratif:</strong> Kesatuan peran orang tua, pesantren, dan masyarakat.</li>
+                    <li><strong>Materi:</strong> Paduan ilmu agama (Ulumuddin) dan ilmu umum (Science) untuk memperkokoh aqidah.</li>
+                    <li><strong>Holistik:</strong> Pengembangan Spiritual (Ruhiyyah), Intelektual (Akal), dan Keterampilan.</li>
+                    <li><strong>Metodologi:</strong> Transfer pengetahuan sekaligus transfer nilai (Uswah).</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card">
+                <h4><i class="fas fa-globe-asia me-2"></i>Makna Internasional</h4>
+                <ul class="custom-list-number" style="font-size: 0.9rem;">
+                    <li><strong>Pendidik:</strong> Lulusan pesantren bertaraf internasional (Yaman, Mesir, Makkah).</li>
+                    <li><strong>Santri:</strong> Diharapkan datang dari seluruh penjuru dunia.</li>
+                    <li><strong>Bahasa:</strong> Pengantar Bahasa Indonesia, Arab, dan Inggris.</li>
+                    <li><strong>Kualitas:</strong> Standar kompetensi lulusan sejajar dengan kiblat pendidikan Islam dunia.</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>
+            Dalam upaya membangun pesantren bertaraf Internasional, Abuya telah mengirim tiga Mu’alim putra beliau ke Hadramaut Yaman pada 8 September 2017 M, yaitu: Mu’alim Muhammad Idris As-Syafi’i, Mu’alim Syarif Muhammad Al-Hasani, dan Mu’alim Muhammad Tsabit.
+        </p>
+
+        <h3>2. Aspek Legalitas Pesantren</h3>
+        <div class="highlight-box" style="border-left-color: var(--primary-green);">
+            <p class="mb-2"><strong>Badan Hukum Yayasan:</strong></p>
+            <ul style="list-style-type: circle; margin-bottom: 1rem;">
+                <li>SK Kemenkumham RI No: AHU-46.AH.01.04. Tahun 2014.</li>
+                <li>Pembaruan SK Kemenkumham No: AHU-AH.01.06-0002651 (2020).</li>
+            </ul>
+            <p class="mb-2"><strong>Izin Operasional Pesantren:</strong></p>
+            <ul style="list-style-type: circle; margin-bottom: 0;">
+                <li>Piagam Kemenag Kab. Sumedang No: 5321113001.</li>
+                <li>SK Dirjen Pendis No: 5791.</li>
+            </ul>
+        </div>
+
+        <h3>3. Tujuan & Karakter Santri</h3>
+        <p>
+            Tujuannya adalah membentuk anak didik menjadi hamba Allah yang shaleh secara individual dan sosial, serta memberikan bekal pengetahuan dan keterampilan sesuai zamannya.
+        </p>
+        
+        <h4 class="text-center mb-4">9 Karakter Pribadi Muslim</h4>
+        
+        <div class="character-grid">
+            <div class="character-item">
+                <div class="arabic-text">سليم العقيدة</div>
+                <div class="latin-text">1. Salimul Aqidah</div>
+                <div class="translate-text">Aqidah yang bersih</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">صحيح العبادة</div>
+                <div class="latin-text">2. Shahihul Ibadah</div>
+                <div class="translate-text">Ibadah yang benar</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">متين الخلق</div>
+                <div class="latin-text">3. Matinul Khuluq</div>
+                <div class="translate-text">Akhlaq yang kokoh</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">قوي الجسم</div>
+                <div class="latin-text">4. Qawiyyul Jism</div>
+                <div class="translate-text">Jasmani yang kuat</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">مثقف الفكر</div>
+                <div class="latin-text">5. Mutsaqqoful Fikri</div>
+                <div class="translate-text">Intelek dalam berfikir</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">مجاهدة النفس</div>
+                <div class="latin-text">6. Mujahadatun Nafsi</div>
+                <div class="translate-text">Berjuang melawan hawa nafsu</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">حريص على الوقت</div>
+                <div class="latin-text">7. Harishun 'alal Waqti</div>
+                <div class="translate-text">Pandai menjaga waktu</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">قدير على الكسب</div>
+                <div class="latin-text">8. Qodirun 'alal Kasbi</div>
+                <div class="translate-text">Memiliki kemandirian</div>
+            </div>
+            <div class="character-item">
+                <div class="arabic-text">نافع لغيره</div>
+                <div class="latin-text">9. Naafi’un li Ghoirih</div>
+                <div class="translate-text">Bermanfaat bagi orang lain</div>
+            </div>
+        </div>
+
+        <h3>4. Program Unggulan</h3>
+        
+        <div class="chapter-visual medium-size" style="margin-bottom: 2rem;">
+            <img src="" alt="Foto Kegiatan Belajar Santri" onerror="this.style.display='none'">
+            <div class="placeholder-info">
+                <i class="bi bi-book-half"></i>
+                <span>Foto Kegiatan Belajar / Halaqah</span>
+            </div>
+            <div class="photo-caption">Kegiatan Halaqah Santri</div>
+        </div>
+        <h4>A. Unggul dalam Mafahiim (Wawasan)</h4>
+        <div class="program-table-wrapper">
+            <table class="program-table">
+                <thead>
+                    <tr>
+                        <th width="50px">No</th>
+                        <th>Mata Pelajaran</th>
+                        <th class="text-end">Fann / Arab</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Ilmu Tauhid / Ideologi</td><td class="arabic-col">فن التوحيد</td></tr>
+                    <tr><td>2</td><td>Ilmu Fiqih</td><td class="arabic-col">فن الفقه</td></tr>
+                    <tr><td>3</td><td>Ilmu Tasawwuf, Adab & Akhlaq</td><td class="arabic-col">فن التصوف والأداب والأخلاق</td></tr>
+                    <tr><td>4</td><td>Ilmu Ushul Fiqih</td><td class="arabic-col">فن اصول الفقه</td></tr>
+                    <tr><td>5</td><td>Ilmu Tajwid</td><td class="arabic-col">فن التجويد</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4>B. Unggul dalam Tahfidz (Hafalan)</h4>
+        <div class="program-table-wrapper">
+            <table class="program-table">
+                <thead>
+                    <tr>
+                        <th width="50px">No</th>
+                        <th>Kitab / Surat</th>
+                        <th class="text-end">Nama Kitab (Arab)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Tanwirul Qulub</td><td class="arabic-col">تنوير القلوب</td></tr>
+                    <tr><td>2</td><td>Jurumiyyah & Alfiyyah</td><td class="arabic-col">جرومية بالالفية</td></tr>
+                    <tr><td>3</td><td>Bab Tashrif</td><td class="arabic-col">باب التصريف</td></tr>
+                    <tr><td>4</td><td>Riyaadus Sholihin</td><td class="arabic-col">رياض الصالحين</td></tr>
+                    <tr><td>5</td><td>Safinah an-Naja</td><td class="arabic-col">سفينة النجا</td></tr>
+                    <tr><td>6</td><td>Juz ‘Amma & Surat Pilihan*</td><td class="arabic-col">جزء عم وسور مختارة</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="small text-muted">*Surat Pilihan: Al-Baqoroh, Ali-Imran, An-Nisa, Al-Maidah, Al-An'am, Al-Kahfi, Yaasin, Al-Waqi'ah, As-Sajdah, Ad-Dukhon, Al-Mulk, Juz 29.</p>
+
+        <h4>C. Unggul dalam Amaliyyah (Realisasi)</h4>
+        <ul class="custom-list-number three-column-list">
+            <li>Sholat Berjama’ah Tiap Waktu</li>
+            <li>Sholat Sunnah Rawatib</li>
+            <li>Wirid Ba’da Sholat</li>
+            <li>Sholat Dhuha</li>
+            <li>Qiyamul Lail (Tahajud)</li>
+            <li>Sholat Witir</li>
+            <li>Ratib Imam Al-Haddad</li>
+            <li>Ratib Imam Al-Atthos</li>
+            <li>Do’a Sehari-hari</li>
+            <li>Wirid Ijazah</li>
+            <li>Praktek Wudlu & Sholat</li>
+            <li>Praktek Pengurusan Jenazah</li>
+        </ul>
+
+        <h3>5. Perkembangan Santri</h3>
+        <p>
+            Pesantren memulai penerimaan santri baru pada tahun ajaran 1434 H / 2013 M dengan jumlah awal <strong>35 santri</strong>.
+        </p>
+        <p>
+            Alhamdulillah, pada tahun ajaran 1441 H / 2020 M, terjadi peningkatan yang sangat signifikan:
+        </p>
+
+        <div class="stats-box">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="stats-number">980</div>
+                    <div class="small">Santri Unggulan</div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="stats-number">400</div>
+                    <div class="small">Santri Khidmah</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-number">51</div>
+                    <div class="small">Pengajar (Mu'alim/ah)</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-muted small">
+            <em>Catatan: Saat ini pesantren fokus penuh pada pendidikan kepesantrenan (mencetak Ulama Rabbani) dan belum menyelenggarakan pendidikan umum formal di pagi/siang hari.</em>
+        </p>
+
+    </div>
+</article>
+
+<div class="chapter-spacer" style="height: 50px;"></div>
+
+<div class="chapter-header-box" data-aos="fade-up">
+    <span class="chapter-number">BAB IV</span>
+    <h1 class="chapter-title-main">Silsilah Sanad Keilmuan</h1>
+    <img src="../../assets/img/divider-gold.png" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+</div>
+
+<article class="paper-card" id="bab-4-content">
+    <div class="paper-content">
+        
+        <div class="split-layout">
+            
+            <div class="left-visual" data-aos="fade-right">
+                <div class="portrait-frame">
+                    <img src="Pondok Pesantren/Abuya 1.png" alt="Abuya K.H. Muhammad Muhyiddin" onerror="this.style.display='none'">
+                    <div class="photo-caption" style="bottom: 10px; right: 10px;">
+                        Abuya K.H. Muhammad Muhyiddin
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-content" data-aos="fade-left">
+                
+                <h3 class="mt-0 mb-3" style="font-size: 1.6rem;">Guru-Guru Beliau</h3>
+                
+                <div class="silsilah-intro">
+                    <p class="mb-0">
+                        Berikut adalah para Masyaikh dan Ulama Besar tempat <strong>Abuya K. H. Muhammad Muhyiddin Abdul Qodir Al-Manafi, MA</strong> menimba ilmu dan mengambil sanad keilmuan secara langsung (talaqqi):
+                    </p>
+                </div>
+
+                <div class="guru-grid">
+                    
+                    <div class="guru-item">
+                        <div class="guru-number">1</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Ahmad Thoha Mustawi ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">2</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Aceng Bojong ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">3</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Muhammad Yahya ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">4</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Agus Qistolani ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">5</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Khoer Affandi ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">6</div>
+                        <div class="guru-info">
+                            <span class="guru-name">K. H. Aang Syatibi ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">7</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Habib Abdullaah Bin Abdul Qodir Bilfaqih ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Malang</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">8</div>
+                        <div class="guru-info">
+                            <span class="guru-name">As Sayyid Muhammad Alwi al Maliki ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Mekah</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">9</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Miskin al Misri ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">10</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Ali Bafaqih</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">11</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Ahmad Al Kaff Al Jufri ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Madinah</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">12</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Ismail Bin Muhammad Al Yamani Al Makki ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Yaman</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">13</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Yasin Al Fadani ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Mekah</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">14</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Muhammad Amin Hariri Asy Syafi’i Al Makki ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">15</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Abdurrahman Bin Abdil Hayyi Al Kattani ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">16</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Syekh Madani Al Madani ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">17</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Muhammad Bin Alwi Al Idrus ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">18</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Salim Bin Abdullaah Asy Syatiri ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">19</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Zein Bin Ibrohim Bin Smith Al Madani Al Yamani ra.</span>
+                        </div>
+                    </div>
+
+                    <div class="guru-item">
+                        <div class="guru-number">20</div>
+                        <div class="guru-info">
+                            <span class="guru-name">Al Habib Umar Bin Salim Bin Hafidz ra.</span>
+                            <span class="guru-loc"><i class="bi bi-geo-alt-fill"></i> Tarim, Yaman</span>
+                        </div>
+                    </div>
+
+                </div> </div> </div> </div>
+</article>
+
+<div class="chapter-spacer" style="height: 50px;"></div>
+
+<div class="chapter-header-box" data-aos="fade-up">
+    <span class="chapter-number">BAB V</span>
+    <h1 class="chapter-title-main">Keunggulan & Keberkahan Mondok</h1>
+    <img src="../../assets/img/divider-gold.png" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+</div>
+
+<article class="paper-card" id="bab-5-content">
+    <div class="paper-content">
+        
+        <div class="intro-benefit-box" data-aos="zoom-in">
+            <i class="fas fa-praying-hands"></i>
+            <h3 style="margin-top:0;">Plusnya Mondok Di Asy-Syifaa</h3>
+            <p style="margin-bottom:0;">
+                Santri tidak hanya menerima ilmu dari Abuya dan para Mu’alimin, tetapi juga sering menerima materi pelajaran dan <strong>do’a dari Ulama-ulama Besar Dunia</strong>. Pesantren ini menjadi magnet bagi para Ulama Internasional untuk berkunjung, menyampaikan tausiah, dan mendoakan para santri.
+            </p>
+        </div>
+
+        <h4 class="text-center mb-4">Daftar Ulama & Habaib Internasional yang Berkunjung</h4>
+
+        <div class="vip-grid">
+            
+            <div class="vip-card premium" data-aos="fade-up">
+                <div class="vip-avatar">
+                    <img src="Pondok Pesantren/Habib Umar Bin Hafidz 1.png" alt="Habib Umar" onerror="this.style.display='none'">
+                    <i class="fas fa-user-tie" style="display:block;"></i> </div>
+                <div class="vip-content">
+                    <h5>Yang Mulia Al Habib Umar Bin Muhammad Bin Salim Bin Hafidz</h5>
+                    <span class="vip-role"><i class="fas fa-globe-africa"></i> Rektor Darul Musthofa, Tarim - Yaman</span>
+                    <div class="vip-desc">
+                        <strong>Dua Kali Berkunjung:</strong><br>
+                        1. Peletakan Batu Pertama (28 Muharram 1432 H / 3 Jan 2011 M).<br>
+                        2. Nara Sumber Multaqo Ulama Internasional Ke-12 & Peresmian "Sementara" Pembangunan (10 Okt 2018 M).
+                    </div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="vip-avatar">
+                    <img src="" alt="Habib Salim" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="vip-content">
+                    <h5>Habib Saalim Bin ’Abdullah Bin ’Umar Asy-Syathiri ra.</h5>
+                    <span class="vip-role">Sultoonul ’Ilmi - Pengasuh Rubath Tarim</span>
+                    <div class="vip-desc">
+                        Meresmikan Majlis Pengajian Rutin & Do’a (24 Shafar 1432 H).
+                    </div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="vip-avatar">
+                    <img src="" alt="Habib Zein" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="vip-content">
+                    <h5>Habib Zein Ibrahim Bin Sumaith Hafidzohulloh</h5>
+                    <span class="vip-role">Madinah Al-Munawwaroh</span>
+                    <div class="vip-desc">
+                        Menyampaikan ijazah beberapa surat Al-Qur’an & keutamaannya (29 Jumadi Awwal 1432 H).
+                    </div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Habib Muhammad Bin Abdulloh Aljunaed</h5>
+                    <span class="vip-role">Yaman</span>
+                    <div class="vip-desc">Koordinator Majlis Muwasholah Bainal Ulama Asia Tenggara.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Habib Umar Bin Zein Bin Semith</h5>
+                    <span class="vip-role">Putra Habib Zein Bin Ibrohim</span>
+                    <div class="vip-desc">Al’aalim Al’allaamah.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Syekh Umar Bin Husain Al-Khatib</h5>
+                    <span class="vip-role">Mufti Tarim - Yaman</span>
+                    <div class="vip-desc">Dari Ma’had Darul Musthofa.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Syekh Dr. Saif Bin Ali Bin Mohammad Al-Ashri</h5>
+                    <span class="vip-role">Qatar / UEA</span>
+                    <div class="vip-desc">Guru Besar Univ. Zaid & Mufti Resmi Pusat Fatwa UEA.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Syekh Mush'ab</h5>
+                    <span class="vip-role">Manchester, Inggris</span>
+                    <div class="vip-desc">Al'aalim Al'allaamah Addaa'i ilaLLah.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Habib Murtadlo Bin Tohir</h5>
+                    <span class="vip-role">Hadromaut, Yaman</span>
+                    <div class="vip-desc">Cucu Pengarang Kitab Sulam Taufiq.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>DR. Syeikh Abdul Fattah Bin Shaleh Quddais</h5>
+                    <span class="vip-role">Yaman</span>
+                    <div class="vip-desc">Pengarang banyak kitab Fiqh, Tauhid, Adab, & Akhlak.</div>
+                </div>
+            </div>
+
+            <div class="vip-card" data-aos="fade-up">
+                <div class="vip-avatar"><i class="fas fa-user"></i></div>
+                <div class="vip-content">
+                    <h5>Syeikh Muhammad Yasir Al-Qudlbani Asy-Syami</h5>
+                    <span class="vip-role">Yaman</span>
+                    <div class="vip-desc">Ulama Besar.</div>
+                </div>
+            </div>
+
+        </div> <div class="closing-note">
+            <i class="fas fa-infinity me-2"></i>
+            Dan tentunya masih banyak lagi Ulama dari Makkah, Madinah, Jedah, Amerika, Australia, Libia, Mesir, Thailand, Kamboja, Malaysia, Singapura yang tidak disebutkan satu persatu.
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="modern-footer pt-5" id="kontak">
+    <div class="container pb-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-section">
+                    <div class="footer-title-container mb-3">
+                        <img src="../../assets/img/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                    </div>
+                    <p class="small text-white-50">
+                        Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.
+                    </p>
+                    <div class="footer-social mt-4">
+                        <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@AsySyifaaTVOfficial" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@asysyifaapusat" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-section">
+                    <h4>Tautan Penting</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/profil-visi-misi.html">Visi & Misi</a></li>
+                        <li><a href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                        <li><a href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                        <li><a href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                        <li><a href="/kegiatan-harian.html">Kegiatan Santri</a></li>
+                        <li><a href="/profil-kurikulum.html">Kurikulum Santri</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div class="text-white-50 small">
+                                Haurngombong, Kec. Pamulihan,
+                                Kabupaten Sumedang, Jawa Barat 45365
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6285322170007">0853-2217-0007</a>
+                                <span class="d-block small text-white-50">Administrasi</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                             <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6281776476495">0817-7647-6495</a>
+                                <span class="d-block small text-white-50">Muadalah</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                 <div class="footer-section h-100 d-flex flex-column">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container flex-grow-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.94427321582!2d107.82905607481875!3d-6.897268967496455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68daea5822cbff%3A0xdfe3d87acad09232!2sAsy-Syifaa%20Pusat!5e0!3m2!1sid!2sid!4v1750775764062!5m2!1sid!2sid" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="footer-bottom text-center small py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p class="m-0 text-white-50">© 2026 Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<a href="#top" id="backToTop" title="Kembali ke atas">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+    <path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"></path>
+  </svg>
+</a>
+
+<div id="searchOverlay">
+  <span id="closeSearch" class="close-search" title="Tutup">×</span>
+  <div class="search-box">
+    <form class="d-flex gap-2" action="/pencarian.html" method="GET">
+      <input type="text" name="s" class="form-control" autocomplete="off" placeholder="Cari di seluruh situs..." required />
+      <button type="submit"><i class="bi bi-search"></i> CARI</button>
+    </form>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="../../assets/script.js"></script>
+
+</body>
+</html>

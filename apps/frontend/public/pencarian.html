@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pencarian - Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah Sumedang</title>
+
+  <meta name="description" content="Temukan informasi lengkap seputar Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah Sumedang di sini. Gunakan fitur pencarian ini untuk menelusuri info pendaftaran (PPDB), direktori santri dan pengajar, Profile pondok, kurikulum, hingga galeri kegiatan dan berita terbaru." />
+
+  <meta name="keywords" content="Pencarian Asy-Syifaa, Arsip Digital Pesantren, Data Santri, PPDB Sumedang, Asy-Syifaa Wal Mahmuudiyyah, Info Pesantren, Berita Asy-Syifaa" />
+
+  <meta name="author" content="Tim IT Asy-Syifaa Wal Mahmuudiyyah" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/logo.png" type="image/png" sizes="32x32">
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260517">
+    <style>
+
+/* =========================================
+   MODERN SEARCH PAGE STYLES (2026 UPDATE)
+   ========================================= */
+
+.search-page-body {
+    background-color: #f8f9fa;
+}
+
+.text-dark-green {
+    color: var(--dark-green);
+}
+
+/* Header & Search Input Besar */
+.big-search-box {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.big-search-input {
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem; /* Padding kiri untuk ikon */
+    border-radius: 50px;
+    border: 2px solid #e9ecef;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.big-search-input:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 8px 25px rgba(32, 108, 78, 0.15);
+}
+
+.search-icon-input {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.btn-search-action {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    bottom: 6px;
+    border-radius: 40px;
+    background: var(--primary-green);
+    color: white;
+    padding: 0 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-search-action:hover {
+    background: var(--dark-green);
+    color: var(--accent-gold);
+}
+
+.divider-modern {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+    margin-bottom: 3rem;
+}
+
+/* Kartu Hasil Pencarian Modern */
+.search-result-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.search-result-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--accent-gold);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.result-title a {
+    font-family: 'Merriweather', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark-green);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.result-title a:hover {
+    color: var(--primary-green);
+}
+
+.result-badge {
+    background-color: #e8f5e9;
+    color: var(--primary-green);
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-url {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.result-snippet {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Highlight Text */
+mark {
+    background-color: rgba(255, 215, 0, 0.4); /* Gold transparan */
+    padding: 0 2px;
+    border-radius: 3px;
+    color: var(--dark-green);
+    font-weight: 600;
+}
+
+/* Tombol Kunjungi */
+.result-link-btn {
+    align-self: flex-start;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: auto;
+}
+
+.result-link-btn:hover {
+    color: var(--accent-gold);
+    gap: 8px; /* Animasi panah geser */
+    transition: gap 0.3s ease;
+}
+
+/* Animasi Masuk */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+    </style>
+  
+</head>
+ 
+<body id="top">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/index.html">
+        <img src="assets/img/logo.png" alt="Logo Asy-Syifaa Wal Mahmuudiyyah" width="70" height="70" class="me-2">
+        <span class="fs-4">Asy-Syifaa Wal Mahmuudiyyah</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fa-solid fa-house"></i> Beranda</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-school"></i> Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="ProfileDropdown">
+                    <li><a class="dropdown-item" href="/profil.html">Profil</a></li>
+                    <li><a class="dropdown-item" href="/profil-visi-misi.html">Visi & Misi</a></li>
+                    <li><a class="dropdown-item" href="/profil-kurikulum.html">Kurikulum</a></li>
+                    <li><a class="dropdown-item" href="/profil-fasilitas.html">Fasilitas Pesantren</a></li>
+                    <li><a class="dropdown-item" href="/profil-ekskul.html">Ekstrakurikuler</a></li>
+                    <li><a class="dropdown-item" href="/profil-struktur.html">Struktur Organisasi</a></li>
+                    <li><a class="dropdown-item" href="/profil-guru.html">Guru</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="direktoriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-address-book"></i> Direktori</a>
+                <ul class="dropdown-menu" aria-labelledby="direktoriDropdown">
+                    <li><a class="dropdown-item" href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                    <li><a class="dropdown-item" href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                    <li><a class="dropdown-item" href="/direktori-pengajar.html">Direktori Pengajar</a></li>
+                      <li><a class="dropdown-item" href="/direktori-alumni.html">Direktori Alumni</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user-plus"></i> Pendaftaran</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                    <li><a class="dropdown-item" href="/daftar-sekarang.html">Daftar Sekarang</a></li>
+                    <li><a class="dropdown-item" href="/hasil-seleksi.html">Hasil Seleksi</a></li>
+                </ul>
+            </li>
+
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="kegiatanSantriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-calendar-alt"></i> Kegiatan</a>
+                <ul class="dropdown-menu" aria-labelledby="kegiatanSantriDropdown">
+                    <li><a class="dropdown-item" href="/kegiatan-harian.html">Harian</a></li>
+                    <li><a class="dropdown-item" href="/kegiatan-mingguan.html">Mingguan, Bulanan, Tahunan</a></li>
+                </ul>
+            </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-info"></i>Informasi</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/info-pengumuman.html">Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="/info-prestasi.html">Prestasi</a></li>
+                    <li><a class="dropdown-item" href="/e-raport.html">E-Raport</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/galeri.html" id="galeri"  aria-expanded="false"><i class="fa-solid fa-images"></i> Galeri</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" id="apps-erp-link" aria-expanded="false"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="toggleSearch" title="Pencarian">
+                <i class="fa-solid fa-search"></i></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+<main class="container py-5 mt-5">
+    <div class="search-header-container text-center mb-5" data-aos="fade-down">
+        <h1 class="display-5 fw-bold text-dark-green">Pencarian</h1>
+        <p class="text-muted">Menelusuri arsip digital Pondok Pesantren</p>
+        
+        <div class="big-search-box mt-4">
+            <form action="/pencarian.html" method="GET" class="position-relative">
+                <i class="fa-solid fa-search search-icon-input"></i>
+                <input type="text" name="s" id="mainSearchInput" class="form-control big-search-input" placeholder="Ketik kata kunci (misal: pendaftaran, banin, visi)..." autocomplete="off">
+                <button type="submit" class="btn btn-search-action">CARI</button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="divider-modern">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div id="search-results-info" class="mb-4 text-center"></div>
+            <div id="search-results-container" class="search-results-list">
+                </div>
+            
+            <div id="empty-state" class="text-center py-5 d-none">
+                <div class="empty-icon mb-3">
+                    <i class="bi bi-search" style="font-size: 4rem; color: #dee2e6;"></i>
+                </div>
+                <h3 class="h4 text-muted">Belum ada hasil ditemukan</h3>
+                <p class="text-secondary">Coba gunakan kata kunci yang lebih umum.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+
+<footer class="modern-footer pt-5" id="kontak">
+    <div class="container pb-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-section">
+                    <div class="footer-title-container mb-3">
+                        <img src="assets/img/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                    </div>
+                    <p class="small text-white-50">
+                        Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.
+                    </p>
+                    <div class="footer-social mt-4">
+                        <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@AsySyifaaTVOfficial" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@asysyifaapusat" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-section">
+                    <h4>Tautan Penting</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/profil-visi-misi.html">Visi & Misi</a></li>
+                        <li><a href="/alur-pendaftaran.html">Alur&Syarat Pendaftaran</a></li>
+                        <li><a href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                        <li><a href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                        <li><a href="/kegiatan-harian.html">Kegiatan Santri</a></li>
+                        <li><a href="/profil-kurikulum.html">Kurikulum Santri</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div class="text-white-50 small">
+                                Haurngombong, Kec. Pamulihan,
+                                Kabupaten Sumedang, Jawa Barat 45365
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6285322170007">0853-2217-0007</a>
+                                <span class="d-block small text-white-50">Administrasi</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                             <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6281776476495">0817-7647-6495</a>
+                                <span class="d-block small text-white-50">Muadalah</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                 <div class="footer-section h-100 d-flex flex-column">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container flex-grow-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.94427321582!2d107.82905607481875!3d-6.897268967496455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68daea5822cbff%3A0xdfe3d87acad09232!2sAsy-Syifaa%20Pusat!5e0!3m2!1sid!2sid!4v1750775764062!5m2!1sid!2sid" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="footer-bottom text-center small py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p class="m-0 text-white-50">© 2026 Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<a href="#top" id="backToTop" title="Kembali ke atas">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+    <path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"></path>
+  </svg>
+</a>
+
+<div id="searchOverlay">
+  <span id="closeSearch" class="close-search" title="Tutup">×</span>
+  <div class="search-box">
+    <form class="d-flex gap-2" action="/pencarian.html" method="GET">
+      <input type="text" name="s" class="form-control" autocomplete="off" placeholder="Cari di seluruh situs..." required />
+      <button type="submit"><i class="bi bi-search"></i> CARI</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/script.js"></script>
+<script>
+// ... (Kode AOS, Navbar, dll biarkan saja di atas) ...
+
+// ================================================
+// 8. LOGIKA PENCARIAN SITUS (FIXED & MODERNIZED)
+// ================================================
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Pastikan kita berada di halaman Pencarian.html atau ada elemen search overlay
+    const resultsContainerEl = document.getElementById('search-results-container');
+    const resultsInfoEl = document.getElementById('search-results-info');
+    const emptyStateEl = document.getElementById('empty-state');
+    const mainSearchInput = document.getElementById('mainSearchInput');
+
+    // DATABASE URL (Diselaraskan dengan Struktur Folder Asli)
+    // "category" digunakan untuk badge warna
+    const siteIndex = [
+        {
+            title: 'Beranda Utama',
+            url: '/index.html', 
+            category: 'Utama',
+            keywords: 'home beranda selamat datang pondok pesantren asy-syifaa wal mahmuudiyyah'
+        },
+        {
+            title: 'Visi & Misi',
+            url: '/profil-visi-misi.html',
+            category: 'Profile',
+            keywords: 'visi misi tujuan cita-cita yayasan Profile'
+        },
+        {
+            title: 'Sejarah Pesantren',
+            url: '/profil-pondok.html',
+            category: 'Profile',
+            keywords: 'sejarah berdiri latar belakang pendiri abah'
+        },
+        {
+            title: 'Fasilitas Pesantren',
+            url: '/profil-fasilitas.html',
+            category: 'Profile',
+            keywords: 'fasilitas gedung asrama masjid perpustakaan lab komputer lapangan'
+        },
+        {
+            title: 'Struktur Organisasi',
+            url: '/profil-struktur.html',
+            category: 'Profile',
+            keywords: 'struktur organisasi pengurus ketua yayasan bendahara sekretaris'
+        },
+        {
+            title: 'Kurikulum Santri',
+            url: '/profil-kurikulum.html',
+            category: 'Pendidikan',
+            keywords: 'kurikulum pendidikan pelajaran kitab kuning dinas'
+        },
+        {
+            title: 'Direktori Santri Banin (Putra)',
+            url: '/direktori-banin.html',
+            category: 'Direktori',
+            keywords: 'data santri banin putra laki-laki siswa database'
+        },
+        {
+            title: 'Direktori Santri Banat (Putri)',
+            url: '/direktori-banat.html',
+            category: 'Direktori',
+            keywords: 'data santri banat putri perempuan siswi database'
+        },
+        {
+            title: 'Direktori Pengajar',
+            url: '/direktori-pengajar.html',
+            category: 'Direktori',
+            keywords: 'guru ustadz ustadzah pengajar asatidz data'
+        },
+        {
+            title: 'Alur & Syarat Pendaftaran',
+            url: '/alur-pendaftaran.html',
+            category: 'Pendaftaran',
+            keywords: 'daftar syarat pendaftaran psb ppdb siswa baru cara masuk biaya'
+        },
+        {
+            title: 'Daftar Sekarang (Formulir)',
+            url: '/daftar-sekarang.html',
+            category: 'Pendaftaran',
+            keywords: 'formulir isi data register online'
+        },
+        {
+            title: 'Hasil Seleksi',
+            url: '/hasil-seleksi.html',
+            category: 'Pendaftaran',
+            keywords: 'pengumuman kelulusan hasil ujian seleksi diterima'
+        },
+        {
+            title: 'Kegiatan Harian',
+            url: '/kegiatan-harian.html',
+            category: 'Kegiatan',
+            keywords: 'jadwal harian rutinitas bangun tidur sholat jadwal'
+        },
+        {
+            title: 'Kegiatan Mingguan & Tahunan',
+            url: '/kegiatan-mingguan.html',
+            category: 'Kegiatan',
+            keywords: 'mingguan bulanan tahunan phbi maulid rajab muharram'
+        },
+
+        {
+            title: 'Galeri Foto',
+            url: '/galeri.html',
+            category: 'Galeri',
+            keywords: 'foto gambar dokumentasi kegiatan album'
+        },
+               {
+            title: 'Upacara 17 Agustus 2025',
+            url: '/galeri-17-agustus-2025.html',
+            category: 'Galeri',
+            keywords: 'foto upacara kemerdekaan 17 agustus 2025'
+        },
+        
+        {
+            title: 'Acara Puncak Tasyrik 1446 H',
+            url: '/galeri-acara-puncak-tasyrik.html',
+            category: 'Galeri',
+            keywords: 'Acara puncak tasyrik 1446 H foto dokumentasi'
+        },
+     
+        {
+            title: 'Dars Fajr Bersama Habib Al-Haddar',
+            url: '/galeri-dars-fajr-al-haddar.html',
+            category: 'Galeri',
+            keywords: 'foto dars fajr bersama habib al-haddar dokumentasi'
+        },
+
+{
+            title: 'Dars Fajr Sayyid Alwi',
+            url: '/galeri-dars-fajr-sayyid-alwi.html',
+            category: 'Galeri',
+            keywords: 'foto dars fajr bersama sayyid alwi dokumentasi'
+        },
+
+{
+            title: 'Dauroh Ilmiyyah Al Munshib Al Athos',
+            url: '/galeri-dauroh-ilmiyyah-al-munsib-al-athos.html',
+            category: 'Galeri',
+            keywords: 'foto dauroh ilmiyyah al munshib al athos dokumentasi'
+        },
+
+{
+            title: 'Dauroh Ilmiyyah Lora Ismail',
+            url: '/galeri-dauroh-ilmiyyah-lora-ismail.html',
+            category: 'Galeri',
+            keywords: 'foto dauroh ilmiyyah lora ismail dokumentasi'
+        },
+
+{
+            title: 'Dauroh Ilmiyyah Qiroah bersama Syeikh Yaqub',
+            url: 'Galeri/Dauroh Ilmiyyah Qiro\'ah.html',
+            category: 'Galeri',
+            keywords: 'foto dauroh ilmiyyah qiroah bersama syeikh yaqub dokumentasi'
+        },
+
+{
+            title: 'Dauroh Ilmiyyah Syeikh Sholeh',
+            url:'/galeri-dauroh-ilmiyyah-syeikh-sholeh.html',
+            category: 'Galeri',
+            keywords: 'foto dauroh ilmiyyah syeikh sholeh dokumentasi'
+        },
+
+{
+            title: 'Juara MQKI',
+            url:'/galeri-juara-mqki.html',
+            category: 'Galeri',
+            keywords: 'foto juara mqki'
+        },
+
+{
+            title: 'Juara MQKN JABAR',
+            url:'/galeri-juara-mqkn-jabar.html',
+            category: 'Galeri',
+            keywords: 'foto juara mqkn jabar'
+        },
+
+{
+            title: 'Kedatangan Santri Baru 2025-2026',
+            url:'/galeri-kedatangan-santri-baru.html',
+            category: 'Galeri',
+            keywords: 'foto kedatangan santri baru 2025-2026'
+        },
+
+{
+            title: 'Lomba Agutusan 2025',
+            url:'/galeri-lomba-agustusan.html',
+            category: 'Galeri',
+            keywords: 'foto lomba agutusan 2025'
+        },
+
+{
+            title: 'Malam Nishfu Sya\'ban 1446 H',
+            url: 'Galeri/Malam Nishfu Sya\'ban 1446 H.html',
+            category: 'Galeri',
+            keywords: 'foto '
+        },
+
+{
+            title: 'Maulid Akbar 1447 H',
+            url:'/galeri-maulid-akbar-1447-h.html',
+            category: 'Galeri',
+            keywords: 'foto maulid akbar 1447 h'
+        },
+
+{
+            title: 'Maulid Pusaka 1447 H',
+            url:'/galeri-maulid-pusaka-1447-h.html',
+            category: 'Galeri',
+            keywords: 'foto maulid pusaka 1447 h'
+        },
+
+{
+            title: 'MQK Sumedang 2025',
+            url:'/galeri-mqk-sumedang-2025.html',
+            category: 'Galeri',
+            keywords: 'foto mqk sumedang 2025'
+        },
+
+{
+            title: 'MQKI-I',
+            url:'/galeri-mqki-i.html',
+            category: 'Galeri',
+            keywords: 'foto mqki-i'
+        },
+
+{
+            title: 'JUARA MQKN',
+            url:'/galeri-mqkn-juara-1.html',
+            category: 'Galeri',
+            keywords: 'foto juara mqkn'
+        },
+
+{
+            title: 'Pawai Obor Tahun Baru Islam 1447 H',
+            url:'/galeri-pawai-obor-tahun-baru-islam-1447-h.html',
+            category: 'Galeri',
+            keywords: 'foto pawai obor tahun baru islam 1447 h'
+        },
+
+{
+            title: 'Perkenalan Santri Baru 2025-2026',
+            url:'/galeri-perkenalan-santri-baru-2025.html',
+            category: 'Galeri',
+            keywords: 'foto perkenalan santri baru 2025-2026'
+        },
+
+{
+            title: 'Prepare Maulid Akbar 1447 H',
+            url:'/galeri-prepare-maulid-akbar-1447-h.html',
+            category: 'Galeri',
+            keywords: 'foto prepare maulid akbar 1447 h'
+        },
+
+{
+            title: 'PSB 2026',
+            url:'/galeri-psb-2026.html',
+            category: 'Galeri',
+            keywords: 'foto psb 2026'
+        },
+
+{
+            title: 'Rajaban Akbar 1447 H',
+            url:'/galeri-rajaban-akbar-1447-h.html',
+            category: 'Galeri',
+            keywords: 'foto rajaban akbar 1447 h'
+        },
+
+{
+            title: 'Selamat & SuksesðŸ”¥ Untuk Dua Santri Alumni Asy-Syifaa Yang Telah Lulus Seleksi UM-PTKIN, UIN Sunan Gunung Jati, Bandung.',
+            url:'/galeri-selamat-kuliah.html',
+            category: 'Galeri',
+            keywords: 'foto selamat sukses dua santri alumni asy-syifaa lulus seleksi um-ptkin uin sunan gunung jati bandung'
+        },
+
+{
+            title: 'Sholat Ghoib Habib Umar Al-Jaelani',
+            url:'/galeri-sholat-ghoib-habib-umar-al-jaelani.html',
+            category: 'Galeri',
+            keywords: 'foto sholat ghoib habib umar al-jaelani'
+        },
+
+{
+            title: 'Tabligh Akbar Habib Muhammad Al-Habsyi',
+            url:'/galeri-tabligh-akbar-habib-muhammad-al-habsy.html',
+            category: 'Galeri',
+            keywords: 'foto tabligh akbar habib muhammad al-habsyi'
+        },
+
+{
+            title: 'TASYRIK CHAMPIONSHIP',
+            url:'/galeri-tasyrik-championship.html',
+            category: 'Galeri',
+            keywords: 'foto tasyrik championship'
+        },
+
+{
+            title: 'Upacara Hari Santri',
+            url:'/galeri-upacara-hari-santri.html',
+            category: 'Galeri',
+            keywords: 'foto upacara hari santri'
+        },
+
+{
+            title: 'Wisdua VI',
+            url:'/galeri-wisuda-vi.html',
+            category: 'Galeri',
+            keywords: 'foto wisdua vi'
+        },
+
+
+
+
+
+
+    ];
+
+    // Fungsi untuk mendapatkan parameter dari URL (?s=keyword)
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('s')?.toLowerCase().trim() || '';
+
+    // Isi ulang input search box jika ada query
+    if (mainSearchInput && query) {
+        mainSearchInput.value = query;
+    }
+
+    // LOGIKA PENCARIAN UTAMA
+    if (resultsContainerEl) {
+        resultsContainerEl.innerHTML = ''; // Bersihkan kontainer
+
+        if (query) {
+            // Filter database berdasarkan Judul ATAU Keyword
+            const results = siteIndex.filter(item =>
+                item.title.toLowerCase().includes(query) || 
+                item.keywords.toLowerCase().includes(query)
+            );
+
+            // Tampilkan Info Hasil
+            resultsInfoEl.innerHTML = `
+                <span class="text-muted">Menampilkan ${results.length} hasil untuk:</span> 
+                <span class="fw-bold text-dark-green fst-italic">"${query}"</span>
+            `;
+
+            if (results.length > 0) {
+                // Sembunyikan empty state
+                if(emptyStateEl) emptyStateEl.classList.add('d-none');
+
+                // Regex untuk highlight text
+                // Escape special characters in query to prevent regex errors
+                const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`(${safeQuery})`, 'gi');
+
+                results.forEach((result, index) => {
+                    // Highlight logic
+                    const highlightedTitle = result.title.replace(regex, '<mark>$1</mark>');
+                    
+                    // Snippet: Ambil keywords yang cocok saja agar tidak terlalu panjang
+                    let relevantKeywords = result.keywords;
+                    // Highlight keywords
+                    const highlightedSnippet = relevantKeywords.replace(regex, '<mark>$1</mark>');
+
+                    const card = document.createElement('div');
+                    card.className = 'search-result-card animate-fade-in';
+                    card.style.animationDelay = `${index * 0.1}s`; // Stagger animation
+
+                    card.innerHTML = `
+                        <div class="result-header">
+                            <span class="result-badge">${result.category}</span>
+                        </div>
+                        <h3 class="result-title">
+                            <a href="${result.url}">${highlightedTitle}</a>
+                        </h3>
+                        <div class="result-url">
+                            <i class="bi bi-link-45deg"></i> asy-syifaa/${result.url}
+                        </div>
+                        <p class="result-snippet">
+                            ...${highlightedSnippet}...
+                        </p>
+                        <a href="${result.url}" class="result-link-btn">
+                            Kunjungi Halaman <i class="bi bi-arrow-right"></i>
+                        </a>
+                    `;
+                    resultsContainerEl.appendChild(card);
+                });
+            } else {
+                // Jika tidak ada hasil
+                if(emptyStateEl) emptyStateEl.classList.remove('d-none');
+            }
+        } else {
+            // Jika user membuka halaman pencarian tanpa query
+            resultsInfoEl.innerHTML = '<span class="text-muted">Silakan masukkan kata kunci di atas.</span>';
+            if(emptyStateEl) emptyStateEl.classList.remove('d-none');
+        }
+    }
+});
+
+</script>
+
+
+</body>
+</html>

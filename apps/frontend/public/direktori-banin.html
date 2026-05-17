@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direktori Santri Banin | Ponpes Asy-Syifaa Wal Mahmuudiyyah Sumedang</title>
+  <meta name="description" content="Akses database lengkap santri banin (putra) Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah. Cari data berdasarkan nama, status aktif/alumni, kelas, dan tahun masuk secara real-time.">
+  <meta name="keywords" content="Direktori Santri, Santri Banin, Data Santri Asy-Syifaa, Pesantren Sumedang, Asy-Syifaa Wal Mahmuudiyyah, Abuya KH. M. Muhyiddin Abdul Qadir Al-Manafi">
+  <meta name="author" content="Tim IT Asy-Syifaa Wal Mahmuudiyyah">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS dari CDN, untuk styling login form -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css?v=20260517">
+  <link rel="icon" href="../assets/img/logo.png" type="image/png" sizes="32x32">
+
+  <style>
+/* ==================================================================
+   1. IMPORT FONT MODERN (POPPINS)
+   ================================================================== 
+   Kita gunakan font 'Source Sans 3' dari Google. Font ini sangat populer 
+   karena kejelasan dan kesan modernnya.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Source Sans 3:wght@400;500;600;700&display=swap');
+
+
+
+
+
+
+/* ==================================================================
+   3. HEADER HALAMAN & PENCARIAN
+   ================================================================== */
+.page-header {
+    background: #ffffff;
+    padding: 30px 0;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-weight: 700;
+    color: var(--dark-green);
+    margin-bottom: 5px;
+}
+
+.search-box input {
+    border-radius: 50px; /* Input pencarian bulat */
+    padding: 12px 25px;
+    border: 2px solid #e9ecef;
+    background-color: #fcfcfc;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.search-box input:focus {
+    box-shadow: none;
+    border-color: var(--light-green);
+    background-color: #fff;
+}
+
+/* ==================================================================
+   4. STYLE TABEL MODERN & AESTHETIC (CLEAN LOOK)
+   ================================================================== */
+.table-responsive {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Bayangan besar tapi sangat halus */
+}
+
+.modern-table {
+    border-collapse: separate;
+    border-spacing: 0; /* Rapat, tidak ada jarak antar baris */
+    width: 100%;
+}
+
+/* STYLE JUDUL KOLOM (YANG ANTUM MINTA DIPERJELAS) */
+.modern-table thead th {
+    font-family: var(--font-primary);
+    font-size: 1rem; /* Ukuran font lebih besar */
+    font-weight: 700; /* SANGAT TEBAL (Bold) */
+    text-transform: uppercase; /* Huruf kapital semua agar tegas */
+    letter-spacing: 1.5px; /* Jarak antar huruf direnggangkan */
+    color: var(--text-dark); /* Warna hitam pekat */
+    background-color: #ffffff;
+    border-bottom: 3px solid #f0f2f5; /* Garis pemisah bawah yang tegas */
+    padding: 20px; /* Ruang yang lega */
+}
+
+/* STYLE ISI TABEL */
+.modern-table tbody tr {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efek saat mouse diarahkan ke baris */
+.modern-table tbody tr:hover {
+    background-color: #f8fffb; /* Warna hijau sangat muda saat di-hover */
+    transform: scale(1.01); /* Sedikit membesar agar interaktif */
+}
+
+.modern-table td {
+    padding: 20px; /* Padding besar agar lega (aesthetic) */
+    vertical-align: middle; /* Teks rata tengah secara vertikal */
+    border-bottom: 1px solid #f0f2f5; /* Garis pemisah tipis antar baris */
+    font-weight: 500; /* Ketebalan font sedang */
+    font-size: 1rem;
+}
+
+/* Khusus Kolom Nama Lengkap */
+.modern-table tbody tr td:first-child {
+    font-weight: 600; /* Lebih tebal dari yang lain */
+    color: var(--dark-green);
+    font-size: 1.05rem;
+}
+
+/* Avatar Huruf Depan Nama */
+.avatar-placeholder {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: var(--dark-green);
+    font-size: 1.2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* ==================================================================
+   5. STYLE BADGE STATUS & KELAS (LEBIH MODERN)
+   ================================================================== */
+.status-badge {
+    padding: 8px 14px;
+    border-radius: 10px; /* Sudut sedikit mengkotak, modern */
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-aktif {
+    background-color: #dcfce7; /* Hijau yang lebih segar */
+    color: #166534;
+}
+
+.status-nonaktif {
+    background-color: #fee2e2; /* Merah soft */
+    color: #991b1b;
+}
+
+/* Badge Kelas */
+.kelas-badge {
+    background-color: #ebf5ee; /* Latar belakang hijau nuansa sangat muda */
+    color: var(--dark-green);
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-weight: 700; /* Sangat tebal agar jelas */
+    font-size: 0.95rem;
+    display: inline-block;
+    border: 1px solid #ccead9; /* Garis pinggir halus */
+}
+
+/* =========================================
+   TOMBOL KEMBALI KE BERANDA (CUSTOM)
+   ========================================= */
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 35px;
+    background-color: white; /* Dasar Putih */
+    color: var(--dark-green); /* Teks Hijau Tua */
+    border: 2px solid var(--primary-green); /* Garis Pinggir Hijau */
+    border-radius: 50px; /* Membulat (Pill Shape) */
+    text-decoration: none; /* Hilangkan garis bawah link */
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Bayangan Halus */
+}
+
+/* Efek saat Mouse Menempel (Hover) */
+.btn-back-home:hover {
+    background-color: var(--primary-green); /* Berubah jadi Hijau */
+    color: white; /* Teks jadi Putih */
+    border-color: var(--primary-green);
+    transform: translateY(-5px); /* Tombol naik sedikit */
+    box-shadow: 0 10px 20px rgba(32, 108, 78, 0.2); /* Bayangan makin nyata */
+}
+
+/* Animasi Panah saat Hover */
+.btn-back-home:hover i {
+    transform: translateX(-5px); /* Panah bergerak ke kiri */
+    transition: transform 0.3s ease;
+}
+
+
+/* ==================================================================
+   6. RESPONSIVE MOBILE (CSS TAMBAHAN)
+   ================================================================== */
+
+/* Aturan untuk layar Tablet dan HP (Lebar di bawah 991px) */
+@media screen and (max-width: 991px) {
+    
+    /* 1. Penyesuaian Header & Pencarian */
+    .page-header {
+        padding: 20px 0;
+    }
+    
+    .search-bar-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* 2. Transformasi Tabel Menjadi Kartu (Card View) */
+    /* Menyembunyikan Header Tabel (Nama, Status, dll) karena ganti format */
+    .modern-table thead {
+        display: none;
+    }
+
+    /* Mengubah Baris (TR) menjadi Kotak Kartu */
+    .modern-table tbody tr {
+        display: block;
+        background: #fff;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Bayangan kartu */
+        border: 1px solid #e9ecef;
+        padding: 15px;
+    }
+
+    /* Efek hover dinonaktifkan di HP agar tidak "berkedip" saat disentuh */
+    .modern-table tbody tr:hover {
+        transform: none;
+        background-color: #fff;
+    }
+
+    /* Mengubah Sel (TD) menjadi baris-baris di dalam kartu */
+    .modern-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f2f5;
+        font-size: 0.95rem;
+        text-align: right; /* Isi data rata kanan */
+    }
+
+    /* Menghapus garis di baris terakhir dalam kartu */
+    .modern-table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* --- LOGIKA LABEL OTOMATIS (PENTING) --- */
+    /* Kita gunakan CSS ::before untuk memberi label karena header tabel disembunyikan */
+    
+    /* Kolom 1: Nama Lengkap (Kita buat rata tengah dan besar) */
+    .modern-table tbody td:first-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #206c4e; /* Garis pemisah hijau */
+        margin-bottom: 10px;
+    }
+    
+    .modern-table tbody td:first-child .d-flex {
+        flex-direction: column; /* Avatar di atas nama */
+        align-items: center !important;
+    }
+    
+    .modern-table tbody td:first-child .avatar-placeholder {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+        width: 60px !important; /* Avatar lebih besar di HP */
+        height: 60px !important;
+        font-size: 1.5rem !important;
+    }
+
+    /* Kolom 2: Status */
+    .modern-table tbody td:nth-of-type(2)::before {
+        content: "Status";
+        font-weight: 700;
+        color: #206c4e;
+        float: left;
+    }
+
+    /* Kolom 3: Tahun Masuk */
+    .modern-table tbody td:nth-of-type(3)::before {
+        content: "Tahun Masuk";
+        font-weight: 700;
+        color: #206c4e;
+    }
+
+    /* Kolom 4: Kelas (Blok) */
+    .modern-table tbody td:nth-of-type(4)::before {
+        content: "Kelas";
+        font-weight: 700;
+        color: #206c4e;
+    }
+
+    /* Kolom 5: Kelas Detail */
+    .modern-table tbody td:nth-of-type(5)::before {
+        content: "Ruang/Detail";
+        font-weight: 700;
+        color: #206c4e;
+    }
+    
+
+    
+    /* Tombol Kembali */
+    .btn-back-home {
+        width: 100%; /* Tombol lebar penuh */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+  // Konfigurasi Firebase (Tetap disimpan jika Anda mengambil data santri dari database Firebase)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSZrEOjTYAvJOTzH8c99eHwJt7FCIIq94",
+    authDomain: "direktori-santri-banin.firebaseapp.com",
+    projectId: "direktori-santri-banin",
+    storageBucket: "direktori-santri-banin.firebasestorage.app",
+    messagingSenderId: "622158014579",
+    appId: "1:622158014579:web:6ac791602acfad5ecde206",
+    measurementId: "G-ZS75MKC952"
+  };
+
+  // Initialize Firebase (Hanya App, Auth tidak perlu)
+  if (Object.keys(firebaseConfig).length > 0) {
+      const app = initializeApp(firebaseConfig);
+      console.log("Firebase initialized (Data Only).");
+  }
+
+  // ==================================================================
+  // FUNGSI TAMPILAN LANGSUNG (TANPA LOGIN)
+  // ==================================================================
+  document.addEventListener('DOMContentLoaded', () => {
+      const loginContainer = document.getElementById('login-container');
+      const direktoriContent = document.getElementById('direktori-santri-content');
+      
+      // Navigasi (Opsional, untuk menyembunyikan menu login/logout)
+      const loginNavItem = document.getElementById('loginNavItem');
+      const logoutNavItem = document.getElementById('logoutNavItem');
+
+      // LOGIKA UTAMA: Langsung sembunyikan login, langsung tampilkan konten
+      if (loginContainer) loginContainer.style.display = 'none';
+      if (direktoriContent) direktoriContent.style.display = 'block';
+
+      // Atur menu navigasi (Sembunyikan tombol login & logout karena sudah masuk otomatis)
+      if (loginNavItem) loginNavItem.classList.add('hidden'); // Sembunyikan menu login
+      if (logoutNavItem) logoutNavItem.classList.add('hidden'); // Sembunyikan menu logout
+      
+      console.log("Mode Publik: Akses langsung diberikan.");
+  });
+</script>
+</head>
+ 
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/index.html">
+        <img src="assets/img/logo.png" alt="Logo Asy-Syifaa Wal Mahmuudiyyah" width="70" height="70" class="me-2">
+        <span class="fs-4">Asy-Syifaa Wal Mahmuudiyyah</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fa-solid fa-house"></i> Beranda</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-school"></i> Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="ProfileDropdown">
+                    <li><a class="dropdown-item" href="/profil.html">Profil</a></li>
+                    <li><a class="dropdown-item" href="/profil-visi-misi.html">Visi & Misi</a></li>
+                    <li><a class="dropdown-item" href="/profil-kurikulum.html">Kurikulum</a></li>
+                    <li><a class="dropdown-item" href="/profil-fasilitas.html">Fasilitas Pesantren</a></li>
+                    <li><a class="dropdown-item" href="/profil-ekskul.html">Ekstrakurikuler</a></li>
+                    <li><a class="dropdown-item" href="/profil-struktur.html">Struktur Organisasi</a></li>
+                    <li><a class="dropdown-item" href="/profil-guru.html">Guru</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="direktoriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-address-book"></i> Direktori</a>
+                <ul class="dropdown-menu" aria-labelledby="direktoriDropdown">
+                    <li><a class="dropdown-item" href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                    <li><a class="dropdown-item" href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                    <li><a class="dropdown-item" href="/direktori-pengajar.html">Direktori Pengajar</a></li>
+                      <li><a class="dropdown-item" href="/direktori-alumni.html">Direktori Alumni</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user-plus"></i> Pendaftaran</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                    <li><a class="dropdown-item" href="/daftar-sekarang.html">Daftar Sekarang</a></li>
+                    <li><a class="dropdown-item" href="/hasil-seleksi.html">Hasil Seleksi</a></li>
+                </ul>
+            </li>
+
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="kegiatanSantriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-calendar-alt"></i> Kegiatan</a>
+                <ul class="dropdown-menu" aria-labelledby="kegiatanSantriDropdown">
+                    <li><a class="dropdown-item" href="/kegiatan-harian.html">Harian</a></li>
+                    <li><a class="dropdown-item" href="/kegiatan-mingguan.html">Mingguan, Bulanan, Tahunan</a></li>
+                </ul>
+            </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-info"></i>Informasi</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/info-pengumuman.html">Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="/info-prestasi.html">Prestasi</a></li>
+                    <li><a class="dropdown-item" href="/e-raport.html">E-Raport</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/galeri.html" id="galeri"  aria-expanded="false"><i class="fa-solid fa-images"></i> Galeri</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" id="apps-erp-link" aria-expanded="false"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="toggleSearch" title="Pencarian">
+                <i class="fa-solid fa-search"></i></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Konten yang terlindungi, hanya ditampilkan setelah login -->
+<div id="direktori-santri-content">
+  <main>
+      <section id="direktori-santri">
+          <div class="container-fluid px-md-5">
+              <header class="text-center section-header">
+                  <h2>Direktori Santri Banin</h2>
+                  <p class="lead text-muted">Database Lengkap Santri Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+              </header>
+              
+              <div class="search-bar-container">
+                  <i class="bi bi-search"></i>
+                 <input 
+    type="text" 
+    class="form-control" 
+    placeholder="Cari Santri, Kelas, atau Tahun..." 
+    id="searchInput" 
+>
+              </div>
+
+<div class="table-responsive p-4">
+    <table class="table table-hover modern-table align-middle">
+       <thead class="table-light">
+            <tr>
+                <th scope="col" width="30%">Nama Lengkap</th>
+                <th scope="col" width="15%">Status</th>
+                <th scope="col" width="15%">Tahun Masuk</th>
+                <th scope="col" width="15%">Kelas</th> 
+                <th scope="col" width="25%">Kelas Detail</th>
+            </tr>
+        </thead>
+        <tbody id="santriTableBody">
+            </tbody>
+    </table>
+</div>
+          </div>
+      </section>
+      <div class="container text-center mb-5 mt-4">
+          <a href="/index.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Beranda
+          </a>
+      </div>
+  </main>
+  <div id="searchOverlay">
+    <span id="closeSearch" class="close-search" title="Tutup">×</span>
+    <div class="search-box">
+      <form class="d-flex gap-2" action="/pencarian.html" method="GET">
+        <input type="text" name="s" class="form-control" autocomplete="off" placeholder="Cari di seluruh situs..." required />
+        <button type="submit"><i class="bi bi-search"></i> CARI</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<footer class="modern-footer pt-5" id="kontak">
+    <div class="container pb-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-section">
+                    <div class="footer-title-container mb-3">
+                        <img src="../assets/img/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                    </div>
+                    <p class="small text-white-50">
+                        Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.
+                    </p>
+                    <div class="footer-social mt-4">
+                        <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@AsySyifaaTVOfficial" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@asysyifaapusat" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-section">
+                    <h4>Tautan Penting</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/profil-visi-misi.html">Visi & Misi</a></li>
+                        <li><a href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                        <li><a href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                        <li><a href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                        <li><a href="/kegiatan-harian.html">Kegiatan Santri</a></li>
+                        <li><a href="/profil-kurikulum.html">Kurikulum Santri</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div class="text-white-50 small">
+                                Haurngombong, Kec. Pamulihan,
+                                Kabupaten Sumedang, Jawa Barat 45365
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6285322170007">0853-2217-0007</a>
+                                <span class="d-block small text-white-50">Administrasi</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                             <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6281776476495">0817-7647-6495</a>
+                                <span class="d-block small text-white-50">Muadalah</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                 <div class="footer-section h-100 d-flex flex-column">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container flex-grow-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.94427321582!2d107.82905607481875!3d-6.897268967496455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68daea5822cbff%3A0xdfe3d87acad09232!2sAsy-Syifaa%20Pusat!5e0!3m2!1sid!2sid!4v1750775764062!5m2!1sid!2sid" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="footer-bottom text-center small py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p class="m-0 text-white-50">© 2026 Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah. All Rights Reserved.</p>
+    </div>
+</footer>
+<a href="#top" id="backToTop" title="Kembali ke atas">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+    <path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"></path>
+  </svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+        
+        const tableBody = document.getElementById('santriTableBody');
+        const searchInput = document.getElementById('searchInput'); 
+
+        // ==========================================
+        // DATA SANTRI (FORMAT SUDAH DIPERBAIKI)
+        // Perhatikan tanda kutip (") sebelum koma (,)
+        // ==========================================
+        const santriData = [
+ {"No":	1	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Abrisam Abbasy Upavasa Komara	"},
+ {"No":	2	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Ahmad Sirojy Mubarok	"},
+ {"No":	3	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Alfin Wahyudin Faulia	"},
+ {"No":	4	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Alwi Habsyi	"},
+ {"No":	5	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Aufa Damar Galih	"},
+ {"No":	6	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Beril Hamizan Arrobani	"},
+ {"No":	7	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Daffa Fadhilah Kamil	"},
+ {"No":	8	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Fadly Raihan Sabil	"},
+ {"No":	9	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Fajri Ilham Fauzan	"},
+ {"No":	10	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Habiburrahman Al-Qayubi	"},
+ {"No":	11	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Ibrohim Bajuri	"},
+ {"No":	12	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	M. Fahri Zahran Abdillah	"},
+ {"No":	13	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	M. Rizky Wijaya	"},
+ {"No":	14	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Mohamad Pebri Alpiana	"},
+ {"No":	15	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhamad Jangkar Jaelani Akbar	"},
+ {"No":	16	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhamad Ma'Aruuf Karkhi	"},
+ {"No":	17	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhamad Risfan Maulana	"},
+ {"No":	18	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Alif Effendi	"},
+ {"No":	19	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Eijaz Althair	"},
+ {"No":	20	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Kamil Assidiq	"},
+ {"No":	21	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Khaidir Akbar Hidayatulloh	"},
+ {"No":	22	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Nail Dzakwan	"},
+ {"No":	23	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Nawawi	"},
+ {"No":	24	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Rehan Ardiansyah	"},
+ {"No":	25	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Syihab Musaddad	"},
+ {"No":	26	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Rangga Setyaji	"},
+ {"No":	27	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Rifaldi Sufyana	"},
+ {"No":	28	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Zaki Aftar Abdul Ghani	"},
+ {"No":	29	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Akhmad Maulana Bintoro	"},
+ {"No":	30	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Chairul Iqbal Putra	"},
+ {"No":	31	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Haykal Luqmannur Hakim	"},
+ {"No":	32	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Kamil	"},
+ {"No":	33	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhamad Daffa Rizky Rohmana	"},
+ {"No":	34	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhamad Fadlan Abdulrohman	"},
+ {"No":	35	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhamad Ilham	"},
+ {"No":	36	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhamad Rafa Ramadan	"},
+ {"No":	37	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhamad Salman	"},
+ {"No":	38	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Abdul Malik Aljaami	"},
+ {"No":	39	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Aditya Al Misbah	"},
+ {"No":	40	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Alief Ma'Rifatulloh	"},
+ {"No":	41	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Fadli	"},
+ {"No":	42	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Ibrahim Maulana	"},
+ {"No":	43	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Ichsan Andriansyah	"},
+ {"No":	44	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Nizam Ashari	"},
+ {"No":	45	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Zakky Ghozali	"},
+ {"No":	46	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Zam Zam Mubaraq	"},
+ {"No":	47	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Naufal Arya Rizki	"},
+ {"No":	48	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Naufal Muhammad Mulky Yaasiin	"},
+ {"No":	49	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Nazar Rizkie Afriliana	"},
+ {"No":	50	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Raka Arinda Syahputra	"},
+ {"No":	51	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Rifqi Arif Wudiansyah	"},
+ {"No":	52	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Rizki Nurputih	"},
+ {"No":	53	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Vizra Abdul Hafizh	"},
+ {"No":	54	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Zamzam Muhamad Tijani	"},
+ {"No":	55	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Agus Evi Dirgahayu	"},
+ {"No":	56	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Arifal Irsyadi Rahman	"},
+ {"No":	57	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Hasbulloh Ibrahim Wibowo	"},
+ {"No":	58	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	M. Ridwan Kurniawan	"},
+ {"No":	59	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Mochamad Khoirul Azmi	"},
+ {"No":	60	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhamad Raihan Nurdiansyah	"},
+ {"No":	61	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhamad Rizki Firmansyah	"},
+ {"No":	62	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Ardi Tia Wijaya	"},
+ {"No":	63	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Hasan Bashri	"},
+ {"No":	64	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Latif Khoeruloh	"},
+ {"No":	65	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Nur Ramdayani	"},
+ {"No":	66	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Rafie Al Azfar	"},
+ {"No":	67	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Syafiq Muhajir Fillah	"},
+ {"No":	68	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Syahid Abdurrohman	"},
+ {"No":	69	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Yahya Hisyamuddin	"},
+ {"No":	70	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Zaid Musthofa	"},
+ {"No":	71	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Zaky Al Musthofa	"},
+ {"No":	72	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Zamzam Al Manafi	"},
+ {"No":	73	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Nandika Putra Rizkyansyah	"},
+ {"No":	74	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Nizam Zihad Al-Ghozali	"},
+ {"No":	75	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Rasya Aditya	"},
+ {"No":	76	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Refan Azis Mustofa	"},
+ {"No":	77	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Reyhan Khoirul Azam	"},
+ {"No":	78	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Rizal Fikri Nugraha	"},
+ {"No":	79	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Abdil Hadi	"},
+ {"No":	80	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Abdulloh Ibrahim Al Yamani	"},
+ {"No":	81	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Afrizal Faturahman	"},
+ {"No":	82	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Aghisni Mochammad Toha	"},
+ {"No":	83	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Ahmad Marzuuqi	"},
+ {"No":	84	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Bagus Sandia Putra	"},
+ {"No":	85	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Dian Nasrulloh	"},
+ {"No":	86	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Elnino Fachrezi	"},
+ {"No":	87	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Fajar Rifaldi	"},
+ {"No":	88	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Fathurrohman Al Ghozi Kurnia Putra	"},
+ {"No":	89	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Ibnu Alsyina Shihab	"},
+ {"No":	90	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Ibnu Rafiif Al Mubariq	"},
+ {"No":	91	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Iqbal Qhotrunada Muflih	"},
+ {"No":	92	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Kaysan Naufal Ali	"},
+ {"No":	93	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Luthfi Rizzuana	"},
+ {"No":	94	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Maulana Mahmud Ramadhan	"},
+ {"No":	95	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Mochamad Dzikran Putra Hadian	"},
+ {"No":	96	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Mohamad Yusuf Asyid	"},
+ {"No":	97	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhamad Rifky Haditya	"},
+ {"No":	98	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Adiba Al-Faruq Ramadhan	"},
+ {"No":	99	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Fajrin Maulana	"},
+ {"No":	100	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Nabil Zada Khardiansyah	"},
+ {"No":	101	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Rangga Abdul Gholib	"},
+ {"No":	102	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Ahmad Yani	"},
+ {"No":	103	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Aufar Rizky Alera	"},
+ {"No":	104	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Faateh Ahmad Zachary	"},
+ {"No":	105	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Fadhil Nugraha	"},
+ {"No":	106	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	M. Rifki Paturohman	"},
+ {"No":	107	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	M.Fathir Rozaq Arumy Mutaqin	"},
+ {"No":	108	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Moch Alwi Maulana	"},
+ {"No":	109	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Mochamad Maulana Ibrahim	"},
+ {"No":	110	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Arfa Arifin	"},
+ {"No":	111	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Irsyaad Mutakin	"},
+ {"No":	112	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Lutfi A.	"},
+ {"No":	113	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Nova Maulana	"},
+ {"No":	114	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Yasin Ghazi	"},
+ {"No":	115	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Abdul Latif Nawawi	"},
+ {"No":	116	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Ali Anwar Syafi'I	"},
+ {"No":	117	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Aria Basyuni Al Fairuz	"},
+ {"No":	118	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Azka Maulana	"},
+ {"No":	119	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Bahrudin Makki Assyafii	"},
+ {"No":	120	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Farizky Pratama	"},
+ {"No":	121	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Irsyad Setiawan	"},
+ {"No":	122	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Jami Maulana	"},
+ {"No":	123	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Rizky Abdillah	"},
+ {"No":	124	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Syafi'I  Abi Yusuf	"},
+ {"No":	125	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Zikri Nugraha	"},
+ {"No":	126	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Raihan Al Hasby	"},
+ {"No":	127	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Ar Rizal Ihsan Firdaus	"},
+ {"No":	128	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhamad Fatir Ramdani	"},
+ {"No":	129	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Abdillah Ramdhani	"},
+ {"No":	130	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Fadhil Abdillah	"},
+ {"No":	131	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Hafizh Hanif Hasbullah	"},
+ {"No":	132	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Jalaaluddin Mahalli	"},
+ {"No":	133	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Ma'Ruf Syamsul 'Arifin	"},
+ {"No":	134	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Maulana Malik Ibrahim	"},
+ {"No":	135	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Muhyiddin Alfath	"},
+ {"No":	136	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Mulki Albar	"},
+ {"No":	137	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Naufal Ghojali	"},
+ {"No":	138	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Nuruddin Al Ihsan	"},
+ {"No":	139	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Pandu Ismail	"},
+ {"No":	140	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Razka Al-Ghifari	"},
+ {"No":	141	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Zarkasih	"},
+ {"No":	142	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Nizam Zada Fahrezi	"},
+ {"No":	143	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Pandi Hendrawan	"},
+ {"No":	144	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Raazan Muhammad Dzafin	"},
+ {"No":	145	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Raden Michael Habibi	"},
+ {"No":	146	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Radit Yuliansyah	"},
+ {"No":	147	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Raffa Ahmad Firdaus	"},
+ {"No":	148	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Rafka Nurmaulanaaffandi	"},
+ {"No":	149	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Raga Permana Sidik	"},
+ {"No":	150	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Rizky Malikul Jabar	"},
+ {"No":	151	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Rohiman	"},
+ {"No":	152	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Satria Fazriasnyah	"},
+ {"No":	153	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Sayyid Ahmad Sabiq	"},
+ {"No":	154	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Umar	"},
+ {"No":	155	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Zahwan Abdul Hamid	"},
+ {"No":	156	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Zulfan Achmad	"},
+ {"No":	157	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Abdul Basit	"},
+ {"No":	158	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Abdurrohman Fauzan	"},
+ {"No":	159	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Ahmad Imam Baihaqi	"},
+ {"No":	160	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Ahmad Syaeful Baari	"},
+ {"No":	161	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Airlangga Santoso Putra	"},
+ {"No":	162	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Andriana Miftahul Anwar	"},
+ {"No":	163	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Arief Susanto	"},
+ {"No":	164	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Catur Purnama Asshidik	"},
+ {"No":	165	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Dafa Rabbani Zaidan	"},
+ {"No":	166	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Fakhri Rahmat Fauzan	"},
+ {"No":	167	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Fauzan Maulana Aziz	"},
+ {"No":	168	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Haris Saeful Mujab	"},
+ {"No":	169	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Hasby Muhammad Khair	"},
+ {"No":	170	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Hilmi Damanhuri Cahyadin	"},
+ {"No":	171	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Jupiter Maqil Ghaisan	"},
+ {"No":	172	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Alwi Zamzami Muslim	"},
+ {"No":	173	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Aqila Az Zaidan	"},
+ {"No":	174	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Hijaz Al Ramdhani	"},
+ {"No":	175	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Kahfi Ali Ramdani	"},
+ {"No":	176	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Miftah Musyaffa	"},
+ {"No":	177	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Nizar Arrasyid	"},
+ {"No":	178	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Raffi Friadin	"},
+ {"No":	179	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Rif'At Fauzi	"},
+ {"No":	180	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Rofii Solehudin	"},
+ {"No":	181	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Shidqi Fariz Azzamy	"},
+ {"No":	182	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Yasir Aswan Faisal	"},
+ {"No":	183	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Zein Arkan Al Musawwa	"},
+ {"No":	184	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Naori Yama Surya Almubaroq	"},
+ {"No":	185	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Ridwan Ardiansyah	"},
+ {"No":	186	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Rizzan Putra Mulyandi	"},
+ {"No":	187	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Ahmad Dani Apriana	"},
+ {"No":	188	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Ahmad Fauzan Alqomari	"},
+ {"No":	189	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Dadang Hariadi	"},
+ {"No":	190	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Hamzah Mohammad Jafar	"},
+ {"No":	191	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Karan Nuroshan Al Ghiffari	"},
+ {"No":	192	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Mochamad Eka Ferdiansyah	"},
+ {"No":	193	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhamad Alvaro Eka Radhitya Putra Susanto	"},
+ {"No":	194	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhamad Faqiih Mukhtar	"},
+ {"No":	195	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhamad Farhanudin	"},
+ {"No":	196	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Abdul Nashir Rodibillah	"},
+ {"No":	197	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Arsyad Al Madani	"},
+ {"No":	198	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Azka Maulana Zarkasy	"},
+ {"No":	199	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Fauzan Dhiya'Ulhaq	"},
+ {"No":	200	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Fauzan Zulfiqor	"},
+ {"No":	201	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Iqbal Zauhari	"},
+ {"No":	202	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Nabil Arrasyidu Syarif	"},
+ {"No":	203	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Rafa Rizqi Ramdan Putra	"},
+ {"No":	204	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Syahiroel Al-Fatih	"},
+ {"No":	205	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Targana	"},
+ {"No":	206	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Zulfa Rizqi Abdullah	"},
+ {"No":	207	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Mulla Hasan Mufarid	"},
+ {"No":	208	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Naufal Ma'Mur Afif	"},
+ {"No":	209	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Raysakha Athaya Desfilino	"},
+ {"No":	210	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Rifki Hidayatulloh	"},
+ {"No":	211	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Sandi Arasid	"},
+ {"No":	212	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Abdul Muhyi Al Qorni	"},
+ {"No":	213	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Ahmad	"},
+ {"No":	214	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Cahaya Nugraha	"},
+ {"No":	215	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	El Nisham Ramadhan	"},
+ {"No":	216	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Faiz Maulana Ihsan	"},
+ {"No":	217	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Harish Al Fahrezi	"},
+ {"No":	218	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Jillan Nur Sya'Ban	"},
+ {"No":	219	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Kaisar Dzulfadly Ula	"},
+ {"No":	220	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Kgs M. Nur Kahfi	"},
+ {"No":	221	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhamad Arkaan Saajid Siddiq	"},
+ {"No":	222	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhamad Fauzan Nawawi	"},
+ {"No":	223	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Abdul Manaf	"},
+ {"No":	224	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Abi Bagja Firdaus	"},
+ {"No":	225	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Dapi Syam	"},
+ {"No":	226	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Fathurahman	"},
+ {"No":	227	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Hikari Alfathir Sugiarto	"},
+ {"No":	228	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Muhsin Anwar	"},
+ {"No":	229	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Nawawi	"},
+ {"No":	230	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Nizam Fakhrurozi	"},
+ {"No":	231	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Nur Albadawi	"},
+ {"No":	232	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Nurdin	"},
+ {"No":	233	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Nurudin Ali Asy-Syaun	"},
+ {"No":	234	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Rizqi Ramdhani	"},
+ {"No":	235	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Shofwan Dzakirullail	"},
+ {"No":	236	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Sulaiman Azami	"},
+ {"No":	237	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Tsaabit Dzakwan Nasihin	"},
+ {"No":	238	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Naufal Fadhil Fauzan	"},
+ {"No":	239	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Pirman Alimusaban	"},
+ {"No":	240	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Radithya Radjasadimirat	"},
+ {"No":	241	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Rizky Zahran Cahyono	"},
+ {"No":	242	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Shihab Al Mahri	"},
+ {"No":	243	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Ahmad Kamal Sofyan	"},
+ {"No":	244	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Ahmad Kevin Aqiel	"},
+ {"No":	245	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Alvin Muhammad Rafif Taufik	"},
+ {"No":	246	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Alwi Ahmad Fauzi	"},
+ {"No":	247	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Cahya Haery Pratama	"},
+ {"No":	248	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Cecep Ahmad Masmu	"},
+ {"No":	249	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Daffa Ahmad Zakariya	"},
+ {"No":	250	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Deva Abdurrahman Solahudin	"},
+ {"No":	251	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Fery Ardiansyah	"},
+ {"No":	252	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	M. Ridho Priadi	"},
+ {"No":	253	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	M. Zam Zam Latiful Qolbi	"},
+ {"No":	254	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhamad Adestian Sutisna	"},
+ {"No":	255	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhamad Irfa Nurfauzi	"},
+ {"No":	256	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhamad Syafi'I	"},
+ {"No":	257	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Abil Futuh	"},
+ {"No":	258	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Arifin Siddiq	"},
+ {"No":	259	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Azkiya Aulia	"},
+ {"No":	260	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Da'I Bahtiar	"},
+ {"No":	261	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Dzakwan Faaiqurrahman	"},
+ {"No":	262	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Fachri Bahaudin Hasbi	"},
+ {"No":	263	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Fathirrizqi	"},
+ {"No":	264	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Khandias	"},
+ {"No":	265	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Nijam Al Hasani	"},
+ {"No":	266	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Rajip Putra Pratama	"},
+ {"No":	267	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Syaroffuddin	"},
+ {"No":	268	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Rakha Septiandi	"},
+ {"No":	269	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Rayhan Rizwar Arifki	"},
+ {"No":	270	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Raziq Hanan Widhayanto	"},
+ {"No":	271	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Rio Ferdian	"},
+ {"No":	272	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Afaf Nizar Qabbani	"},
+ {"No":	273	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Agung Firmansyah	"},
+ {"No":	274	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Ahmad Fadlil Farij	"},
+ {"No":	275	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Ahmad Khotib Sambas	"},
+ {"No":	276	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Ahmad Wafa Mudzaki	"},
+ {"No":	277	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Alief Wira Yudha Mustholih	"},
+ {"No":	278	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Aureal Dwi Anugrah	"},
+ {"No":	279	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Deva Trya Bagus Dian Nugraha	"},
+ {"No":	280	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dhika Muhamad Ramdan	"},
+ {"No":	281	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dinovior Kombala	"},
+ {"No":	282	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Faiz Zain Al Asyrof	"},
+ {"No":	283	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Fakhir Muhammad Muntaz	"},
+ {"No":	284	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Kafi Rizal Afifuddin	"},
+ {"No":	285	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Kalvin Ramadhan	"},
+ {"No":	286	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Maulana Malik Ibrahim	"},
+ {"No":	287	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Moch. Krisna Gala Mukti	"},
+ {"No":	288	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhamad Azdki Arrafi	"},
+ {"No":	289	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhamad Daffa Raditya Putra	"},
+ {"No":	290	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhamad David Jalalludin	"},
+ {"No":	291	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhamad Lubis Abiyasa	"},
+ {"No":	292	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Fazri Ramadhan	"},
+ {"No":	293	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Hafidz Nugraha	"},
+ {"No":	294	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Hikamudin	"},
+ {"No":	295	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Izzatul Islam	"},
+ {"No":	296	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Luthfi Ramdhan	"},
+ {"No":	297	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Nazriel Alamsyah	"},
+ {"No":	298	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhammad Nurzamzam Al Maliki	"},
+ {"No":	299	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Rezqi Putra Al-Mutaqin	"},
+ {"No":	300	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Waqi Abdul Hamid	"},
+ {"No":	301	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Agus Raihan Isnanto	"},
+ {"No":	302	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Avrillyansyah Putra Mahendra	"},
+ {"No":	303	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Azhar Aufal Ramadhan	"},
+ {"No":	304	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Chikal Putra Pratama	"},
+ {"No":	305	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Dhafa Maulana Abdillah	"},
+ {"No":	306	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Dimas Adhyaksa Rusnady	"},
+ {"No":	307	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Fahmi Maulana Idris	"},
+ {"No":	308	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Faiq Imam Fadilah	"},
+ {"No":	309	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Fairuz Fadhilah	"},
+ {"No":	310	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	M Fargan Algifahri	"},
+ {"No":	311	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	M. Ilham Al Fahri 	"},
+ {"No":	312	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	M. Rifdhal Mughni	"},
+ {"No":	313	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Moch. Raffly Fringgie Pratama	"},
+ {"No":	314	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Fahri Husaini	"},
+ {"No":	315	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Rizki	"},
+ {"No":	316	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Syamsudin Arif	"},
+ {"No":	317	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Taufik	"},
+ {"No":	318	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Zaki	"},
+ {"No":	319	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Abdul Fatah Ridwan	"},
+ {"No":	320	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Abdul Muhyi	"},
+ {"No":	321	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Akhila Ramdhani	"},
+ {"No":	322	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Alif Maulana Hidayat	"},
+ {"No":	323	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad An-Naba Kumara	"},
+ {"No":	324	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Arief	"},
+ {"No":	325	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Dzikra Fattah	"},
+ {"No":	326	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Fathurrohman	"},
+ {"No":	327	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Ghani Al-Ghifari	"},
+ {"No":	328	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Syahrul	"},
+ {"No":	329	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Alvan Ramadhan Darmawan	"},
+ {"No":	330	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Alwa Pinuja Suhadi	"},
+ {"No":	331	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Bagas Saf Putra	"},
+ {"No":	332	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Bagus Eka Rachman	"},
+ {"No":	333	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Dede Muhaimin	"},
+ {"No":	334	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Fais Adi Nugroho	"},
+ {"No":	335	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Hanif Fauzan Arrobani	"},
+ {"No":	336	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Ikhsan Nuralim	"},
+ {"No":	337	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Kemal Novsa Menlicho	"},
+ {"No":	338	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Kemas Muhamad Akmal Firdaus	"},
+ {"No":	339	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Marvel Faridz Baihaqi	"},
+ {"No":	340	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Mochammad Rizky Rasya	"},
+ {"No":	341	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhamad Ilham Ramadhan	"},
+ {"No":	342	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhamad Irsyad Ardiansyah	"},
+ {"No":	343	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhamad Rizki	"},
+ {"No":	344	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhammad Alifta Ferdiansyah 	"},
+ {"No":	345	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhammad Arifin 	"},
+ {"No":	346	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhammad Daffa Attariq	"},
+ {"No":	347	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Muhammad Syahid Asnawi	"},
+ {"No":	348	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Nahyu Hidayat	"},
+ {"No":	349	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Raghib Ismail 	"},
+ {"No":	350	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Raka Fadhil Saputra	"},
+ {"No":	351	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Rayhan Numan Fuady	"},
+ {"No":	352	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Reza Pratama	"},
+ {"No":	353	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Riza Fauzi Fazrin	"},
+ {"No":	354	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Rizqi Ahmad Fadillah	"},
+ {"No":	355	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Septian Ramdani	"},
+ {"No":	356	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Zidan Ramadani	"},
+ {"No":	357	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Abdulloh Syakir	"},
+ {"No":	358	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Abul Khoirsyah	"},
+ {"No":	359	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Arbian Mardana Putra	"},
+ {"No":	360	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Arju Muhamad Marjuq	"},
+ {"No":	361	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Firmansyah Putra Maulana	"},
+ {"No":	362	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Giandra Magenta	"},
+ {"No":	363	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Mada Ahmad Banani	"},
+ {"No":	364	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Maulana Yusuf Ibrohim	"},
+ {"No":	365	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Moch. Fadiel Rhamadhani	"},
+ {"No":	366	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Mochammad Hasby Khoeri Rasid	"},
+ {"No":	367	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhamad Aden Arya Cahyana Firdaus	"},
+ {"No":	368	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhamad Azka Azkiya	"},
+ {"No":	369	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhamad Reyza Rachmawan	"},
+ {"No":	370	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhammad Alfakhrul Mubarok	"},
+ {"No":	371	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhammad Azmi Al Ghifari	"},
+ {"No":	372	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhammad Fahmi Al Farisyi	"},
+ {"No":	373	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rafi Diyaul Hikam	"},
+ {"No":	374	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rafi Kurnianto	"},
+ {"No":	375	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rezan Alfaridzy	"},
+ {"No":	376	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rifa Nurfadla	"},
+ {"No":	377	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rifal Afandi Hardiansah	"},
+ {"No":	378	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Sandika	"},
+ {"No":	379	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Wahyu Hidayat	"},
+ {"No":	380	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Wendi Nurfadilah	"},
+ {"No":	381	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Yusuf Moch. Ramdhan	"},
+ {"No":	382	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Zaenudin Alamsyah	"},
+ {"No":	383	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Zainal Dzilfashihi	"},
+ {"No":	384	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Abidzar Tazkia Rahmani	"},
+ {"No":	385	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Ahmad Sahrul	"},
+ {"No":	386	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Akbar Eka Putra 	"},
+ {"No":	387	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Akbar Maulana Ishaq	"},
+ {"No":	388	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Akmal Maulana	"},
+ {"No":	389	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Aldi Ardiansah	"},
+ {"No":	390	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Alvian Maulana Firmansyah	"},
+ {"No":	391	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Fakhri Hibban Masturon	"},
+ {"No":	392	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Faqih Jalupaya Respati Ghozali	"},
+ {"No":	393	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Faqih Mubarok	"},
+ {"No":	394	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Ibnu Sayyid Hari Ramdani	"},
+ {"No":	395	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhamad Iksan	"},
+ {"No":	396	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhamad Jalalludin	"},
+ {"No":	397	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhamad Maulana Abdul Rojak	"},
+ {"No":	398	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhamad Sobahul	"},
+ {"No":	399	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhammad Chairi Naufal Irawan	"},
+ {"No":	400	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhammad Fahrurozzi	"},
+ {"No":	401	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhammad Rizqy Abdul Kudus	"},
+ {"No":	402	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Naufal Rifki Fauzan	"},
+ {"No":	403	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Qika Febriansyah	"},
+ {"No":	404	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Rifki Surya Azhar	"},
+ {"No":	405	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Rizal Fahriansyah	"},
+ {"No":	406	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Rohmat Sarif Hidayat	"},
+ {"No":	407	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Sinan Achmad Baihaqi	"},
+ {"No":	408	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Amin Ma’Ruf	"},
+ {"No":	409	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Andana Haris	"},
+ {"No":	410	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Angga Febri Triana 	"},
+ {"No":	411	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Arkan Khoiri Lukman	"},
+ {"No":	412	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Asep Cahyadi	"},
+ {"No":	413	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Azi Maulana	"},
+ {"No":	414	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Fariz Fadhillah	"},
+ {"No":	415	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Fatir Nursyam	"},
+ {"No":	416	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Fikri Maulana Muhammad Faridudin	"},
+ {"No":	417	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Isep Sopian	"},
+ {"No":	418	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	M. Afdal Dzul Fikri	"},
+ {"No":	419	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	M.Farrel S.S	"},
+ {"No":	420	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhamad Raafi Aliyyunaafi	"},
+ {"No":	421	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Hasan Siddiq	"},
+ {"No":	422	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Hilman Hasbulloh	"},
+ {"No":	423	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Lutfi Abdulah	"},
+ {"No":	424	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Ramdhan Rohmatulloh	"},
+ {"No":	425	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Sarriyyissaqoti	"},
+ {"No":	426	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Syamsul Anwar	"},
+ {"No":	427	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Zibral Felipe Fisichela	"},
+ {"No":	428	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Zuhayr Ar Rashaad	"},
+ {"No":	429	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Rizal Firmansyah	"},
+ {"No":	430	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Robiansyah Nur Fadilah	"},
+ {"No":	431	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Sultan Habib	"},
+ {"No":	432	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Tata Resta Ramadhani 	"},
+ {"No":	433	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Zayyan Sakhi Maulawi	"},
+ {"No":	434	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Abdul Azis	"},
+ {"No":	435	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Abdul Mughits Hidayatulloh	"},
+ {"No":	436	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Adi Irawan	"},
+ {"No":	437	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Aditia Firmansyah	"},
+ {"No":	438	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Aldi Kamaludin	"},
+ {"No":	439	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Aldi Ramdani	"},
+ {"No":	440	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Alieffa Nur Hakiim	"},
+ {"No":	441	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Fahir Fauzan Mudoffar	"},
+ {"No":	442	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Fakhrudin Zafar Sauki	"},
+ {"No":	443	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	M. Sahla Fahlevi Rafsanjani	"},
+ {"No":	444	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Mildan Syafrudin Hamid	"},
+ {"No":	445	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Mochammad Riki Kurniawan	"},
+ {"No":	446	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhamad Akhdan Hazimul Fikri	"},
+ {"No":	447	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Dhafa Rizky Fauzi	"},
+ {"No":	448	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Hafizh Abdul Qodir	"},
+ {"No":	449	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Haykal Baihaqi	"},
+ {"No":	450	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Ibad Mukrom	"},
+ {"No":	451	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Jaenal Abidin	"},
+ {"No":	452	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Rifki Fauzan	"},
+ {"No":	453	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Rofiyudin	"},
+ {"No":	454	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Yazid Abdul Qodir Hidayat	"},
+ {"No":	455	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Muhammad Yusuf 	"},
+ {"No":	456	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Navis Ahmad Mustopa	"},
+ {"No":	457	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Nazriel Rochmandani Zaydan Ss	"},
+ {"No":	458	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Paisal Wahyudin	"},
+ {"No":	459	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Rendi Setiawan	"},
+ {"No":	460	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Solahudin Fauzia Rahman	"},
+ {"No":	461	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Wildan Raflyansyah	"},
+ {"No":	462	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Agis Muhamad Abdilah	"},
+ {"No":	463	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Ahmad Yasin	"},
+ {"No":	464	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Alwi Muhammad Asnawi	"},
+ {"No":	465	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Andre Ramadhan	"},
+ {"No":	466	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Fazkia Ramadhan Hafidz	"},
+ {"No":	467	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Hadi Hermawan	"},
+ {"No":	468	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Haris Juliyansyah	"},
+ {"No":	469	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	M. Abdul Malik	"},
+ {"No":	470	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Mochamad Alief Attallah	"},
+ {"No":	471	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Moh Abdul Fatih	"},
+ {"No":	472	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Mohammad Abdul Aziz	"},
+ {"No":	473	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhamad Aldi Saputra	"},
+ {"No":	474	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhamad Regi Rahmadani	"},
+ {"No":	475	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Aly Sholaahuddin Amin	"},
+ {"No":	476	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Dhafa Attoilah	"},
+ {"No":	477	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Ilham Rizqi Muttaqin	"},
+ {"No":	478	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Iqbaal Rizqulloh	"},
+ {"No":	479	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Jamaluddin Rozzaq	"},
+ {"No":	480	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Paturohman	"},
+ {"No":	481	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Rendi	"},
+ {"No":	482	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Ridwan	"},
+ {"No":	483	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Rudi Pebriansyah	"},
+ {"No":	484	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Taupan Muhammad Rhamdan Pratama	"},
+ {"No":	485	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Yasir Akmal Maulid	"},
+ {"No":	486	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Isam Efendi	"},
+ {"No":	487	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhamad Sihab Marbawi	"},
+ {"No":	488	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Ilham	"},
+ {"No":	489	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Akmal Abdul Latif	"},
+ {"No":	490	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Apip Ramdani	"},
+ {"No":	491	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Arvo Antonio Hayes	"},
+ {"No":	492	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Arzachel Athar Al Azzam	"},
+ {"No":	493	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Dirga Ibrahim	"},
+ {"No":	494	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Feiza Dzul 'Azmi	"},
+ {"No":	495	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Hammad Alfatih Abdulwali	"},
+ {"No":	496	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	M Robert Hardika A M	"},
+ {"No":	497	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Mughni Haydar Ali Fahrurozi	"},
+ {"No":	498	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhamad Iqbal Ramdhani	"},
+ {"No":	499	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhamad Siddiq Zainul Asyiqin	"},
+ {"No":	500	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Abdulkariim Nawawi	"},
+ {"No":	501	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Alif Ghozali	"},
+ {"No":	502	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Azkha El-Azkhiya	"},
+ {"No":	503	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Dzaji Firmansyah	"},
+ {"No":	504	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Hasan	"},
+ {"No":	505	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Kafin Mujtaba	"},
+ {"No":	506	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Ramdhan As Shidiq	"},
+ {"No":	507	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Syarofuddin	"},
+ {"No":	508	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Muhammad Zahran Zaidan	"},
+ {"No":	509	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Raffi Abhipraya	"},
+ {"No":	510	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Refan Kautsar Rezalla	"},
+ {"No":	511	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Sulthan Al-Rasyid	"},
+ {"No":	512	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Syakera Habiburrohman Azzahid Zaini	"},
+ {"No":	513	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Taufiqut Tamam	"},
+ {"No":	514	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ahmad Fauzi Abdullah	"},
+ {"No":	515	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Alfin Muzahid	"},
+ {"No":	516	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Arfa Mahardhika Mustolih	"},
+ {"No":	517	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Dalpin Ajril	"},
+ {"No":	518	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Fahry Ali Mulyadi	"},
+ {"No":	519	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ghiyats Ahmad Fawwaz Irawan	"},
+ {"No":	520	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Iyus Muhammad Rizqi	"},
+ {"No":	521	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Moch Rakha Raffi Zain	"},
+ {"No":	522	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhamad Fariduddin Abdul Qodir	"},
+ {"No":	523	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhamad Nur Ali	"},
+ {"No":	524	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhamad Yusup	"},
+ {"No":	525	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Abidzar Alghifari	"},
+ {"No":	526	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Alif Pratama	"},
+ {"No":	527	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Baghowi	"},
+ {"No":	528	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Bushiri	"},
+ {"No":	529	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Fadhil Abdul Aziz	"},
+ {"No":	530	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Ilham Assayuuti	"},
+ {"No":	531	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Khaizman Al Bani	"},
+ {"No":	532	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Rois Khoirun	"},
+ {"No":	533	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Yusuf Nabhani	"},
+ {"No":	534	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Zamzam Amrrulloh Rosyana	"},
+ {"No":	535	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Raka Nizam Dzulghani	"},
+ {"No":	536	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ridho Muhamad Maulana	"},
+ {"No":	537	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Suryana Purwadinata	"},
+ {"No":	538	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Zulmi Ikhwan Hairi	"},
+ {"No":	539	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Alif Nur Padilah	"},
+ {"No":	540	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Arman Muhammad Fauzi	"},
+ {"No":	541	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Azriel Fadillah	"},
+ {"No":	542	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Danist Agam Pratama	"},
+ {"No":	543	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Fauzi Agren Sya'Bani	"},
+ {"No":	544	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Hazrat Fadhlikal Azim	"},
+ {"No":	545	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Jazilian Alfarabi	"},
+ {"No":	546	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Mochamad Zufar Zakwan Alwibawa	"},
+ {"No":	547	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Akbar	"},
+ {"No":	548	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Athar Rabbani Adriansyah	"},
+ {"No":	549	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Dimaz Raditiya	"},
+ {"No":	550	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Habibi	"},
+ {"No":	551	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Hidayat Fauzan	"},
+ {"No":	552	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Imam Rofi'i	"},
+ {"No":	553	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Jalaludin Assuyuti	"},
+ {"No":	554	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Nawawi Al-Maulana	"},
+ {"No":	555	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Shonhaaji	"},
+ {"No":	556	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Sulaeman Jamal	"},
+ {"No":	557	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Muhammad Zacky Al Ghiffary	"},
+ {"No":	558	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Paujan Abdul Azis	"},
+ {"No":	559	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Razka Nur Alam	"},
+ {"No":	560	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Rizky Akbar Permana	"},
+ {"No":	561	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Syahid Abdul Rohman	"},
+ {"No":	562	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi C	", "Nama lengkap":"	Syakib Asyam Hibrizi	"},
+ {"No":	563	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Abdullah Bahrudin Hambali	"},
+ {"No":	564	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Abdurohman Nul Azis	"},
+ {"No":	565	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Achmad Zidan Fazri Zazuli	"},
+ {"No":	566	, "Status":"	Alumni	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Ahmad Fauzan Juarsa Putra	"},
+ {"No":	567	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Asep Maulana	"},
+ {"No":	568	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Azki Nur Faiz M. Haikal	"},
+ {"No":	569	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Cucu Ahmad Fathurrohman	"},
+ {"No":	570	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Deni Supriatna	"},
+ {"No":	571	, "Status":"	Alumni	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Dzikri Fathurrahman	"},
+ {"No":	572	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Fauzan Taufiqurrohman	"},
+ {"No":	573	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Imam Robana	"},
+ {"No":	574	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Mochamad Farhan Nuri Abdulloh	"},
+ {"No":	575	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Mochamad Naufal Taufiq	"},
+ {"No":	576	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Mochamad Tegar Pamungkas	"},
+ {"No":	577	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhamad Zaki	"},
+ {"No":	578	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Ibnu Ruslan	"},
+ {"No":	579	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Naufal	"},
+ {"No":	580	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Nijar Alwansyarisi	"},
+ {"No":	581	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Rosyidin Ash Shiddiq	"},
+ {"No":	582	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Sya'Banul Khoir	"},
+ {"No":	583	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Muhammad Zainal Abidin	"},
+ {"No":	584	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Nu'Man Naufal Haedar	"},
+ {"No":	585	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Rifki Murtadlo	"},
+ {"No":	586	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Rifqi Ahmadi Taufik	"},
+ {"No":	587	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Riyan Maulana	"},
+ {"No":	588	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Rizra Fathur Syaban	"},
+ {"No":	589	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Saeful Mutaqin	"},
+ {"No":	590	, "Status":"	Alumni	", "Tahun Masuk": 	2016	, "Kelas":"	7	", "Kelas Detail":"	7	", "Nama lengkap":"	Yogi Muhammad Lukman	"},
+ {"No":	591	, "Status":"	Alumni	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	7	", "Nama lengkap":"	Zikri Dwi Alfiansyah	"},
+ {"No":	592	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Ahmad Fadilah Al-Fazri	"},
+ {"No":	593	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhamad Rizky Maulana	"},
+ {"No":	594	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Amin Nurohman	"},
+ {"No":	595	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Muhammad Andriana Hidayat	"},
+ {"No":	596	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Asep Rizki 	"},
+ {"No":	597	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Muhammad Meidrehan Pashya	"},
+ {"No":	598	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Oke Auliya	"},
+ {"No":	599	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Sesar Indrayana	"},
+ {"No":	600	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Jery Rizky K.Y	"},
+ {"No":	601	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-C	", "Nama lengkap":"	Muhammad Ramdhan	"},
+ {"No":	602	, "Status":"	Waqof	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-D	", "Nama lengkap":"	Moch Al Habib Mujami	"},
+ {"No":	603	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-D	", "Nama lengkap":"	Rachel Firzi Arsyad	"},
+ {"No":	604	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Bilal Muharom Fikriansyah	"},
+ {"No":	605	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Fiqri Damian Pratama	"},
+ {"No":	606	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Frananda Rayyan Ramdhani	"},
+ {"No":	607	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Moch. Mustofal Akhyar	"},
+ {"No":	608	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Moch. Nazril Septian	"},
+ {"No":	609	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Moch. Wafi Abdul Azis	"},
+ {"No":	610	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhamad Alwy	"},
+ {"No":	611	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhamad Ihsan 	"},
+ {"No":	612	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhamad Mahali	"},
+ {"No":	613	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Faeyza Febriant	"},
+ {"No":	614	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Muhammad Shakil Alleemuddin	"},
+ {"No":	615	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Wahyu Muhammad Rizki	"},
+ {"No":	616	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Am Hikam	"},
+ {"No":	617	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Dafa Abdul Fatah	"},
+ {"No":	618	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Fadhil Mahmudan Rizqullah	"},
+ {"No":	619	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	M. Saepudin Pahri	"},
+ {"No":	620	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Moch Wildan Abdul Ghani	"},
+ {"No":	621	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhamad Al Ghipari	"},
+ {"No":	622	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Hilmi Kamil	"},
+ {"No":	623	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Pascal Aulia	"},
+ {"No":	624	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Muhammad Zaky Ramadhan	"},
+ {"No":	625	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Belva Aditya Putra 	"},
+ {"No":	626	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Faddilah Akbar Juliana	"},
+ {"No":	627	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Haziq Ahmad Hikamuddin	"},
+ {"No":	628	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Mochamad Saefurrojab	"},
+ {"No":	629	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Muhammad Syakir Alfi Shidqi	"},
+ {"No":	630	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Rafa Khoerul Fata	"},
+ {"No":	631	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Rizky Tanjung Mulia	"},
+ {"No":	632	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Saebario Manuwu	"},
+ {"No":	633	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Vitra Pratama 	"},
+ {"No":	634	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-C	", "Nama lengkap":"	Wisnu Mubarok	"},
+ {"No":	635	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Adly Apriliansyah	"},
+ {"No":	636	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Aqil Muhamad Zubair	"},
+ {"No":	637	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Mochammad Daffa Ibnu Fauzan	"},
+ {"No":	638	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Junaidi Baghdaadi	"},
+ {"No":	639	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-D	", "Nama lengkap":"	Muhammad Yasin Al Buchori	"},
+ {"No":	640	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Ananda Rifki Al Kautsar	"},
+ {"No":	641	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	M. Fadhil Ilham	"},
+ {"No":	642	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	M. Syihabul Milah	"},
+ {"No":	643	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Moch Aldi Herianto	"},
+ {"No":	644	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Abid Pratama	"},
+ {"No":	645	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Diffa Pratama	"},
+ {"No":	646	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Septiana Rahmansyah	"},
+ {"No":	647	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Muhammad Yudi Adefka	"},
+ {"No":	648	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Najdi Fahman Dzulhilmi	"},
+ {"No":	649	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Ridho Ziyadatul Khoir	"},
+ {"No":	650	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Rival Pratama	"},
+ {"No":	651	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Rizky Maulana Saputra	"},
+ {"No":	652	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Sangga Rava Shandya	"},
+ {"No":	653	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Shiddiq Kaisar Azida	"},
+ {"No":	654	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Abdullah Muhammad Rizki	"},
+ {"No":	655	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Ahmad Sahlan Maulana	"},
+ {"No":	656	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Ilham Hidayatullah	"},
+ {"No":	657	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhamad Zaki I'Tisham	"},
+ {"No":	658	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Muhammad Refan Nur Hakim	"},
+ {"No":	659	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Rifky Aditya	"},
+ {"No":	660	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Rizki Ali Ramdhan	"},
+ {"No":	661	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhamad Idris Surya Nugraha	"},
+ {"No":	662	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhamad Mulfi Azmi	"},
+ {"No":	663	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Fadhlan Firmansyah	"},
+ {"No":	664	, "Status":"	Waqof	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Nadif Rizqy	"},
+ {"No":	665	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Ridwan Dwi Putra	"},
+ {"No":	666	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Muhammad Zaki Arifin 	"},
+ {"No":	667	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-C	", "Nama lengkap":"	Sahrul Muhamad	"},
+ {"No":	668	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Deden Ivan Hidayat	"},
+ {"No":	669	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Muhamad Saeful Ma'Ruf	"},
+ {"No":	670	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	M. Hajjaj Al Jalaluddin	"},
+ {"No":	671	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhamad Badrudin	"},
+ {"No":	672	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Muhammad Fahmi Al Gozali	"},
+ {"No":	673	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Tauvan Agustian Pasaribu	"},
+ {"No":	674	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Aria Nur Sidik	"},
+ {"No":	675	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Demas Phalosa Alip Gumelar	"},
+ {"No":	676	, "Status":"	Waqof	", "Tahun Masuk": 	2018	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	M. Akmal Mustopa	"},
+ {"No":	677	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-C	", "Nama lengkap":"	Sany Nurfadhilah	"},
+ {"No":	678	, "Status":"	Waqof	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Muhammad Abdul Hakim	"},
+ {"No":	679	, "Status":"	Waqof	", "Tahun Masuk": 	2017	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Hadid Muhammad Ramadhon	"},
+ {"No":	680	, "Status":"	Waqof	", "Tahun Masuk": 	2017	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Husni Husaeni Mubarok	"},
+ {"No":	681	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhammad Aliudin Alghozali	"},
+ {"No":	682	, "Status":"	Waqof	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Muhammad Ilham Dimyati	"},
+ {"No":	683	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-C	", "Nama lengkap":"	Muhammad Jaffar Shoddiq	"},
+ {"No":	684	, "Status":"	Waqof	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Aditia Muhamad Rahman	"},
+ {"No":	685	, "Status":"	Waqof	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhamad Fathurrohman	"},
+ {"No":	686	, "Status":"	Waqof	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Muhammad Abdul Malik	"},
+ {"No":	687	, "Status":"	Waqof	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Rivandio Al Habibillah	"},
+ {"No":	688	, "Status":"	Waqof	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Athtaariq Syach Ramadhan	"},
+ {"No":	689	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Fahmi Nararya Ramdhani	"},
+ {"No":	690	, "Status":"	Waqof	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Mohammad Yunus Putra Haerudin	"},
+ {"No":	691	, "Status":"	Waqof	", "Tahun Masuk": 	2024	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Muhammad Rauf Ar-Rizqi	"},
+
+        ];
+
+        // ==========================================
+        // FUNGSI RENDER TABEL (5 KOLOM)
+        // ==========================================
+        const populateTable = (data) => {
+            tableBody.innerHTML = ''; 
+
+            data.forEach((santri) => {
+                // Ambil data
+                const nama = (santri["Nama lengkap"] || '-').trim();
+                const rawStatus = (santri["Status"] || '-').trim().toLowerCase();
+                const tahunMasuk = santri["Tahun Masuk"] || '-';
+                // PISAHKAN KELAS (BLOK) DAN KELAS DETAIL (RUANG)
+                const kelasBlok = (santri["Kelas"] || '-').toString().trim(); 
+                const kelasDetail = (santri["Kelas Detail"] || '-').trim();
+
+                // Style Status
+                let statusClass = 'status-nonaktif';
+                let statusIcon = 'bi-x-circle';
+                let statusText = 'Tidak Aktif';
+
+                if (rawStatus.includes('aktif')) {
+                    statusClass = 'status-aktif';
+                    statusIcon = 'bi-check-circle-fill';
+                    statusText = 'Aktif';
+                } else if (rawStatus.includes('boyong') || rawStatus.includes('pindah')) {
+                    statusText = 'Boyong/Pindah';
+                } else if (rawStatus.includes('alumni')) {
+                    statusClass = 'status-alumni'; // Pastikan ada CSS .status-alumni
+                    statusIcon = 'bi-mortarboard-fill';
+                    statusText = 'Alumni';
+                } else if (rawStatus.includes('waqof')) {
+                     statusClass = 'status-waqof'; // Pastikan ada CSS .status-waqof
+                     statusIcon = 'bi-pause-circle-fill';
+                     statusText = 'Waqof';
+                }
+
+                // Render Baris (5 Kolom)
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-placeholder me-3" style="width:40px; height:40px; background:#e9ecef; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#206c4e; font-weight:bold;">
+                                ${nama.charAt(0)}
+                            </div>
+                            <span>${nama}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            <i class="bi ${statusIcon}"></i> ${statusText}
+                        </span>
+                    </td>
+                    <td style="font-family: 'Source Sans 3'; font-weight:500;">${tahunMasuk}</td>
+                    
+                    <td style="font-weight: 600; color: #555;">${kelasBlok}</td>
+                    
+                    <td><span class="kelas-badge">${kelasDetail}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Baris Total
+            if (data.length > 0) {
+                const totalRow = document.createElement('tr');
+                totalRow.style.backgroundColor = '#f0fdf4';
+                totalRow.style.borderTop = '2px solid #206c4e';
+                
+                // colspan jadi 5 karena kolom bertambah
+                totalRow.innerHTML = `
+                    <td colspan="5" class="text-center py-3" style="color: #1a3e2c;">
+                        <span style="font-weight: 500;">Total Santri Ditampilkan:</span> 
+                        <span style="font-weight: 800; font-size: 1.2rem; margin-left: 10px;">${data.length} Orang</span>
+                    </td>
+                `;
+                tableBody.appendChild(totalRow);
+            }
+        };
+
+        // ==========================================
+        // FUNGSI PENCARIAN (Cari di semua kolom)
+        // ==========================================
+        const filterData = () => {
+            if (!searchInput) return; 
+            
+            const query = searchInput.value.toLowerCase().trim();
+
+            const filteredData = santriData.filter(santri => {
+                const nama = (santri["Nama lengkap"] || '').toLowerCase();
+                const kelasDetail = (santri["Kelas Detail"] || '').toLowerCase();
+                const kelasBlok = (santri["Kelas"] || '').toString().toLowerCase();
+                const tahun = (santri["Tahun Masuk"] || '').toString().toLowerCase();
+                const status = (santri["Status"] || '').toLowerCase();
+
+                return nama.includes(query) || 
+                       kelasDetail.includes(query) || 
+                       kelasBlok.includes(query) ||
+                       tahun.includes(query) ||
+                       status.includes(query);
+            });
+
+            populateTable(filteredData);
+
+            if (filteredData.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <i class="bi bi-search display-6 d-block mb-3"></i>
+                            <h5>Data tidak ditemukan</h5>
+                        </td>
+                    </tr>
+                `;
+            }
+        };
+
+        if (searchInput) {
+            searchInput.addEventListener('keyup', filterData);
+        }
+        
+        // Load data awal
+        populateTable(santriData);
+    });
+</script>
+
+<script>
+/* ERP_WEBSITE_INTEGRATION_V1 */
+(function(){
+  const tableBody=document.getElementById('santriTableBody');
+  const searchInput=document.getElementById('searchInput');
+  if(!tableBody) return;
+  let rows=[];
+  async function getJson(path){
+    const endpoints=[path,`http://localhost:4000${path}`];
+    for(const endpoint of endpoints){
+      try{
+        const res=await fetch(endpoint);
+        if(!res.ok) continue;
+        return await res.json();
+      }catch(_error){}
+    }
+    throw new Error('erp_fetch_failed');
+  }
+  function render(items){
+    if(!items.length){ tableBody.innerHTML='<tr><td colspan="5" class="text-center text-muted py-4">Belum ada data santri banin aktif.</td></tr>'; return; }
+    tableBody.innerHTML=items.map(s=>`<tr><td><div class="d-flex align-items-center"><div class="avatar-placeholder me-3">${(s.full_name||'?').charAt(0)}</div><span>${s.full_name||'-'}</span></div></td><td><span class="status-badge status-aktif"><i class="bi bi-check-circle-fill"></i> Aktif</span></td><td>${(s.created_at||'').slice(0,4)||'-'}</td><td>${(s.class_name||'-').split('-')[0]}</td><td><span class="kelas-badge">${s.class_name||'-'}</span></td></tr>`).join('') + `<tr style="background:#f0fdf4"><td colspan="5" class="text-center"><strong>Total Santri Ditampilkan: ${items.length} Orang</strong></td></tr>`;
+  }
+  function apply(){ const q=(searchInput?.value||'').toLowerCase(); render(rows.filter(x=>(`${x.full_name} ${x.class_name}`).toLowerCase().includes(q))); }
+  getJson('/api/public/students?status=aktif&gender=L').then(({ok,data})=>{ rows=ok&&Array.isArray(data)?data:[]; apply(); }).catch(()=>{ tableBody.innerHTML='<tr><td colspan="5" class="text-center text-danger">Gagal memuat data ERP.</td></tr>'; });
+  if(searchInput) searchInput.addEventListener('input',apply);
+})();
+</script>
+</body>
+</html>
+
+
+

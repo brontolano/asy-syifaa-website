@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direktori Santri Banat - Ponpes Asy-Syifaa Wal Mahmuudiyyah Sumedang</title>
+  <meta name="description" content="Database lengkap Santri Banat (Putri) Asy-Syifaa Wal Mahmuudiyyah. Cek nama, status aktif, kelas, dan tahun masuk secara real-time. Informasi resmi Pesantren." />
+  <meta name="keywords" content="Santri Banat, Direktori Santri, Asy-Syifaa Wal Mahmuudiyyah, Pesantren Sumedang, Data Santri Putri" />
+  <meta name="author" content="Tim IT Asy-Syifaa Wal Mahmuudiyyah" />
+  <!-- Tailwind CSS dari CDN, untuk styling login form -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css?v=20260517">
+  <link rel="icon" href="../assets/img/logo.png" type="image/png" sizes="32x32">
+
+  <style>
+/* ==================================================================
+   1. IMPORT FONT MODERN (POPPINS)
+   ================================================================== 
+   Kita gunakan font 'Source Sans 3' dari Google. Font ini sangat populer 
+   karena kejelasan dan kesan modernnya.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Source Sans 3:wght@400;500;600;700&display=swap');
+
+
+
+
+/* ==================================================================
+   3. HEADER HALAMAN & PENCARIAN
+   ================================================================== */
+.page-header {
+    background: #ffffff;
+    padding: 30px 0;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-weight: 700;
+    color: var(--dark-green);
+    margin-bottom: 5px;
+}
+
+.search-box input {
+    border-radius: 50px; /* Input pencarian bulat */
+    padding: 12px 25px;
+    border: 2px solid #e9ecef;
+    background-color: #fcfcfc;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.search-box input:focus {
+    box-shadow: none;
+    border-color: var(--light-green);
+    background-color: #fff;
+}
+
+/* ==================================================================
+   4. STYLE TABEL MODERN & AESTHETIC (CLEAN LOOK)
+   ================================================================== */
+.table-responsive {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Bayangan besar tapi sangat halus */
+}
+
+.modern-table {
+    border-collapse: separate;
+    border-spacing: 0; /* Rapat, tidak ada jarak antar baris */
+    width: 100%;
+}
+
+/* STYLE JUDUL KOLOM (YANG ANTUM MINTA DIPERJELAS) */
+.modern-table thead th {
+    font-family: var(--font-primary);
+    font-size: 1rem; /* Ukuran font lebih besar */
+    font-weight: 700; /* SANGAT TEBAL (Bold) */
+    text-transform: uppercase; /* Huruf kapital semua agar tegas */
+    letter-spacing: 1.5px; /* Jarak antar huruf direnggangkan */
+    color: var(--text-dark); /* Warna hitam pekat */
+    background-color: #ffffff;
+    border-bottom: 3px solid #f0f2f5; /* Garis pemisah bawah yang tegas */
+    padding: 20px; /* Ruang yang lega */
+}
+
+/* STYLE ISI TABEL */
+.modern-table tbody tr {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efek saat mouse diarahkan ke baris */
+.modern-table tbody tr:hover {
+    background-color: #f8fffb; /* Warna hijau sangat muda saat di-hover */
+    transform: scale(1.01); /* Sedikit membesar agar interaktif */
+}
+
+.modern-table td {
+    padding: 20px; /* Padding besar agar lega (aesthetic) */
+    vertical-align: middle; /* Teks rata tengah secara vertikal */
+    border-bottom: 1px solid #f0f2f5; /* Garis pemisah tipis antar baris */
+    font-weight: 500; /* Ketebalan font sedang */
+    font-size: 1rem;
+}
+
+/* Khusus Kolom Nama Lengkap */
+.modern-table tbody tr td:first-child {
+    font-weight: 600; /* Lebih tebal dari yang lain */
+    color: var(--dark-green);
+    font-size: 1.05rem;
+}
+
+/* Avatar Huruf Depan Nama */
+.avatar-placeholder {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: var(--dark-green);
+    font-size: 1.2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* ==================================================================
+   5. STYLE BADGE STATUS & KELAS (LEBIH MODERN)
+   ================================================================== */
+.status-badge {
+    padding: 8px 14px;
+    border-radius: 10px; /* Sudut sedikit mengkotak, modern */
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-aktif {
+    background-color: #dcfce7; /* Hijau yang lebih segar */
+    color: #166534;
+}
+
+.status-nonaktif {
+    background-color: #fee2e2; /* Merah soft */
+    color: #991b1b;
+}
+
+/* Badge Kelas */
+.kelas-badge {
+    background-color: #ebf5ee; /* Latar belakang hijau nuansa sangat muda */
+    color: var(--dark-green);
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-weight: 700; /* Sangat tebal agar jelas */
+    font-size: 0.95rem;
+    display: inline-block;
+    border: 1px solid #ccead9; /* Garis pinggir halus */
+}
+
+/* =========================================
+   TOMBOL KEMBALI KE BERANDA (CUSTOM)
+   ========================================= */
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 35px;
+    background-color: white; /* Dasar Putih */
+    color: var(--dark-green); /* Teks Hijau Tua */
+    border: 2px solid var(--primary-green); /* Garis Pinggir Hijau */
+    border-radius: 50px; /* Membulat (Pill Shape) */
+    text-decoration: none; /* Hilangkan garis bawah link */
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Bayangan Halus */
+}
+
+/* Efek saat Mouse Menempel (Hover) */
+.btn-back-home:hover {
+    background-color: var(--primary-green); /* Berubah jadi Hijau */
+    color: white; /* Teks jadi Putih */
+    border-color: var(--primary-green);
+    transform: translateY(-5px); /* Tombol naik sedikit */
+    box-shadow: 0 10px 20px rgba(32, 108, 78, 0.2); /* Bayangan makin nyata */
+}
+
+/* Animasi Panah saat Hover */
+.btn-back-home:hover i {
+    transform: translateX(-5px); /* Panah bergerak ke kiri */
+    transition: transform 0.3s ease;
+}
+
+/* ==================================================================
+   6. RESPONSIVE MOBILE (CSS TAMBAHAN)
+   ================================================================== */
+
+/* Aturan untuk layar Tablet dan HP (Lebar di bawah 991px) */
+@media screen and (max-width: 991px) {
+    
+    /* 1. Penyesuaian Header & Pencarian */
+    .page-header {
+        padding: 20px 0;
+    }
+    
+    .search-bar-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* 2. Transformasi Tabel Menjadi Kartu (Card View) */
+    /* Menyembunyikan Header Tabel (Nama, Status, dll) karena ganti format */
+    .modern-table thead {
+        display: none;
+    }
+
+    /* Mengubah Baris (TR) menjadi Kotak Kartu */
+    .modern-table tbody tr {
+        display: block;
+        background: #fff;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Bayangan kartu */
+        border: 1px solid #e9ecef;
+        padding: 15px;
+    }
+
+    /* Efek hover dinonaktifkan di HP agar tidak "berkedip" saat disentuh */
+    .modern-table tbody tr:hover {
+        transform: none;
+        background-color: #fff;
+    }
+
+    /* Mengubah Sel (TD) menjadi baris-baris di dalam kartu */
+    .modern-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f2f5;
+        font-size: 0.95rem;
+        text-align: right; /* Isi data rata kanan */
+    }
+
+    /* Menghapus garis di baris terakhir dalam kartu */
+    .modern-table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* --- LOGIKA LABEL OTOMATIS (PENTING) --- */
+    /* Kita gunakan CSS ::before untuk memberi label karena header tabel disembunyikan */
+    
+    /* Kolom 1: Nama Lengkap (Kita buat rata tengah dan besar) */
+    .modern-table tbody td:first-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #206c4e; /* Garis pemisah hijau */
+        margin-bottom: 10px;
+    }
+    
+    .modern-table tbody td:first-child .d-flex {
+        flex-direction: column; /* Avatar di atas nama */
+        align-items: center !important;
+    }
+    
+    .modern-table tbody td:first-child .avatar-placeholder {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+        width: 60px !important; /* Avatar lebih besar di HP */
+        height: 60px !important;
+        font-size: 1.5rem !important;
+    }
+
+    /* Kolom 2: Status */
+    .modern-table tbody td:nth-of-type(2)::before {
+        content: "Status";
+        font-weight: 700;
+        color: #206c4e;
+        float: left;
+    }
+
+    /* Kolom 3: Tahun Masuk */
+    .modern-table tbody td:nth-of-type(3)::before {
+        content: "Tahun Masuk";
+        font-weight: 700;
+        color: #206c4e;
+    }
+
+    /* Kolom 4: Kelas (Blok) */
+    .modern-table tbody td:nth-of-type(4)::before {
+        content: "Kelas";
+        font-weight: 700;
+        color: #206c4e;
+    }
+
+    /* Kolom 5: Kelas Detail */
+    .modern-table tbody td:nth-of-type(5)::before {
+        content: "Ruang/Detail";
+        font-weight: 700;
+        color: #206c4e;
+    }
+    
+
+    
+    /* Tombol Kembali */
+    .btn-back-home {
+        width: 100%; /* Tombol lebar penuh */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+  // Konfigurasi Firebase (Tetap disimpan jika Anda mengambil data santri dari database Firebase)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSZrEOjTYAvJOTzH8c99eHwJt7FCIIq94",
+    authDomain: "direktori-santri-Banat.firebaseapp.com",
+    projectId: "direktori-santri-Banat",
+    storageBucket: "direktori-santri-Banat.firebasestorage.app",
+    messagingSenderId: "622158014579",
+    appId: "1:622158014579:web:6ac791602acfad5ecde206",
+    measurementId: "G-ZS75MKC952"
+  };
+
+  // Initialize Firebase (Hanya App, Auth tidak perlu)
+  if (Object.keys(firebaseConfig).length > 0) {
+      const app = initializeApp(firebaseConfig);
+      console.log("Firebase initialized (Data Only).");
+  }
+
+  // ==================================================================
+  // FUNGSI TAMPILAN LANGSUNG (TANPA LOGIN)
+  // ==================================================================
+  document.addEventListener('DOMContentLoaded', () => {
+      const loginContainer = document.getElementById('login-container');
+      const direktoriContent = document.getElementById('direktori-santri-content');
+      
+      // Navigasi (Opsional, untuk menyembunyikan menu login/logout)
+      const loginNavItem = document.getElementById('loginNavItem');
+      const logoutNavItem = document.getElementById('logoutNavItem');
+
+      // LOGIKA UTAMA: Langsung sembunyikan login, langsung tampilkan konten
+      if (loginContainer) loginContainer.style.display = 'none';
+      if (direktoriContent) direktoriContent.style.display = 'block';
+
+      // Atur menu navigasi (Sembunyikan tombol login & logout karena sudah masuk otomatis)
+      if (loginNavItem) loginNavItem.classList.add('hidden'); // Sembunyikan menu login
+      if (logoutNavItem) logoutNavItem.classList.add('hidden'); // Sembunyikan menu logout
+      
+      console.log("Mode Publik: Akses langsung diberikan.");
+  });
+</script>
+</head>
+ 
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/index.html">
+        <img src="assets/img/logo.png" alt="Logo Asy-Syifaa Wal Mahmuudiyyah" width="70" height="70" class="me-2">
+        <span class="fs-4">Asy-Syifaa Wal Mahmuudiyyah</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fa-solid fa-house"></i> Beranda</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-school"></i> Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="ProfileDropdown">
+                    <li><a class="dropdown-item" href="/profil.html">Profil</a></li>
+                    <li><a class="dropdown-item" href="/profil-visi-misi.html">Visi & Misi</a></li>
+                    <li><a class="dropdown-item" href="/profil-kurikulum.html">Kurikulum</a></li>
+                    <li><a class="dropdown-item" href="/profil-fasilitas.html">Fasilitas Pesantren</a></li>
+                    <li><a class="dropdown-item" href="/profil-ekskul.html">Ekstrakurikuler</a></li>
+                    <li><a class="dropdown-item" href="/profil-struktur.html">Struktur Organisasi</a></li>
+                    <li><a class="dropdown-item" href="/profil-guru.html">Guru</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="direktoriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-address-book"></i> Direktori</a>
+                <ul class="dropdown-menu" aria-labelledby="direktoriDropdown">
+                    <li><a class="dropdown-item" href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                    <li><a class="dropdown-item" href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                    <li><a class="dropdown-item" href="/direktori-pengajar.html">Direktori Pengajar</a></li>
+                      <li><a class="dropdown-item" href="/direktori-alumni.html">Direktori Alumni</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user-plus"></i> Pendaftaran</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                    <li><a class="dropdown-item" href="/daftar-sekarang.html">Daftar Sekarang</a></li>
+                    <li><a class="dropdown-item" href="/hasil-seleksi.html">Hasil Seleksi</a></li>
+                </ul>
+            </li>
+
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="kegiatanSantriDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-calendar-alt"></i> Kegiatan</a>
+                <ul class="dropdown-menu" aria-labelledby="kegiatanSantriDropdown">
+                    <li><a class="dropdown-item" href="/kegiatan-harian.html">Harian</a></li>
+                    <li><a class="dropdown-item" href="/kegiatan-mingguan.html">Mingguan, Bulanan, Tahunan</a></li>
+                </ul>
+            </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ppdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-info"></i>Informasi</a>
+                <ul class="dropdown-menu" aria-labelledby="ppdbDropdown">
+                    <li><a class="dropdown-item" href="/info-pengumuman.html">Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="/info-prestasi.html">Prestasi</a></li>
+                    <li><a class="dropdown-item" href="/e-raport.html">E-Raport</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/galeri.html" id="galeri"  aria-expanded="false"><i class="fa-solid fa-images"></i> Galeri</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" id="apps-erp-link" aria-expanded="false"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="toggleSearch" title="Pencarian">
+                <i class="fa-solid fa-search"></i></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Konten yang terlindungi, hanya ditampilkan setelah login -->
+<div id="direktori-santri-content">
+  <main>
+      <section id="direktori-santri">
+          <div class="container-fluid px-md-5">
+              <header class="text-center section-header">
+                  <h2>Direktori Santri Banat</h2>
+                  <p class="lead text-muted">Database Lengkap Santri Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+              </header>
+              
+              <div class="search-bar-container">
+                  <i class="bi bi-search"></i>
+                 <input 
+    type="text" 
+    class="form-control" 
+    placeholder="Cari Santri, Kelas, atau Tahun..." 
+    id="searchInput" 
+>
+              </div>
+
+<div class="table-responsive p-4">
+    <table class="table table-hover modern-table align-middle">
+       <thead class="table-light">
+            <tr>
+                <th scope="col" width="30%">Nama Lengkap</th>
+                <th scope="col" width="15%">Status</th>
+                <th scope="col" width="15%">Tahun Masuk</th>
+                <th scope="col" width="15%">Kelas</th> 
+                <th scope="col" width="25%">Kelas Detail</th>
+            </tr>
+        </thead>
+        <tbody id="santriTableBody">
+            </tbody>
+    </table>
+</div>
+          </div>
+      </section>
+      <div class="container text-center mb-5 mt-4">
+          <a href="/index.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Beranda
+          </a>
+      </div>
+  </main>
+  <div id="searchOverlay">
+    <span id="closeSearch" class="close-search" title="Tutup">×</span>
+    <div class="search-box">
+      <form class="d-flex gap-2" action="/pencarian.html" method="GET">
+        <input type="text" name="s" class="form-control" autocomplete="off" placeholder="Cari di seluruh situs..." required />
+        <button type="submit"><i class="bi bi-search"></i> CARI</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<footer class="modern-footer pt-5" id="kontak">
+    <div class="container pb-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-section">
+                    <div class="footer-title-container mb-3">
+                        <img src="../assets/img/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                    </div>
+                    <p class="small text-white-50">
+                        Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.
+                    </p>
+                    <div class="footer-social mt-4">
+                        <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@AsySyifaaTVOfficial" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@asysyifaapusat" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-section">
+                    <h4>Tautan Penting</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/profil-visi-misi.html">Visi & Misi</a></li>
+                        <li><a href="/alur-pendaftaran.html">Alur & Syarat Pendaftaran</a></li>
+                        <li><a href="/direktori-banin.html">Direktori Santri Banin</a></li>
+                        <li><a href="/direktori-banat.html">Direktori Santri Banat</a></li>
+                        <li><a href="/kegiatan-harian.html">Kegiatan Santri</a></li>
+                        <li><a href="/profil-kurikulum.html">Kurikulum Santri</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div class="text-white-50 small">
+                                Haurngombong, Kec. Pamulihan,
+                                Kabupaten Sumedang, Jawa Barat 45365
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6285322170007">0853-2217-0007</a>
+                                <span class="d-block small text-white-50">Administrasi</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                             <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6281776476495">0817-7647-6495</a>
+                                <span class="d-block small text-white-50">Muadalah</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                 <div class="footer-section h-100 d-flex flex-column">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container flex-grow-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.94427321582!2d107.82905607481875!3d-6.897268967496455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68daea5822cbff%3A0xdfe3d87acad09232!2sAsy-Syifaa%20Pusat!5e0!3m2!1sid!2sid!4v1750775764062!5m2!1sid!2sid" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="footer-bottom text-center small py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p class="m-0 text-white-50">© 2026 Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah. All Rights Reserved.</p>
+    </div>
+</footer>
+<a href="#top" id="backToTop" title="Kembali ke atas">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+    <path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"></path>
+  </svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+        
+        const tableBody = document.getElementById('santriTableBody');
+        const searchInput = document.getElementById('searchInput'); 
+
+        // ==========================================
+        // DATA SANTRI (FORMAT SUDAH DIPERBAIKI)
+        // Perhatikan tanda kutip (") sebelum koma (,)
+        // ==========================================
+        const santriData = [
+ {"No":	1	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Adinda Siti Shofiyyah	"},
+ {"No":	2	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Ainaya Salma Hashinah	"},
+ {"No":	3	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Ainun Najmi Ahmad Puri	"},
+ {"No":	4	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Azra Mursyidah Qasimah	"},
+ {"No":	5	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Bella Julia Khoirunnisa	"},
+ {"No":	6	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Citra Kaila Putri	"},
+ {"No":	7	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Dina Nidausalimah	"},
+ {"No":	8	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Habibah Murshiddah	"},
+ {"No":	9	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Haura Putri Nadif	"},
+ {"No":	10	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Husna Khoerunnisa Sumenda	"},
+ {"No":	11	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Khansa Yumna Nazhifa	"},
+ {"No":	12	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Mega Nanda	"},
+ {"No":	13	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Meisa Dewi Asiah	"},
+ {"No":	14	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Mikayla Ramadhani Falah	"},
+ {"No":	15	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Naura Kirani Ramadan	"},
+ {"No":	16	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Niken Afrini Utari	"},
+ {"No":	17	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Qirenia Salsabila	"},
+ {"No":	18	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Rasikha Zara Khalishah	"},
+ {"No":	19	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Reshie Aulia Septiani	"},
+ {"No":	20	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Sahma Khoerunisa	"},
+ {"No":	21	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Salma Aliah	"},
+ {"No":	22	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Shefira Alya Rasya	"},
+ {"No":	23	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Siti Aisyah	"},
+ {"No":	24	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Siti Hindun Nurfitriani	"},
+ {"No":	25	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Satu	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Siti Khodijah	"},
+ {"No":	26	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Siti Ummu Salamah	"},
+ {"No":	27	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Syifa Nurhasanah	"},
+ {"No":	28	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Wulan Fitriani	"},
+ {"No":	29	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-A	", "Nama lengkap":"	Zelda Safitri Muhtaf	"},
+ {"No":	30	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Al Zena Faridah	"},
+ {"No":	31	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Alula Maritza Inas	"},
+ {"No":	32	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Andini Wulandari	"},
+ {"No":	33	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Anisa Nurul Husna	"},
+ {"No":	34	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Azalea Rashmika Husna	"},
+ {"No":	35	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Azkya Ulfatun Nisa	"},
+ {"No":	36	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Dieska Fitri Aisyah Solahudin	"},
+ {"No":	37	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Hasna Sabiya	"},
+ {"No":	38	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Humairo Siti Salsabila	"},
+ {"No":	39	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Satu	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Irdina Khoirunnisa	"},
+ {"No":	40	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Jelita Dini Lifriyani	"},
+ {"No":	41	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Maulidiah Husna Ai'Nurofik	"},
+ {"No":	42	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Meysha Hana Nafeeza	"},
+ {"No":	43	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Najwa Alkubraa	"},
+ {"No":	44	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Neng Sri Rahayu Padilah	"},
+ {"No":	45	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Nur Amanah	"},
+ {"No":	46	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Nur Lelah 	"},
+ {"No":	47	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Putri Fitria Purnama	"},
+ {"No":	48	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Raden Nurul Husna Azzahra	"},
+ {"No":	49	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Revina Syifa Nurfadhilah	"},
+ {"No":	50	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Sayyidah Khodijah Nazla Salamah	"},
+ {"No":	51	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Siti Fahira Azzalia	"},
+ {"No":	52	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Siti Khodijah Budi Putri	"},
+ {"No":	53	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Siti Salma Afifah	"},
+ {"No":	54	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Syalwa Khayla Sifa Naureta	"},
+ {"No":	55	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Syarifa Zulfa Az Zahra	"},
+ {"No":	56	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Velidya Azzahra	"},
+ {"No":	57	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Yeni Rukoyah	"},
+ {"No":	58	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Yunita Rahmah Nurazizah	"},
+ {"No":	59	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Zihan Nursipa	"},
+ {"No":	60	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Zila Nur Dzilhijilah	"},
+ {"No":	61	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Alika Salsabila Ramadani	"},
+ {"No":	62	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Aqiela Hafiyyah Zahida	"},
+ {"No":	63	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Ayu Anjani	"},
+ {"No":	64	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Azzahra Almadenamarwan	"},
+ {"No":	65	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Desma Aulia	"},
+ {"No":	66	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Fauziah Khairunnisa	"},
+ {"No":	67	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Ghaida Fatin	"},
+ {"No":	68	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Isma Nurhusniyah	"},
+ {"No":	69	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Lutfiah Mutmainah	"},
+ {"No":	70	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Nadifa Aqila Khairani	"},
+ {"No":	71	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Na'ila Elysia Priyatama	"},
+ {"No":	72	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Najwa Nur  Ajizah	"},
+ {"No":	73	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Nayyla Ramadhani	"},
+ {"No":	74	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Rabbani Putri Parahyangan	"},
+ {"No":	75	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Rajni Fatma Aulia	"},
+ {"No":	76	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Rany Asiyatun	"},
+ {"No":	77	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Raysa Cahyani	"},
+ {"No":	78	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Renisa Arliani	"},
+ {"No":	79	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Saa'Adah Nazlatil Karimah	"},
+ {"No":	80	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Safira Rahmawati	"},
+ {"No":	81	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Salsabila Firdausiah	"},
+ {"No":	82	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Sarah Desviani	"},
+ {"No":	83	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Shalsabila  Aulia Syifaa	"},
+ {"No":	84	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Silfa Fitri Nur Rahma	"},
+ {"No":	85	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Silviana Widari	"},
+ {"No":	86	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Sinta Aulia 	"},
+ {"No":	87	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Siti Durratun Nashiihah	"},
+ {"No":	88	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Siti Hafshoh	"},
+ {"No":	89	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Siti Nopi Alipah	"},
+ {"No":	90	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Siti Ranum Mutmainah	"},
+ {"No":	91	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Sofia Nur Sayyidat	"},
+ {"No":	92	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Syovi Awalliah	"},
+ {"No":	93	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Tatia Siti Fatimah	"},
+ {"No":	94	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Wahdatul Mujizah	"},
+ {"No":	95	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Zahra Siti Rohimah	"},
+ {"No":	96	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Zulfa Dzakira Qodariyah	"},
+ {"No":	97	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Alfiyyah Nur Azizah 	"},
+ {"No":	98	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Alya Nurasipa	"},
+ {"No":	99	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Anggi Hafifull Utami	"},
+ {"No":	100	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Audira Syauqina	"},
+ {"No":	101	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Azzahra Adinda Adinda	"},
+ {"No":	102	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Intan Permatasari	"},
+ {"No":	103	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Izma Rizqi Yani Darmawan	"},
+ {"No":	104	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Keisya Ayu Safira	"},
+ {"No":	105	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Kharidah Zahra	"},
+ {"No":	106	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Lailatul Fajriah	"},
+ {"No":	107	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Lulu'I Tsania Putri	"},
+ {"No":	108	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Meisya Lidya Humaira	"},
+ {"No":	109	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Melisa Aidha Saputri	"},
+ {"No":	110	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Nabila Meysun	"},
+ {"No":	111	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Nadiyya Rizski Kamilah	"},
+ {"No":	112	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Naila Alfiaturrahmah	"},
+ {"No":	113	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Najla Aqila Mardhiyyah	"},
+ {"No":	114	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Nazwa Aisyah Arridha	"},
+ {"No":	115	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Qaisara Zaina Apta	"},
+ {"No":	116	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Qurotul Aeni	"},
+ {"No":	117	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Raisha Aqilah Hardiansah	"},
+ {"No":	118	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Regina Aulia Putri	"},
+ {"No":	119	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Riva Nurjanah	"},
+ {"No":	120	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Salsabila Nur Alifa	"},
+ {"No":	121	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Salsabila Nurul Zannah	"},
+ {"No":	122	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Sania Ramadhani Putri 	"},
+ {"No":	123	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Saroh Mutmainah	"},
+ {"No":	124	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Shabrina Novelani Gunawan	"},
+ {"No":	125	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Amira Humaira	"},
+ {"No":	126	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Khodijah	"},
+ {"No":	127	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Shofiyah Rahadatul Aisy	"},
+ {"No":	128	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Zahir Narayagung	"},
+ {"No":	129	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Zahra Robiah Adawiyyah	"},
+ {"No":	130	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Siti Zulfa Ramadhani 	"},
+ {"No":	131	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Sri Sinta Dewi	"},
+ {"No":	132	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Vicka Apriliani Putri	"},
+ {"No":	133	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Zainah Mursyidah	"},
+ {"No":	134	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	2	", "Kelas Detail":"	2-B	", "Nama lengkap":"	Zulaikha Arrojabi Azhar	"},
+ {"No":	135	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Aidah 	"},
+ {"No":	136	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Aisyah Neysa Sugiarto	"},
+ {"No":	137	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Alifa Zahwa Robbiatul A	"},
+ {"No":	138	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Aliya Putri Anggraeni	"},
+ {"No":	139	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Asyifa Dzikra Putri Hadian 	"},
+ {"No":	140	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Azkia Nur Salsabila	"},
+ {"No":	141	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Cahya Putri Ramadhani	"},
+ {"No":	142	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Dian Khansa Haerani	"},
+ {"No":	143	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Hasna Zakiatus Sa'Adah	"},
+ {"No":	144	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Joane Del Agnia 	"},
+ {"No":	145	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Kalyca Fittra Nur Aini 	"},
+ {"No":	146	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Khansa Zahirah Gunawan	"},
+ {"No":	147	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Khoirunnisa 	"},
+ {"No":	148	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Nanda Rachel Amanda	"},
+ {"No":	149	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Nayla Nurvita Rachman 	"},
+ {"No":	150	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Nayra Regina Febrianty	"},
+ {"No":	151	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Niken Aulia Nurasifa	"},
+ {"No":	152	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Raesha Azkia Qolbi	"},
+ {"No":	153	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Risa Nurmalia Sumenda	"},
+ {"No":	154	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Rubiah Adawiyah	"},
+ {"No":	155	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Salwa Siti Habsoh Alawiyah	"},
+ {"No":	156	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Silvia Khodijah Falilah	"},
+ {"No":	157	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Aisyah Jamilah	"},
+ {"No":	158	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Fatimah Zahra	"},
+ {"No":	159	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Hindun 	"},
+ {"No":	160	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Jubaedah	"},
+ {"No":	161	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Nor Hasanah	"},
+ {"No":	162	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Siti Nurlaela Ulfa	"},
+ {"No":	163	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Sovi Salha Adawiyah 	"},
+ {"No":	164	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Syarifah Dinda Nurhadijah Assegaff	"},
+ {"No":	165	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-A	", "Nama lengkap":"	Syifa Yuliani	"},
+ {"No":	166	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Alika Intan Sarisha	"},
+ {"No":	167	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Asti Puspita Nurul Furqon	"},
+ {"No":	168	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Auliya Apriyani	"},
+ {"No":	169	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Azelia Rusyadi 	"},
+ {"No":	170	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Bilqis Gifri Habibillah	"},
+ {"No":	171	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Cha Cha Hasna  Nur Syafa'Nah	"},
+ {"No":	172	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Ghia Azkia Syifaurrahmah	"},
+ {"No":	173	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Giani Aulia Utami	"},
+ {"No":	174	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Humaira Azzahra 	"},
+ {"No":	175	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Intan Nur Alfiah	"},
+ {"No":	176	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Jihan Chalisa Fikratuha	"},
+ {"No":	177	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Kaila Apriliani 	"},
+ {"No":	178	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Kartika Rahma Nuur Hamidah	"},
+ {"No":	179	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Keyla Nur  Rohmah 	"},
+ {"No":	180	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Khairunnisa 	"},
+ {"No":	181	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Latisya Ghaida Najwa 	"},
+ {"No":	182	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Maitsa Thurfah Allamah	"},
+ {"No":	183	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Marsya Anjulia Eka Putri	"},
+ {"No":	184	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Najla Qotrunnada Kartawinata	"},
+ {"No":	185	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Naylatul Syawalia Nurul Izza	"},
+ {"No":	186	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Nida Shohwatulislam 	"},
+ {"No":	187	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Nindia Aira Nurhasani	"},
+ {"No":	188	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Putriana Rahma Syifa Agustina	"},
+ {"No":	189	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Raihana Nurul Syafiyah	"},
+ {"No":	190	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Risa Maulida 	"},
+ {"No":	191	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Salsabila Syifa Mutmainah Aladawiyah	"},
+ {"No":	192	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Siti Ainunnida Nurhalimah	"},
+ {"No":	193	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Siti Aisyah Nurfadila Aulia	"},
+ {"No":	194	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Siti Romlah	"},
+ {"No":	195	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Syifaa Siti Khadijah 	"},
+ {"No":	196	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Widi Rahma Maulida	"},
+ {"No":	197	, "Status":"	Aktif	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Zahrotusita	"},
+ {"No":	198	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Agni Suci Nur Adjkia	"},
+ {"No":	199	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Alisha Aghniya Syakir 	"},
+ {"No":	200	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Alya Ramadhani 	"},
+ {"No":	201	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Anggia Arisanti Pratiwi 	"},
+ {"No":	202	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Aulia Nur Hidayah 	"},
+ {"No":	203	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Azkhiatul Qolbiah	"},
+ {"No":	204	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dava Putri Rafael Nur Andika	"},
+ {"No":	205	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dea Nur Sintiani 	"},
+ {"No":	206	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dewi Hasna Sofiyah 	"},
+ {"No":	207	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Dhea  Nafisa Rahardja 	"},
+ {"No":	208	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Fahrani 	"},
+ {"No":	209	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Hilmiya Hazimah 	"},
+ {"No":	210	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Kalisha Nadya Zahrani	"},
+ {"No":	211	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Kesya Sulistiana 	"},
+ {"No":	212	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Kezya Asyifa Chesa	"},
+ {"No":	213	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Lyvia Syakirah Aurelya	"},
+ {"No":	214	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Maharani Annisa Al Fajr 	"},
+ {"No":	215	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Mirfah Suciawati 	"},
+ {"No":	216	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Naila Salsabila 	"},
+ {"No":	217	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Nesa Nur Fadilah 	"},
+ {"No":	218	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Nisrina Afifah 	"},
+ {"No":	219	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Nur Rohmawati	"},
+ {"No":	220	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Restu Salsabila 	"},
+ {"No":	221	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Rizkia Sifany Salsabila	"},
+ {"No":	222	, "Status":"	Aktif	", "Tahun Masuk": 	2023	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Roudya Assyifa	"},
+ {"No":	223	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Salsabila Nabila  Mustiani	"},
+ {"No":	224	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Salwa Siti Auliya	"},
+ {"No":	225	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Sazkya Octaviana 	"},
+ {"No":	226	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Shyfa Qoidatul Marwah	"},
+ {"No":	227	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Siti Fatimah Az Zahra 	"},
+ {"No":	228	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Siti Fatimah Zahra 	"},
+ {"No":	229	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Syifa Azzahra 	"},
+ {"No":	230	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Syifa Nur Janah 	"},
+ {"No":	231	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Tasya Kania Putri 	"},
+ {"No":	232	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Tiara Azka Sanapna	"},
+ {"No":	233	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Viqta Ramadhani 	"},
+ {"No":	234	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Zahra Sabrina 	"},
+ {"No":	235	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Alawiyah Muthoharoh 	"},
+ {"No":	236	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Alif Lutfi Windiana	"},
+ {"No":	237	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Alifia Rahma Putri	"},
+ {"No":	238	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Alisya Safitri 	"},
+ {"No":	239	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Andini Julianisa	"},
+ {"No":	240	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Azkiya Muti Arumaisa	"},
+ {"No":	241	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Denis Fitria	"},
+ {"No":	242	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Disti Nur Afiyah	"},
+ {"No":	243	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Diva Apriliani 	"},
+ {"No":	244	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Fatimah Aulia Azzahra	"},
+ {"No":	245	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Fatimah Mayaail 	"},
+ {"No":	246	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Gina Siti Saniyyah	"},
+ {"No":	247	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Husna Nuraini 	"},
+ {"No":	248	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Jaenul Qoriyah 	"},
+ {"No":	249	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Khansa Athifa Sholikhah	"},
+ {"No":	250	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Khansa Farras Khairan	"},
+ {"No":	251	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Mega Cipta 	"},
+ {"No":	252	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Moza Aulia Maranata	"},
+ {"No":	253	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Mutiara Dwi Nursyifa	"},
+ {"No":	254	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Mutiara Sagita Alindri	"},
+ {"No":	255	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Nazwa Maulida 	"},
+ {"No":	256	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Rahma Siti Patimah 	"},
+ {"No":	257	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Reza Mukrimah Purnama Sari	"},
+ {"No":	258	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Salma Siti Patimah	"},
+ {"No":	259	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Salwa Khairunnisa 	"},
+ {"No":	260	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Shifa Masyrofah	"},
+ {"No":	261	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Sintia Bela 	"},
+ {"No":	262	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Badriah	"},
+ {"No":	263	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Nailah Ahnaf Sabilah	"},
+ {"No":	264	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Rahmawati 	"},
+ {"No":	265	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Salma Khodijah	"},
+ {"No":	266	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Syawanah Adawiyah	"},
+ {"No":	267	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Ummu Kultsum 	"},
+ {"No":	268	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Siti Zaenah Salsabillah	"},
+ {"No":	269	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Syipa Amanatunnisa 	"},
+ {"No":	270	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Talita Nabila Manda Ramania	"},
+ {"No":	271	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Tarisa Putri Farizah	"},
+ {"No":	272	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Wini Widiana 	"},
+ {"No":	273	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Zahra Aulia 	"},
+ {"No":	274	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Zahra Putri Syarifah	"},
+ {"No":	275	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Zulfa Siti Khodijah 	"},
+ {"No":	276	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Ai Maryati	"},
+ {"No":	277	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Alifa Khoerunnisa	"},
+ {"No":	278	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Amila Kamilatul Umah	"},
+ {"No":	279	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Amilia Ndari	"},
+ {"No":	280	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Anantasya Siti Fatimah	"},
+ {"No":	281	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Anggun Rahma Putri Utari	"},
+ {"No":	282	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Anisa Nurjanah	"},
+ {"No":	283	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Asma Sayyidatun Nisa	"},
+ {"No":	284	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Eka Fitri Nur Sholeha	"},
+ {"No":	285	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Fadhilah	"},
+ {"No":	286	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Falisha Shamim Nibras	"},
+ {"No":	287	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Fatimah Nururrohmah 	"},
+ {"No":	288	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Fitri Yani Aulia 	"},
+ {"No":	289	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Jalviani Salsabila	"},
+ {"No":	290	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Minatul Maula 	"},
+ {"No":	291	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Nabila Arij Lestari	"},
+ {"No":	292	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Nadia Aulia Safitri	"},
+ {"No":	293	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Nayshila Arzita Kandiaz	"},
+ {"No":	294	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Neng Sela Rismawati	"},
+ {"No":	295	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Nurjanah	"},
+ {"No":	296	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Putri Ismaya Koswara	"},
+ {"No":	297	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	R.Salsabila Nur Sabila Solehah	"},
+ {"No":	298	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Raegitha Brilian Novia Hadiawan	"},
+ {"No":	299	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Ridha Sulistiani Falah	"},
+ {"No":	300	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Riha Fauziah	"},
+ {"No":	301	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rohmah Nurul Muna	"},
+ {"No":	302	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Rossa Aulyana	"},
+ {"No":	303	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Salma Rana Raihana	"},
+ {"No":	304	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Sani Siti Fitriani	"},
+ {"No":	305	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Aisyah	"},
+ {"No":	306	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Halimatul Azka Ghranita	"},
+ {"No":	307	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Hanifah Alawiyah	"},
+ {"No":	308	, "Status":"	Aktif	", "Tahun Masuk": 	2021	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Khodijah	"},
+ {"No":	309	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Khodijah Sa'Diyah Sakinah	"},
+ {"No":	310	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Patimah Jahra	"},
+ {"No":	311	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Salwa Nur Fatimah	"},
+ {"No":	312	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Sarah Nurbaety	"},
+ {"No":	313	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Shofiyatunnisaai	"},
+ {"No":	314	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Siti Zaenab	"},
+ {"No":	315	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Sri Wardhany	"},
+ {"No":	316	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Tasya Putri Nur Alisya	"},
+ {"No":	317	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Yulia Ramadhan	"},
+ {"No":	318	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Zahra Nahda Rizqiyah	"},
+ {"No":	319	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Ajeng Wulandari Maulana	"},
+ {"No":	320	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Amelia Maylinda 	"},
+ {"No":	321	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Amelia Salsabila Ramadhani	"},
+ {"No":	322	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Annisa Siti Mariam	"},
+ {"No":	323	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Arini Haqi Sofyani	"},
+ {"No":	324	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Bunga Nirmala Ramdhani 	"},
+ {"No":	325	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Dais Nurur Rosyidah 	"},
+ {"No":	326	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Devi Fitriyanti	"},
+ {"No":	327	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Dila Elina Asyifa	"},
+ {"No":	328	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Friya Aisya Putri 	"},
+ {"No":	329	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Ida Parida	"},
+ {"No":	330	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Indri Yulistiawati	"},
+ {"No":	331	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Keysha Azzahra Sudiana	"},
+ {"No":	332	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Kholisa Nurpadilah	"},
+ {"No":	333	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Kirani Aulia Putri Heryana	"},
+ {"No":	334	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Mila Rosa 	"},
+ {"No":	335	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Mira Latifatul Qolby	"},
+ {"No":	336	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Moza Julyanti	"},
+ {"No":	337	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Nabila Azahra Nurazizah	"},
+ {"No":	338	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Nabila Hilmi 	"},
+ {"No":	339	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Nabila Putri Azzahra	"},
+ {"No":	340	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Nisrina Nazma Ashobar	"},
+ {"No":	341	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Putri Nurhayati	"},
+ {"No":	342	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Raisha Amelia 	"},
+ {"No":	343	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Riani Nur Fauziah	"},
+ {"No":	344	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Salma Nur Karimah Solihin	"},
+ {"No":	345	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Salwa Jamiatul Hasanah	"},
+ {"No":	346	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siska Mustika	"},
+ {"No":	347	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti A'Isyah 	"},
+ {"No":	348	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Khodijah 	"},
+ {"No":	349	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Khoiriyatun Najah	"},
+ {"No":	350	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Khotimah Lailasari 	"},
+ {"No":	351	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Rahma Padilah	"},
+ {"No":	352	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Srinuryani 	"},
+ {"No":	353	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Ummu Kultsum	"},
+ {"No":	354	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siti Zahra Aulia 	"},
+ {"No":	355	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Siva Nur Ahwati	"},
+ {"No":	356	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Syifa Nurjaimah	"},
+ {"No":	357	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Tita Herlianti	"},
+ {"No":	358	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Wafa Faikotidina	"},
+ {"No":	359	, "Status":"	Aktif	", "Tahun Masuk": 	2020	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Wulan Fitriani	"},
+ {"No":	360	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Yasmin Afifah Mas'Ad Albakkar	"},
+ {"No":	361	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Aliffia Zahra	"},
+ {"No":	362	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Aminah Saniah	"},
+ {"No":	363	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Ananda Deliana Putri	"},
+ {"No":	364	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Azka Nur Afifah Siti Fauziyyah	"},
+ {"No":	365	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Dalya Nur Fauziah	"},
+ {"No":	366	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Dyllan Siti Azizah	"},
+ {"No":	367	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Kingkin Putri Ayudita	"},
+ {"No":	368	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Levi Arianti	"},
+ {"No":	369	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Naila Mulkiah Sultan Wahab	"},
+ {"No":	370	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Najwa Quraesin Al Zahro	"},
+ {"No":	371	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Nenden Siti Nur Amanah	"},
+ {"No":	372	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Neneng Samrotussaadah	"},
+ {"No":	373	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Niza Fisallia	"},
+ {"No":	374	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Nur Holis	"},
+ {"No":	375	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Putri Salwa Khoerunissa	"},
+ {"No":	376	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Rani Septiani	"},
+ {"No":	377	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Restu Pauzia Lestari	"},
+ {"No":	378	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Rifa Nurul Shifa	"},
+ {"No":	379	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Rika Listia Amanda	"},
+ {"No":	380	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Salma Nur Aulia Almaulidiyyah	"},
+ {"No":	381	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Apipah	"},
+ {"No":	382	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Fatimah Miska Ayuni	"},
+ {"No":	383	, "Status":"	Aktif	", "Tahun Masuk": 	2016	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Khodijah	"},
+ {"No":	384	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Khodijah 	"},
+ {"No":	385	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Nurshabrinna Subagja	"},
+ {"No":	386	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Shafa Nurrohmah	"},
+ {"No":	387	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Umi Saadah Fiddaroini	"},
+ {"No":	388	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Aghni Nur Azkia	"},
+ {"No":	389	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Aulia Syifa Rahmawati	"},
+ {"No":	390	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Az Zahra Audina	"},
+ {"No":	391	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Dina Nur Aghnia	"},
+ {"No":	392	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Fahira Nur Rahmi	"},
+ {"No":	393	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Kania Putri Nabila	"},
+ {"No":	394	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Lea Kania Sari	"},
+ {"No":	395	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Marsha Nur Safitri	"},
+ {"No":	396	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Mozart Lutfa Labiba	"},
+ {"No":	397	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Nazwa Fauziah Amali	"},
+ {"No":	398	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Neneng Julaeha	"},
+ {"No":	399	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Nurhalimah	"},
+ {"No":	400	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Nursalsabila	"},
+ {"No":	401	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Putri Mutia Hanifah	"},
+ {"No":	402	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Sabrina Alawiyyah	"},
+ {"No":	403	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Salma Putri Ariska	"},
+ {"No":	404	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Salma Razwa Salsabillah	"},
+ {"No":	405	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Salma Salsabila	"},
+ {"No":	406	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Salsabila Aprilla Putri	"},
+ {"No":	407	, "Status":"	Aktif	", "Tahun Masuk": 	2017	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Fatimah Nuur Fadliilah	"},
+ {"No":	408	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Hapsoh	"},
+ {"No":	409	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Naziah Sholihah	"},
+ {"No":	410	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Nuraini	"},
+ {"No":	411	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Rahmah Maimunah	"},
+ {"No":	412	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Rohmah	"},
+ {"No":	413	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Sakinah	"},
+ {"No":	414	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Siti Saniah Nurhasanah S	"},
+ {"No":	415	, "Status":"	Aktif	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Wardattun Nisa	"},
+ {"No":	416	, "Status":"	Aktif	", "Tahun Masuk": 	2019	, "Kelas":"	6	", "Kelas Detail":"	6-B	", "Nama lengkap":"	Zahra Nazilatur Rohmah	"},
+ {"No":	417	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Kelas Khusus	", "Nama lengkap":"	Asqia Latifah	"},
+ {"No":	418	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Kelas Khusus	", "Nama lengkap":"	Nadhira Aisyah	"},
+ {"No":	419	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Kelas Khusus	", "Nama lengkap":"	Neysa Aulia Mustopa	"},
+ {"No":	420	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Kelas Khusus	", "Kelas Detail":"	Kelas Khusus	", "Nama lengkap":"	Sarah Fatimah Az Zahro	"},
+ {"No":	421	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Agisna Nuril Jinan	"},
+ {"No":	422	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Aindha Alifia Hendrayana	"},
+ {"No":	423	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Alda The Liana Nasahi	"},
+ {"No":	424	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Alifah Maulida Rahayu	"},
+ {"No":	425	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Alika Nur Hafizhah	"},
+ {"No":	426	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Asifa Alistia Airinnita	"},
+ {"No":	427	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Astri Afifa Nurhalimah	"},
+ {"No":	428	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Diska Dalvina Juniar	"},
+ {"No":	429	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Fathonatin Nadzira Azzahra	"},
+ {"No":	430	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Hasna Nur Fauziyyah Herdiana	"},
+ {"No":	431	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Nadhifa Salsabila	"},
+ {"No":	432	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Nayla Azzahra	"},
+ {"No":	433	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Nazwa Yakutatun Napisah	"},
+ {"No":	434	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Nurrela	"},
+ {"No":	435	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Putri Seirra	"},
+ {"No":	436	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Putri Syakilla Nur Ilmi	"},
+ {"No":	437	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Putri Syakira Maulida	"},
+ {"No":	438	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Rahmawati	"},
+ {"No":	439	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Silpana Anggraeni	"},
+ {"No":	440	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Siti Az-Zahra	"},
+ {"No":	441	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Tasmira Muhana Yusuf Dzahabiyyah	"},
+ {"No":	442	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Tsalitsa Zulfa Aulia	"},
+ {"No":	443	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Umu Salamah	"},
+ {"No":	444	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Yumna Allecia Kwanza	"},
+ {"No":	445	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Zdahira Rizqi Auliya	"},
+ {"No":	446	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi A	", "Nama lengkap":"	Zihan Nur Alifah	"},
+ {"No":	447	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Alesya Faiha Azhar	"},
+ {"No":	448	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Dea Ananda	"},
+ {"No":	449	, "Status":"	Aktif	", "Tahun Masuk": 	2024	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ghania Rahmani Muchtar	"},
+ {"No":	450	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Hazna Siti Maimunah	"},
+ {"No":	451	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ilova Kirani Susilo	"},
+ {"No":	452	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Ismi Sayyidati Hamidah Ramadhani	"},
+ {"No":	453	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Keyla Latief Mustikajati	"},
+ {"No":	454	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Khansa Asyila Romadhona	"},
+ {"No":	455	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Khanza Aqila Khairunnisa	"},
+ {"No":	456	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Maisya Salsabila Nadhifa	"},
+ {"No":	457	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Maspupah	"},
+ {"No":	458	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Murni Hadipraja Putri	"},
+ {"No":	459	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Nabila Nur Azizah	"},
+ {"No":	460	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Nadhira Salsabila	"},
+ {"No":	461	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Najla Azzahra	"},
+ {"No":	462	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Nazwa Aulia Pitri	"},
+ {"No":	463	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Putri Tresnawati	"},
+ {"No":	464	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Salwa Nabila Aronip	"},
+ {"No":	465	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Salwa Puji Rahma	"},
+ {"No":	466	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Siti Khadijah	"},
+ {"No":	467	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Siti Khodijah	"},
+ {"No":	468	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Siti Ummu Kultsum	"},
+ {"No":	469	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Siti Ummu.Salamah	"},
+ {"No":	470	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Talita Hasna Salsabila	"},
+ {"No":	471	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"	Tamhidi B	", "Nama lengkap":"	Zainah Zulaikho Hamdani	"},
+ {"No":	472	, "Status":"	Aktif	", "Tahun Masuk": 	2025	, "Kelas":"	Tamhidi	", "Kelas Detail":"		", "Nama lengkap":"	Syakira Alkhansa Nur Hafsah	"},
+ {"No":	473	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	1	", "Kelas Detail":"	1-B	", "Nama lengkap":"	Lia Apriliani	"},
+ {"No":	474	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	2	", "Kelas Detail":"	2-A	", "Nama lengkap":"	Zahra Ghania Ummu Habibah	"},
+ {"No":	475	, "Status":"	Waqof	", "Tahun Masuk": 	2022	, "Kelas":"	3	", "Kelas Detail":"	3-B	", "Nama lengkap":"	Tiana Putri 	"},
+ {"No":	476	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Neng Dewi 	"},
+ {"No":	477	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Tiara Nur Azizah 	"},
+ {"No":	478	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-A	", "Nama lengkap":"	Wulan Siti Marwah 	"},
+ {"No":	479	, "Status":"	Waqof	", "Tahun Masuk": 	2020	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Alifa Putri Rahayu	"},
+ {"No":	480	, "Status":"	Waqof	", "Tahun Masuk": 	2021	, "Kelas":"	4	", "Kelas Detail":"	4-B	", "Nama lengkap":"	Indah Ruswandi 	"},
+ {"No":	481	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-A	", "Nama lengkap":"	Jahra Ramadhani	"},
+ {"No":	482	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Alya Nadila Noviani 	"},
+ {"No":	483	, "Status":"	Waqof	", "Tahun Masuk": 	2019	, "Kelas":"	5	", "Kelas Detail":"	5-B	", "Nama lengkap":"	Auliya Nurhikam 	"},
+ {"No":	484	, "Status":"	Waqof	", "Tahun Masuk": 	2018	, "Kelas":"	6	", "Kelas Detail":"	6-A	", "Nama lengkap":"	Siti Hamidah 	"},
+        ];
+
+        // ==========================================
+        // FUNGSI RENDER TABEL (5 KOLOM)
+        // ==========================================
+        const populateTable = (data) => {
+            tableBody.innerHTML = ''; 
+
+            data.forEach((santri) => {
+                // Ambil data
+                const nama = (santri["Nama lengkap"] || '-').trim();
+                const rawStatus = (santri["Status"] || '-').trim().toLowerCase();
+                const tahunMasuk = santri["Tahun Masuk"] || '-';
+                // PISAHKAN KELAS (BLOK) DAN KELAS DETAIL (RUANG)
+                const kelasBlok = (santri["Kelas"] || '-').toString().trim(); 
+                const kelasDetail = (santri["Kelas Detail"] || '-').trim();
+
+                // Style Status
+                let statusClass = 'status-nonaktif';
+                let statusIcon = 'bi-x-circle';
+                let statusText = 'Tidak Aktif';
+
+                if (rawStatus.includes('aktif')) {
+                    statusClass = 'status-aktif';
+                    statusIcon = 'bi-check-circle-fill';
+                    statusText = 'Aktif';
+                } else if (rawStatus.includes('boyong') || rawStatus.includes('pindah')) {
+                    statusText = 'Boyong/Pindah';
+                } else if (rawStatus.includes('alumni')) {
+                    statusClass = 'status-alumni'; // Pastikan ada CSS .status-alumni
+                    statusIcon = 'bi-mortarboard-fill';
+                    statusText = 'Alumni';
+                } else if (rawStatus.includes('waqof')) {
+                     statusClass = 'status-waqof'; // Pastikan ada CSS .status-waqof
+                     statusIcon = 'bi-pause-circle-fill';
+                     statusText = 'Waqof';
+                }
+
+                // Render Baris (5 Kolom)
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-placeholder me-3" style="width:40px; height:40px; background:#e9ecef; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#206c4e; font-weight:bold;">
+                                ${nama.charAt(0)}
+                            </div>
+                            <span>${nama}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            <i class="bi ${statusIcon}"></i> ${statusText}
+                        </span>
+                    </td>
+                    <td style="font-family: 'Source Sans 3'; font-weight:500;">${tahunMasuk}</td>
+                    
+                    <td style="font-weight: 600; color: #555;">${kelasBlok}</td>
+                    
+                    <td><span class="kelas-badge">${kelasDetail}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Baris Total
+            if (data.length > 0) {
+                const totalRow = document.createElement('tr');
+                totalRow.style.backgroundColor = '#f0fdf4';
+                totalRow.style.borderTop = '2px solid #206c4e';
+                
+                // colspan jadi 5 karena kolom bertambah
+                totalRow.innerHTML = `
+                    <td colspan="5" class="text-center py-3" style="color: #1a3e2c;">
+                        <span style="font-weight: 500;">Total Santri Ditampilkan:</span> 
+                        <span style="font-weight: 800; font-size: 1.2rem; margin-left: 10px;">${data.length} Orang</span>
+                    </td>
+                `;
+                tableBody.appendChild(totalRow);
+            }
+        };
+
+        // ==========================================
+        // FUNGSI PENCARIAN (Cari di semua kolom)
+        // ==========================================
+        const filterData = () => {
+            if (!searchInput) return; 
+            
+            const query = searchInput.value.toLowerCase().trim();
+
+            const filteredData = santriData.filter(santri => {
+                const nama = (santri["Nama lengkap"] || '').toLowerCase();
+                const kelasDetail = (santri["Kelas Detail"] || '').toLowerCase();
+                const kelasBlok = (santri["Kelas"] || '').toString().toLowerCase();
+                const tahun = (santri["Tahun Masuk"] || '').toString().toLowerCase();
+                const status = (santri["Status"] || '').toLowerCase();
+
+                return nama.includes(query) || 
+                       kelasDetail.includes(query) || 
+                       kelasBlok.includes(query) ||
+                       tahun.includes(query) ||
+                       status.includes(query);
+            });
+
+            populateTable(filteredData);
+
+            if (filteredData.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <i class="bi bi-search display-6 d-block mb-3"></i>
+                            <h5>Data tidak ditemukan</h5>
+                        </td>
+                    </tr>
+                `;
+            }
+        };
+
+        if (searchInput) {
+            searchInput.addEventListener('keyup', filterData);
+        }
+        
+        // Load data awal
+        populateTable(santriData);
+    });
+</script>
+
+<script>
+/* ERP_WEBSITE_INTEGRATION_V1 */
+(function(){
+  const tableBody=document.getElementById('santriTableBody');
+  const searchInput=document.getElementById('searchInput');
+  if(!tableBody) return;
+  let rows=[];
+  async function getJson(path){
+    const endpoints=[path,`http://localhost:4000${path}`];
+    for(const endpoint of endpoints){
+      try{
+        const res=await fetch(endpoint);
+        if(!res.ok) continue;
+        return await res.json();
+      }catch(_error){}
+    }
+    throw new Error('erp_fetch_failed');
+  }
+  function render(items){
+    if(!items.length){ tableBody.innerHTML='<tr><td colspan="5" class="text-center text-muted py-4">Belum ada data santri banat aktif.</td></tr>'; return; }
+    tableBody.innerHTML=items.map(s=>`<tr><td><div class="d-flex align-items-center"><div class="avatar-placeholder me-3">${(s.full_name||'?').charAt(0)}</div><span>${s.full_name||'-'}</span></div></td><td><span class="status-badge status-aktif"><i class="bi bi-check-circle-fill"></i> Aktif</span></td><td>${(s.created_at||'').slice(0,4)||'-'}</td><td>${(s.class_name||'-').split('-')[0]}</td><td><span class="kelas-badge">${s.class_name||'-'}</span></td></tr>`).join('') + `<tr style="background:#f0fdf4"><td colspan="5" class="text-center"><strong>Total Santri Ditampilkan: ${items.length} Orang</strong></td></tr>`;
+  }
+  function apply(){ const q=(searchInput?.value||'').toLowerCase(); render(rows.filter(x=>(`${x.full_name} ${x.class_name}`).toLowerCase().includes(q))); }
+  getJson('/api/public/students?status=aktif&gender=P').then(({ok,data})=>{ rows=ok&&Array.isArray(data)?data:[]; apply(); }).catch(()=>{ tableBody.innerHTML='<tr><td colspan="5" class="text-center text-danger">Gagal memuat data ERP.</td></tr>'; });
+  if(searchInput) searchInput.addEventListener('input',apply);
+})();
+</script>
+</body>
+</html>
+
+
+

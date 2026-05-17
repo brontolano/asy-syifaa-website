@@ -1,82 +1,68 @@
 # Asy-Syifaa ERP Pesantren
 
-Platform ERP pesantren modular berbasis Asy-Syifaa Framework untuk digitalisasi operasional akademik, keuangan, kesantrian, asrama, SDM, dan pelaporan regulasi (PMA 31/2020, EMIS).
+Platform ERP pesantren modular untuk operasional akademik, keuangan, kesantrian, asrama, SDM, dan integrasi portal publik.
 
-## Ringkasan
-Asy-Syifaa ERP dirancang untuk mengubah proses manual/terfragmentasi menjadi sistem terintegrasi yang:
-- menjaga nilai dan kekhasan pesantren (Muadalah, Salafiyah, Tahfidz, Sanad),
-- mempercepat administrasi harian,
-- meningkatkan transparansi wali santri,
-- memenuhi kebutuhan compliance nasional.
+## Status Implementasi Saat Ini (Mei 2026)
+- Monorepo aktif berada di folder `apps/`.
+- Frontend aktif menggunakan Next.js App Router di `apps/frontend` (port `3000`).
+- Backend API aktif menggunakan Express di `apps/backend` (port `4000`).
+- Tersedia fallback database in-memory jika `DATABASE_URL` tidak tersedia.
+- Alur logout sudah diperketat:
+  - `apps/frontend/components/ErpShell.js`
+  - `apps/frontend/app/profil-user/page.js`
+  - Redirect logout memakai `router.replace("/login"); router.refresh();`.
 
-## Masalah yang Diselesaikan
-- Data santri, akademik, dan keuangan tersebar di banyak file/sistem.
-- Rekap EMIS dan laporan regulator memakan waktu tinggi.
-- Risiko kebocoran transaksi tunai dan selisih pembukuan.
-- Orang tua sulit memantau progres akademik dan iuran secara real-time.
+## Struktur Proyek
+- `apps/frontend`: website publik + ERP UI (login, apps launcher, dashboard per role, profil user, modul inti).
+- `apps/backend`: API master data dan operasional (students, PPDB, attendance, billing, tahfidz, dormitory, permits, staff).
+- `apps/go-api`: placeholder fondasi service Go.
+- `_arsip_project_lama_20260516-005918`: arsip aplikasi lama (tetap disimpan untuk referensi/migrasi data).
 
-## Sasaran Produk
-- Digitalisasi operasional harian pesantren 100%.
-- Otomasi pelaporan regulasi hingga 90%.
-- Lingkungan transaksi cashless (VA/QRIS) end-to-end.
-- Portal wali dengan visibilitas akademik + finansial real-time.
+## Menjalankan Secara Lokal
 
-## Modul Inti
-- Kesantrian: master data, lifecycle santri, izin, pelanggaran/prestasi.
-- Akademik: multi-kurikulum, presensi, nilai, e-rapor, tahfidz tracker.
-- Keuangan: billing syahriah/infaq, VA/QRIS, jurnal otomatis, cashflow.
-- Asrama & Fasilitas: plotting kamar, aset, inventaris, wakaf.
-- SDM & Payroll: data asatidz/staf, presensi pegawai, penggajian.
-- Compliance Engine: ekspor/integrasi EMIS/Dapodik, laporan PMA.
-- Guardian Portal: akses wali untuk nilai, absensi, tagihan, notifikasi.
+### 1) Backend
+```bash
+cd apps/backend
+cp .env.example .env
+npm install
+npm run dev
+```
 
-## Arsitektur Tingkat Tinggi
-- Frontend Web: Next.js (dashboard admin + portal wali).
-- Mobile: React Native (offline-first untuk lapangan).
-- Backend: Go microservices via API Gateway.
-- Data Layer: PostgreSQL (utama), Redis (cache), object storage (dokumen).
-- Shared Services: RBAC, dual calendar Hijriah-Masehi, sync engine, audit trail.
+Default:
+- API: `http://localhost:4000`
+- Health: `http://localhost:4000/api/health`
 
-## Prinsip Produk
-- Three-Click Rule untuk task utama.
-- Desain Islami modern, sederhana untuk operator non-teknis.
-- Modular dan extensible untuk variasi pesantren.
-- Security-first: enkripsi data sensitif, kontrol akses berbasis role.
+### 2) Frontend
+```bash
+cd apps/frontend
+cp .env.local.example .env.local
+npm install
+npm run dev
+```
 
-## KPI Utama
-- Uptime 99.9%.
-- Response API < 200-500ms (target bertahap).
-- Adopsi portal wali >= 80% pada fase awal implementasi.
-- Pengurangan waktu rekonsiliasi keuangan dari hari menjadi < 1 jam.
+Default:
+- App: `http://localhost:3000`
+- Login: `http://localhost:3000/login`
+- Apps launcher: `http://localhost:3000/apps`
 
-## Roadmap Implementasi
-- Phase 1 (Fondasi): auth, RBAC, infra, skema data, design system.
-- Phase 2 (MVP): akademik inti, keuangan dasar, portal wali MVP.
-- Phase 3 (Kekhasan Pesantren): tahfidz/sanad, asrama, izin digital, sync offline-online.
-- Phase 4 (Skala & Compliance): EMIS, aset/wakaf, payroll, hardening security.
+## Endpoint Penting
+- `POST /api/auth/login`
+- `GET /api/system/roles`
+- `GET /api/public/ppdb/results`
+- `GET /api/public/students`
+- `GET /api/public/staff`
+- `GET /api/public/guardians`
+- `GET /api/students`
+- `GET /api/staff`
+- `GET /api/metrics`
 
-## Struktur Dokumen Proyek
-- `_doc_erp/_RISET_Pesantren.md`: riset regulasi, benchmarking, blueprint data.
-- `_doc_erp/ERP_PESANTREN_PRD.md`: PRD utama produk.
-- `_doc_erp/ERP_Pesantren_(Asy-Syifaa_Fram..._PRD.md`: PRD detail framework.
-- `_doc_erp/_Product_Vision_Asy-Syifaa_ERP_Pesantren_All-in-One_Solution_Ecosystem.md`: visi, arsitektur, roadmap detail.
-- `Agents Skill/`: persona per role tim (PM, BE, FE, UX, DevOps).
+## Catatan Integrasi
+- Frontend membaca API base URL dari `NEXT_PUBLIC_API_BASE_URL` (default `http://localhost:4000`).
+- CORS backend diatur lewat `CORS_ORIGIN` (default `*`, disarankan spesifik di production).
+- Repo ini masih membawa artefak data website (gambar/HTML) untuk menjaga kompatibilitas konten lama saat proses migrasi.
 
-## Persona Tim Produk
-- Senior Product Manager
-- Product Manager (PM)
-- Lead Backend Engineer
-- Backend Developer
-- Senior Frontend Developer
-- Frontend Developer
-- UI/UX Designer
-- DevOps Specialist
-
-## Cara Pakai Dokumen Ini
-1. Mulai dari Product Vision untuk arah strategis.
-2. Turunkan requirement ke PRD utama dan PRD detail.
-3. Gunakan `_RISET_Pesantren.md` sebagai basis validasi regulasi & domain.
-4. Jalankan eksekusi lintas tim dengan acuan persona di `Agents Skill/`.
-
-## Catatan
-Repositori ini saat ini berfokus pada fondasi produk, riset, dan artefak perencanaan sebagai dasar implementasi engineering end-to-end.
+## Dokumen Produk
+- `_doc_erp/_RISET_Pesantren.md`
+- `_doc_erp/ERP_PESANTREN_PRD.md`
+- `_doc_erp/ERP_Pesantren_(Asy-Syifaa_Fram..._PRD.md`
+- `_doc_erp/_Product_Vision_Asy-Syifaa_ERP_Pesantren_All-in-One_Solution_Ecosystem.md`

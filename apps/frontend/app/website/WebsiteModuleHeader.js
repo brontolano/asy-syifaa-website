@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ROLE_LABEL, normalizeRole } from "../../lib/rbac";
+import { clearSession, readSession } from "../../lib/session";
 
 const HEADER_TABS = [
   { href: "/website", label: "Beranda" },
@@ -29,8 +32,22 @@ function resolveSubtitle(pathname) {
 
 export default function WebsiteModuleHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const title = resolveTitle(pathname);
   const subtitle = resolveSubtitle(pathname);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    setSession(readSession());
+  }, [pathname]);
+
+  function logoutFromWebsite() {
+    clearSession();
+    router.replace("/login");
+    router.refresh();
+  }
+
+  const role = normalizeRole(session?.user?.role);
 
   return (
     <section
@@ -90,34 +107,94 @@ export default function WebsiteModuleHeader() {
       >
         {subtitle}
       </p>
-      <nav
-        aria-label="Menu modul website"
-        style={{ position: "relative", display: "flex", gap: "0.45rem", flexWrap: "wrap" }}
-      >
-        {HEADER_TABS.map((item) => {
-          const isActive = pathname === item.href;
-          return (
+      <div style={{ position: "relative", display: "flex", gap: "0.7rem", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap" }}>
+        <nav
+          aria-label="Menu modul website"
+          style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}
+        >
+          {HEADER_TABS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  borderRadius: "999px",
+                  padding: "0.28rem 0.64rem",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  border: "1px solid rgba(255,255,255,0.35)",
+                  color: isActive ? "#143d2a" : "#effff6",
+                  background: isActive ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.08)",
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {!session ? (
+          <Link
+            href="/login"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              textDecoration: "none",
+              borderRadius: "999px",
+              padding: "0.3rem 0.72rem",
+              fontSize: "0.78rem",
+              fontWeight: 700,
+              border: "1px solid rgba(255,255,255,0.35)",
+              color: "#effff6",
+              background: "rgba(255,255,255,0.12)",
+            }}
+          >
+            🔐 Login / Signup
+          </Link>
+        ) : (
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.42rem", flexWrap: "wrap" }}>
             <Link
-              key={item.href}
-              href={item.href}
+              href="/profil-user"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 textDecoration: "none",
                 borderRadius: "999px",
-                padding: "0.28rem 0.64rem",
+                padding: "0.3rem 0.72rem",
                 fontSize: "0.78rem",
                 fontWeight: 700,
                 border: "1px solid rgba(255,255,255,0.35)",
-                color: isActive ? "#143d2a" : "#effff6",
-                background: isActive ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.08)",
+                color: "#143d2a",
+                background: "rgba(255,255,255,0.92)",
               }}
             >
-              {item.label}
+              🙍 {ROLE_LABEL[role] || "Profil"}
             </Link>
-          );
-        })}
-      </nav>
+            <button
+              type="button"
+              onClick={logoutFromWebsite}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                borderRadius: "999px",
+                padding: "0.3rem 0.72rem",
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                border: "1px solid rgba(255,255,255,0.35)",
+                color: "#effff6",
+                background: "rgba(255,255,255,0.12)",
+                cursor: "pointer"
+              }}
+            >
+              ⎋ Logout
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

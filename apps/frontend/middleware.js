@@ -108,16 +108,21 @@ function normalizeLegacyHtmlPath(pathname) {
 export function middleware(request) {
   const { pathname } = request.nextUrl;
   const host = normalizeHost(request.headers.get("x-forwarded-host") || request.headers.get("host"));
+  const normalizedPathname = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+
+  // Allow legacy static asset references under /website/* without rewriting CMS routes.
+  if (normalizedPathname.startsWith("/website/assets/")) {
+    return rewriteTo(request, normalizedPathname.slice("/website".length));
+  }
+  if (normalizedPathname.startsWith("/website/img/")) {
+    return rewriteTo(request, normalizedPathname.slice("/website".length));
+  }
 
   const slugTarget = normalizeLegacyHtmlPath(pathname);
   if (slugTarget && slugTarget !== pathname) {
     const target = request.nextUrl.clone();
     target.pathname = slugTarget;
     return NextResponse.redirect(target, 308);
-  }
-
-  if (pathname.startsWith("/img/")) {
-    return rewriteTo(request, `/Galeri${pathname}`);
   }
 
   if (isAssetPath(pathname)) return NextResponse.next();

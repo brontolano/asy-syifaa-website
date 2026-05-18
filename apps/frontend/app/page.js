@@ -1,16 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ROLE_LABEL, canAccessPath, normalizeRole } from "../lib/rbac";
+import { clearSession, readSession } from "../lib/session";
+import { fetchApi } from "../lib/api-client";
 
 const MODULES = [
-  { href: "/ppdb",      icon: "📋", label: "PPDB / SPMB",    desc: "Pendaftaran santri baru",        color: "#1f6b43" },
-  { href: "/tahfidz",   icon: "📖", label: "Tahfidz",         desc: "Ziyadah & murojaah tracker",    color: "#245f82" },
-  { href: "/keuangan",  icon: "💰", label: "Keuangan",        desc: "Billing & cashflow pesantren",  color: "#7a5b2f" },
-  { href: "/asrama",    icon: "🛏️", label: "Asrama",          desc: "Manajemen kamar & penempatan",  color: "#4c4383" },
-  { href: "/izin",      icon: "📝", label: "Perizinan",       desc: "Izin santri berbasis approval",  color: "#8f3e58" },
-  { href: "/hr",        icon: "👥", label: "SDM / HR",        desc: "Kepegawaian & penggajian",       color: "#2e5b67" },
-  { href: "/wali",      icon: "👨‍👩‍👧", label: "Portal Wali",   desc: "Akses data santri bagi wali",   color: "#1f577a" },
-  { href: "/dashboard", icon: "📊", label: "ERP Dashboard",   desc: "Command center lintas modul",   color: "#185637" },
+  { key: "ppdb", href: "/ppdb", icon: "📋", label: "PPDB / SPMB", desc: "Pendaftaran santri baru", color: "#1f6b43" },
+  { key: "santri", href: "/administrasi-santri", icon: "👥", label: "Administrasi Santri", desc: "Master data santri, direktori, alumni", color: "#2a6f8f" },
+  { key: "tahfidz", href: "/tahfidz", icon: "📖", label: "Tahfidz", desc: "Ziyadah & murojaah tracker", color: "#245f82" },
+  { key: "keuangan", href: "/keuangan", icon: "💰", label: "Keuangan", desc: "Billing & cashflow pesantren", color: "#7a5b2f" },
+  { key: "asrama", href: "/asrama", icon: "🛏️", label: "Asrama", desc: "Manajemen kamar & penempatan", color: "#4c4383" },
+  { key: "izin", href: "/izin", icon: "📝", label: "Perizinan", desc: "Izin santri berbasis approval", color: "#8f3e58" },
+  { key: "hr", href: "/hr", icon: "👥", label: "SDM / HR", desc: "Kepegawaian & penggajian", color: "#2e5b67" },
+  { key: "wali", href: "/wali", icon: "👨‍👩‍👧", label: "Portal Wali", desc: "Akses data santri bagi wali", color: "#1f577a" },
+  { key: "dashboard", href: "/dashboard", icon: "📊", label: "ERP Dashboard", desc: "Command center lintas modul", color: "#185637" },
+  { key: "website", href: "/website", icon: "📰", label: "Website", desc: "Konten publik & pengumuman", color: "#4c4383" },
+  { key: "superadmin", href: "/superadmin", icon: "🛡️", label: "Super Admin", desc: "Kontrol akses, audit, dan konfigurasi", color: "#3f3f46" }
 ];
 
 const FEATURES = [
@@ -23,6 +31,47 @@ const FEATURES = [
 ];
 
 export default function HomePage() {
+  const router = useRouter();
+  const [session, setSession] = useState(null);
+  const [liveStats, setLiveStats] = useState({
+    students: 0,
+    staff: 0,
+    announcements: 0,
+    events: 0,
+  });
+
+  useEffect(() => {
+    setSession(readSession());
+  }, []);
+
+  useEffect(() => {
+    async function loadStats() {
+      const [studentsRes, staffRes, annRes, eventRes] = await Promise.all([
+        fetchApi("/api/public/students?status=aktif"),
+        fetchApi("/api/public/staff?status=aktif"),
+        fetchApi("/api/public/content/announcements?status=aktif"),
+        fetchApi("/api/public/content/events?status=mendatang"),
+      ]);
+
+      setLiveStats({
+        students: Array.isArray(studentsRes.data?.data) ? studentsRes.data.data.length : 0,
+        staff: Array.isArray(staffRes.data?.data) ? staffRes.data.data.length : 0,
+        announcements: Array.isArray(annRes.data?.data) ? annRes.data.data.length : 0,
+        events: Array.isArray(eventRes.data?.data) ? eventRes.data.data.length : 0,
+      });
+    }
+    loadStats();
+  }, []);
+
+  const role = normalizeRole(session?.user?.role);
+  const visibleModules = useMemo(() => MODULES.filter((item) => canAccessPath(role, item.href)), [role]);
+
+  function logoutFromWebsite() {
+    clearSession();
+    router.replace("/login");
+    router.refresh();
+  }
+
   return (
     <div>
       {/* ── HERO ── */}
@@ -68,13 +117,44 @@ export default function HomePage() {
           }}>
             📋 Daftar Sekarang (PPDB)
           </Link>
-          <Link href="/dashboard" style={{
-            background: "rgba(255,255,255,0.18)", color: "#fff",
-            border: "1px solid rgba(255,255,255,0.35)", padding: "0.7rem 1.5rem",
-            borderRadius: "0.7rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem",
-          }}>
-            📊 Masuk ERP
-          </Link>
+          {!session ? (
+            <Link href="/login" style={{
+              background: "rgba(255,255,255,0.18)", color: "#fff",
+              border: "1px solid rgba(255,255,255,0.35)", padding: "0.7rem 1.5rem",
+              borderRadius: "0.7rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem",
+            }}>
+              🔐 Login / Signup
+            </Link>
+          ) : (
+            <>
+              <Link href="/apps" style={{
+                background: "rgba(255,255,255,0.2)", color: "#fff",
+                border: "1px solid rgba(255,255,255,0.35)", padding: "0.7rem 1.5rem",
+                borderRadius: "0.7rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem",
+              }}>
+                🧩 Buka Aplikasi ERP
+              </Link>
+              <Link href="/profil-user" style={{
+                background: "rgba(255,255,255,0.18)", color: "#fff",
+                border: "1px solid rgba(255,255,255,0.35)", padding: "0.7rem 1.5rem",
+                borderRadius: "0.7rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem",
+              }}>
+                🙍 Profil ({ROLE_LABEL[role] || role})
+              </Link>
+              <button
+                type="button"
+                onClick={logoutFromWebsite}
+                style={{
+                  background: "rgba(255,255,255,0.15)", color: "#fff",
+                  border: "1px solid rgba(255,255,255,0.35)", padding: "0.7rem 1.5rem",
+                  borderRadius: "0.7rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem",
+                  cursor: "pointer"
+                }}
+              >
+                ⎋ Logout
+              </button>
+            </>
+          )}
         </div>
 
         {/* Quick stats */}
@@ -83,10 +163,10 @@ export default function HomePage() {
           marginTop: "2.5rem", borderTop: "1px solid rgba(255,255,255,0.18)", paddingTop: "1.8rem",
         }}>
           {[
-            { val: "8", label: "Modul ERP" },
-            { val: "Multi-Peran", label: "Hak Akses" },
-            { val: "Real-time", label: "Data & Laporan" },
-            { val: "v2.0", label: "Versi Sistem" },
+            { val: String(liveStats.students), label: "Santri Aktif" },
+            { val: String(liveStats.staff), label: "Pengajar/Staff Aktif" },
+            { val: String(liveStats.announcements), label: "Pengumuman Aktif" },
+            { val: String(liveStats.events), label: "Agenda Mendatang" },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
               <div style={{ fontSize: "1.6rem", fontWeight: 800 }}>{s.val}</div>
@@ -116,8 +196,8 @@ export default function HomePage() {
           maxWidth: "1100px",
           marginInline: "auto",
         }}>
-          {MODULES.map((mod) => (
-            <Link key={mod.href} href={mod.href} className="asf-module-tile" style={{
+          {visibleModules.map((mod) => (
+            <Link key={mod.href} href={`/apps/${mod.key}`} className="asf-module-tile" style={{
               display: "flex", flexDirection: "column", gap: "0.5rem",
               background: "var(--surface)", border: "1px solid var(--line)",
               borderRadius: "var(--radius-md)", padding: "1.2rem 1rem",
@@ -206,13 +286,27 @@ export default function HomePage() {
         borderTop: "1px solid var(--line)", padding: "1.2rem clamp(1rem, 3vw, 2rem)",
         textAlign: "center", color: "var(--text-muted)", fontSize: "0.82rem",
       }}>
-        <p style={{ margin: 0 }}>
-          © {new Date().getFullYear()} Pesantren Asy-Syifaa — ERP System v2.0 &nbsp;·&nbsp;
-          <Link href="/login" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>Masuk Sistem</Link>
-          &nbsp;·&nbsp;
-          <Link href="/staff" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>Staff Dashboard</Link>
-        </p>
-      </footer>
-    </div>
+          <p style={{ margin: 0 }}>
+            © {new Date().getFullYear()} Pesantren Asy-Syifaa — ERP System v2.0 &nbsp;·&nbsp;
+            {!session ? (
+              <Link href="/login" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>Masuk Sistem</Link>
+            ) : (
+              <Link href="/profil-user" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>Profil User</Link>
+            )}
+            &nbsp;·&nbsp;
+            {!session ? (
+              <Link href="/staff" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>Staff Dashboard</Link>
+            ) : (
+              <button
+                type="button"
+                onClick={logoutFromWebsite}
+                style={{ color: "var(--link)", background: "transparent", border: "none", fontWeight: 600, cursor: "pointer", padding: 0 }}
+              >
+                Logout
+              </button>
+            )}
+          </p>
+        </footer>
+      </div>
   );
 }

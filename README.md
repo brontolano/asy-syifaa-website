@@ -66,3 +66,44 @@ Default:
 - `_doc_erp/ERP_PESANTREN_PRD.md`
 - `_doc_erp/ERP_Pesantren_(Asy-Syifaa_Fram..._PRD.md`
 - `_doc_erp/_Product_Vision_Asy-Syifaa_ERP_Pesantren_All-in-One_Solution_Ecosystem.md`
+
+## Report Perubahan Terbaru (18 Mei 2026)
+
+### 1) Launcher ERP (`/apps`)
+- Launcher di-redesign menjadi tampilan grid icon sederhana (gaya iPad apps).
+- Semua modul kini ditampilkan di launcher.
+- Modul yang belum aktif ditandai **greyscale** + label `Belum Aktif`.
+- Modul aktif tetap mengikuti kontrol akses role (RBAC) dan bisa diklik.
+- Animasi morph launcher sudah dihapus (klik modul langsung pindah halaman).
+
+### 2) Topbar ERP
+- Brand topbar diperbarui menjadi: **Asy-Syifaa Framework**.
+- Utility topbar disederhanakan menjadi:
+  - icon Profil
+  - icon Pengaturan
+  - tombol Logout
+- Badge role dan badge nama user di area kanan topbar telah dihapus untuk tampilan lebih ringkas.
+
+### 3) Perbaikan Alur RBAC & Routing Website CMS
+- Akses `Website CMS` tidak lagi selalu terbuka untuk semua role.
+- Route CMS website tetap di panel internal:
+  - `/website`
+  - `/website/pengumuman`
+  - `/website/kegiatan`
+  - `/website/galeri`
+- Middleware diperketat agar tidak melempar route CMS ke halaman HTML publik lama.
+
+### 4) Storage Media Foto/Video + URL Publik
+- Ditambahkan endpoint upload media di backend:
+  - `POST /api/media/upload`
+- Ditambahkan static serving file media:
+  - `GET /media/<folder>/<file>`
+- URL file hasil upload langsung dikembalikan oleh API, siap dipakai untuk CMS/PPDB.
+- Konfigurasi env baru:
+  - `MEDIA_STORAGE_DIR` (default: `apps/backend/storage/media`)
+  - `MEDIA_PUBLIC_BASE_URL` (opsional override base URL)
+  - `MEDIA_MAX_SIZE_MB` (default: `80`)
+
+### 5) Validasi Teknis
+- Build frontend terbaru: **lulus** (`npm run build`).
+- Uji upload media: **lulus** (response URL `200`, file bisa diakses via `/media/...`).

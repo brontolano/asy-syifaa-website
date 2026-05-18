@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { fetchApi } from "../../lib/api-client";
+import { ROLE_LABEL, canAccessPath } from "../../lib/rbac";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function fmt(v) { return new Intl.NumberFormat("id-ID").format(Number(v || 0)); }
@@ -11,41 +12,93 @@ function ts(iso) {
 }
 
 // ── static data ──────────────────────────────────────────────────────────────
-const ROLES = [
-  { value: "superadmin",    label: "Super Admin",    icon: "🛡️", color: "#1a1a2e" },
-  { value: "mudir_aam",     label: "Mudir Aam",      icon: "🕌", color: "#0f3d25" },
-  { value: "kepala_sekolah",label: "Kepala Sekolah", icon: "🎓", color: "#4c4383" },
-  { value: "ustadz",        label: "Ustadz",         icon: "📖", color: "#1f6b43" },
-  { value: "ustadzah",      label: "Ustadzah",       icon: "📚", color: "#8f3e58" },
-  { value: "bendahara",     label: "Bendahara",      icon: "💰", color: "#245f82" },
-  { value: "staff_umum",    label: "Staff Umum",     icon: "👤", color: "#7a5b2f" },
-  { value: "wali",          label: "Wali Santri",    icon: "👨‍👩‍👧", color: "#8f3e58" },
+const ROLE_ORDER = [
+  "superadmin",
+  "mudir_aam",
+  "pengasuh",
+  "admin_keuangan",
+  "admin_kesantrian",
+  "kepala_sekolah",
+  "bendahara",
+  "ustadz",
+  "ustadzah",
+  "staff_umum",
+  "wali",
+  "umum"
 ];
+
+const ROLE_ICON = {
+  superadmin: "🛡️",
+  mudir_aam: "🕌",
+  pengasuh: "📈",
+  admin_keuangan: "💳",
+  admin_kesantrian: "🛏️",
+  kepala_sekolah: "🎓",
+  bendahara: "💰",
+  ustadz: "📖",
+  ustadzah: "📚",
+  staff_umum: "👤",
+  wali: "👨‍👩‍👧",
+  umum: "🌐"
+};
+
+const ROLE_COLOR = {
+  superadmin: "#1a1a2e",
+  mudir_aam: "#0f3d25",
+  pengasuh: "#244c7a",
+  admin_keuangan: "#245f82",
+  admin_kesantrian: "#7a5b2f",
+  kepala_sekolah: "#4c4383",
+  bendahara: "#1f6b43",
+  ustadz: "#2a8a57",
+  ustadzah: "#8f3e58",
+  staff_umum: "#5b4a31",
+  wali: "#7a3f55",
+  umum: "#2e5b67"
+};
+
+const ROLES = ROLE_ORDER.map((value) => ({
+  value,
+  label: ROLE_LABEL[value] || value,
+  icon: ROLE_ICON[value] || "👤",
+  color: ROLE_COLOR[value] || "#2e5b67"
+}));
 
 const ROLE_MAP = Object.fromEntries(ROLES.map((r) => [r.value, r]));
 
-const PERMISSIONS = [
-  { module: "Dashboard",   roles: ["superadmin","mudir_aam","kepala_sekolah","bendahara","staff_umum"] },
-  { module: "Tahfidz",     roles: ["superadmin","mudir_aam","kepala_sekolah","ustadz","ustadzah"] },
-  { module: "Keuangan",    roles: ["superadmin","mudir_aam","bendahara"] },
-  { module: "Asrama",      roles: ["superadmin","mudir_aam","staff_umum"] },
-  { module: "Perizinan",   roles: ["superadmin","mudir_aam","staff_umum","ustadz","ustadzah"] },
-  { module: "SDM / HR",    roles: ["superadmin","mudir_aam","kepala_sekolah"] },
-  { module: "PPDB",        roles: ["superadmin","mudir_aam","kepala_sekolah","staff_umum"] },
-  { module: "Website/CMS", roles: ["superadmin","mudir_aam","staff_umum"] },
-  { module: "Portal Wali", roles: ["superadmin","wali"] },
-  { module: "Super Admin", roles: ["superadmin"] },
+const MODULE_PERMISSION_TARGETS = [
+  { module: "Dashboard", path: "/dashboard" },
+  { module: "Administrasi Santri", path: "/administrasi-santri" },
+  { module: "Tahfidz", path: "/tahfidz" },
+  { module: "Keuangan", path: "/keuangan" },
+  { module: "Asrama", path: "/asrama" },
+  { module: "Perizinan", path: "/izin" },
+  { module: "SDM / HR", path: "/hr" },
+  { module: "PPDB", path: "/ppdb" },
+  { module: "Website/CMS", path: "/website/pengumuman" },
+  { module: "Portal Wali", path: "/wali" },
+  { module: "Super Admin", path: "/superadmin" }
 ];
+
+const PERMISSIONS = MODULE_PERMISSION_TARGETS.map((item) => ({
+  module: item.module,
+  roles: ROLES.filter((role) => canAccessPath(role.value, item.path)).map((role) => role.value)
+}));
 
 const DUMMY_USERS = [
   { id: 1, username: "superadmin",  name: "Administrator Sistem", role: "superadmin",    status: "aktif", last_login: "2025-05-17T08:00:00Z", created_at: "2024-01-01T00:00:00Z" },
   { id: 2, username: "mudir_aam",   name: "KH. Ahmad Fauzan",    role: "mudir_aam",     status: "aktif", last_login: "2025-05-17T07:30:00Z", created_at: "2024-01-05T00:00:00Z" },
-  { id: 3, username: "ust_hasan",   name: "Ust. Hasan Bisri",    role: "ustadz",        status: "aktif", last_login: "2025-05-16T20:00:00Z", created_at: "2024-02-01T00:00:00Z" },
-  { id: 4, username: "bendahara1",  name: "Siti Fatimah, SE",    role: "bendahara",     status: "aktif", last_login: "2025-05-17T09:00:00Z", created_at: "2024-02-10T00:00:00Z" },
-  { id: 5, username: "kepsek",      name: "Drs. Mahmud Syarif",  role: "kepala_sekolah",status: "aktif", last_login: "2025-05-15T14:00:00Z", created_at: "2024-01-20T00:00:00Z" },
-  { id: 6, username: "staff01",     name: "Rizki Maulana",       role: "staff_umum",    status: "aktif", last_login: "2025-05-17T08:45:00Z", created_at: "2024-03-01T00:00:00Z" },
-  { id: 7, username: "wali_001",    name: "Ahmad Suryadi",       role: "wali",          status: "aktif", last_login: "2025-05-10T11:00:00Z", created_at: "2024-04-15T00:00:00Z" },
-  { id: 8, username: "ust_ali",     name: "Ust. Ali Imron",      role: "ustadz",        status: "cuti",  last_login: "2025-04-28T10:00:00Z", created_at: "2024-02-15T00:00:00Z" },
+  { id: 3, username: "pengasuh.01", name: "Abuya Pengasuh",      role: "pengasuh",      status: "aktif", last_login: "2025-05-17T06:55:00Z", created_at: "2024-01-08T00:00:00Z" },
+  { id: 4, username: "adm_keu_01",  name: "Admin Keuangan 1",    role: "admin_keuangan",status: "aktif", last_login: "2025-05-17T08:22:00Z", created_at: "2024-02-02T00:00:00Z" },
+  { id: 5, username: "adm_kes_01",  name: "Admin Kesantrian 1",  role: "admin_kesantrian", status: "aktif", last_login: "2025-05-17T07:58:00Z", created_at: "2024-02-03T00:00:00Z" },
+  { id: 6, username: "kepsek",      name: "Drs. Mahmud Syarif",  role: "kepala_sekolah",status: "aktif", last_login: "2025-05-15T14:00:00Z", created_at: "2024-01-20T00:00:00Z" },
+  { id: 7, username: "bendahara1",  name: "Siti Fatimah, SE",    role: "bendahara",     status: "aktif", last_login: "2025-05-17T09:00:00Z", created_at: "2024-02-10T00:00:00Z" },
+  { id: 8, username: "ust_hasan",   name: "Ust. Hasan Bisri",    role: "ustadz",        status: "aktif", last_login: "2025-05-16T20:00:00Z", created_at: "2024-02-01T00:00:00Z" },
+  { id: 9, username: "ust_aisyah",  name: "Ustadzah Aisyah",     role: "ustadzah",      status: "aktif", last_login: "2025-05-16T19:50:00Z", created_at: "2024-02-05T00:00:00Z" },
+  { id: 10, username: "staff01",    name: "Rizki Maulana",       role: "staff_umum",    status: "aktif", last_login: "2025-05-17T08:45:00Z", created_at: "2024-03-01T00:00:00Z" },
+  { id: 11, username: "wali_001",   name: "Ahmad Suryadi",       role: "wali",          status: "aktif", last_login: "2025-05-10T11:00:00Z", created_at: "2024-04-15T00:00:00Z" },
+  { id: 12, username: "umum.01",    name: "Pengguna Umum",       role: "umum",          status: "aktif", last_login: "2025-05-17T05:35:00Z", created_at: "2024-04-18T00:00:00Z" },
+  { id: 13, username: "ust_ali",    name: "Ust. Ali Imron",      role: "ustadz",        status: "cuti",  last_login: "2025-04-28T10:00:00Z", created_at: "2024-02-15T00:00:00Z" },
 ];
 
 const DUMMY_AUDIT = [
@@ -111,6 +164,9 @@ export default function SuperAdminPage() {
     maintenance_mode: false,
     allow_ppdb: true,
     debug_mode: false,
+    panel_grad_from: "#f2f7f4",
+    panel_grad_to: "#eaf1ed",
+    panel_bg_image: "",
   });
 
   function msg(type, text, ms = 4000) {
@@ -130,6 +186,18 @@ export default function SuperAdminPage() {
   }
 
   useEffect(() => { checkApi(); }, []);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const from = localStorage.getItem("asf_panel_grad_from");
+    const to = localStorage.getItem("asf_panel_grad_to");
+    const img = localStorage.getItem("asf_panel_bg_image");
+    setConfigForm((prev) => ({
+      ...prev,
+      panel_grad_from: from || prev.panel_grad_from,
+      panel_grad_to: to || prev.panel_grad_to,
+      panel_bg_image: img || prev.panel_bg_image,
+    }));
+  }, []);
 
   function handleUpdateUser(id, patch) {
     setUsers((prev) => prev.map((u) => u.id === id ? { ...u, ...patch } : u));
@@ -161,7 +229,31 @@ export default function SuperAdminPage() {
 
   function handleSaveConfig(e) {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("asf_panel_grad_from", configForm.panel_grad_from || "#f2f7f4");
+      localStorage.setItem("asf_panel_grad_to", configForm.panel_grad_to || "#eaf1ed");
+      localStorage.setItem("asf_panel_bg_image", configForm.panel_bg_image || "");
+      const root = document.documentElement;
+      root.style.setProperty("--erp-panel-grad-from", configForm.panel_grad_from || "#f2f7f4");
+      root.style.setProperty("--erp-panel-grad-to", configForm.panel_grad_to || "#eaf1ed");
+      root.style.setProperty("--erp-panel-bg-image", configForm.panel_bg_image ? `url("${configForm.panel_bg_image}")` : "none");
+    }
     msg("success", "Konfigurasi sistem berhasil disimpan.");
+  }
+
+  function handlePanelImageUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      msg("error", "File harus berupa gambar.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === "string" ? reader.result : "";
+      cf("panel_bg_image", result);
+    };
+    reader.readAsDataURL(file);
   }
 
   const filteredUsers = useMemo(() => users.filter((u) => {
@@ -543,7 +635,7 @@ export default function SuperAdminPage() {
                 { label: "Container",            val: "Docker Compose (multi-stage)" },
                 { label: "CI/CD",                val: "GitHub Actions (auto-deploy)" },
                 { label: "Auth",                 val: "JWT Token + Session Storage" },
-                { label: "RBAC",                 val: "Role-Based Access Control (8 role)" },
+                { label: "RBAC",                 val: `Role-Based Access Control (${ROLES.length} role)` },
               ].map((row) => (
                 <div key={row.label} style={{ display: "flex", justifyContent: "space-between", padding: "0.4rem 0", borderBottom: "1px solid var(--line)", fontSize: "0.86rem", gap: "0.5rem" }}>
                   <span style={{ color: "var(--text-muted)", flexShrink: 0 }}>{row.label}</span>
@@ -699,6 +791,39 @@ export default function SuperAdminPage() {
                     </button>
                   </div>
                 ))}
+              </div>
+
+              <div style={{ background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", padding: "1.1rem", boxShadow: "var(--card-shadow)" }}>
+                <h3 style={{ margin: "0 0 0.85rem", fontSize: "0.96rem", fontWeight: 800 }}>🎨 Latar Panel Modul</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <label style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)" }}>Warna Gradient Awal</label>
+                    <input type="color" value={configForm.panel_grad_from} onChange={(e) => cf("panel_grad_from", e.target.value)} />
+                  </div>
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <label style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)" }}>Warna Gradient Akhir</label>
+                    <input type="color" value={configForm.panel_grad_to} onChange={(e) => cf("panel_grad_to", e.target.value)} />
+                  </div>
+                </div>
+                <div style={{ marginTop: "0.75rem", display: "grid", gap: "0.35rem" }}>
+                  <label style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)" }}>Gambar Overlay (opsional)</label>
+                  <input type="file" accept="image/*" onChange={handlePanelImageUpload} />
+                  <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}>
+                    <button type="button" onClick={() => cf("panel_bg_image", "")} style={{ border: "1px solid var(--line)", background: "var(--surface)", color: "var(--text)", borderRadius: "0.55rem", padding: "0.35rem 0.65rem", fontWeight: 700, cursor: "pointer" }}>
+                      Hapus Gambar
+                    </button>
+                  </div>
+                </div>
+                <div style={{
+                  marginTop: "0.8rem",
+                  borderRadius: "0.65rem",
+                  border: "1px solid var(--line)",
+                  minHeight: "110px",
+                  backgroundImage: `${configForm.panel_bg_image ? `url("${configForm.panel_bg_image}")` : "none"}, linear-gradient(160deg, ${configForm.panel_grad_from}, ${configForm.panel_grad_to})`,
+                  backgroundSize: "cover, cover",
+                  backgroundPosition: "center, center",
+                  backgroundBlendMode: "multiply, normal",
+                }} />
               </div>
 
               <button type="submit" style={{ padding: "0.7rem 1.5rem", borderRadius: "0.65rem", border: "none", background: "#4c4383", color: "#fff", fontWeight: 800, fontSize: "0.95rem", cursor: "pointer", width: "100%" }}>

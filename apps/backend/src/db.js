@@ -15,6 +15,8 @@ const memory = {
   dormitory_assignments: [],
   permits: [],
   staff: [],
+  staff_attendance: [],
+  student_violations: [],
   seq: 1
 };
 
@@ -194,6 +196,36 @@ export async function query(text, params = []) {
     return inMemoryResult([memory.staff[idx]]);
   }
 
+  // ── Staff Attendance ─────────────────────────────────────
+  if (normalized.includes("select * from staff_attendance")) {
+    return inMemoryResult([...memory.staff_attendance].sort((a, b) => b.id - a.id));
+  }
+  if (normalized.startsWith("insert into staff_attendance")) {
+    const [staff_id, attendance_date, status, note] = params;
+    const row = { id: memory.seq++, staff_id, attendance_date, status, note: note || null, created_at: new Date().toISOString() };
+    memory.staff_attendance.push(row);
+    return inMemoryResult([row]);
+  }
+
+  // ── Student Violations ───────────────────────────────────
+  if (normalized.includes("select * from student_violations")) {
+    return inMemoryResult([...memory.student_violations].sort((a, b) => b.id - a.id));
+  }
+  if (normalized.startsWith("insert into student_violations")) {
+    const [student_id, violation_type, severity, occurred_at, note] = params;
+    const row = {
+      id: memory.seq++,
+      student_id,
+      violation_type,
+      severity: severity || "ringan",
+      occurred_at: occurred_at || new Date().toISOString().slice(0, 10),
+      note: note || null,
+      created_at: new Date().toISOString()
+    };
+    memory.student_violations.push(row);
+    return inMemoryResult([row]);
+  }
+
   return inMemoryResult([]);
 }
 
@@ -366,6 +398,33 @@ export async function initDb() {
         join_date DATE,
         status VARCHAR(20) NOT NULL DEFAULT 'aktif' CHECK (status IN ('aktif','cuti','nonaktif')),
         salary NUMERIC(12,2) NOT NULL DEFAULT 0,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW()
+      );
+    `);
+
+    // Staff Attendance (Modul SDM)
+    await query(`
+      CREATE TABLE IF NOT EXISTS staff_attendance (
+        id SERIAL PRIMARY KEY,
+        tenant_id INT NOT NULL DEFAULT 1,
+        staff_id INT NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+        attendance_date DATE NOT NULL,
+        status VARCHAR(20) NOT NULL CHECK (status IN ('hadir','izin','sakit','alpa')),
+        note TEXT,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW()
+      );
+    `);
+
+    // Student Violations (Modul Kedisiplinan)
+    await query(`
+      CREATE TABLE IF NOT EXISTS student_violations (
+        id SERIAL PRIMARY KEY,
+        tenant_id INT NOT NULL DEFAULT 1,
+        student_id INT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+        violation_type VARCHAR(120) NOT NULL,
+        severity VARCHAR(20) NOT NULL DEFAULT 'ringan' CHECK (severity IN ('ringan','sedang','berat')),
+        occurred_at DATE NOT NULL DEFAULT CURRENT_DATE,
+        note TEXT,
         created_at TIMESTAMP NOT NULL DEFAULT NOW()
       );
     `);

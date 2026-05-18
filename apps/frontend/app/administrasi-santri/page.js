@@ -90,14 +90,35 @@ export default function AdministrasiSantriPage() {
   const aktif = rows.filter((item) => item.status === "aktif").length;
   const alumni = rows.filter((item) => item.status === "alumni").length;
   const keluar = rows.filter((item) => item.status === "keluar").length;
+  const lastUpdated = new Date().toLocaleTimeString("id-ID", { hour12: false });
 
   return (
-    <section className="asf-module-wrap">
-      <header className="asf-module-header">
-        <p className="asf-eyebrow">Administrasi Santri</p>
-        <h1>Master Data Santri</h1>
-        <p>Kelola data pokok santri aktif, alumni, dan keluar agar siap dipakai modul ERP lain.</p>
-      </header>
+    <>
+      <section style={{ background: "linear-gradient(140deg, rgb(15, 61, 37) 0%, rgb(31, 107, 67) 55%, rgb(42, 138, 87) 100%)", color: "rgb(255, 255, 255)", padding: "1.2rem 1rem", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.07), transparent 55%)", pointerEvents: "none" }} />
+        <div style={{ transform: "translateY(0px)", transition: "transform 120ms" }}>
+          <p style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(255, 255, 255, 0.15)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "999px", padding: "0.25rem 0.65rem", fontSize: "0.78rem", fontWeight: 700, marginBottom: "0.6rem", color: "rgb(214, 245, 227)" }}>
+            📊 Dashboard Role-Based ERP
+          </p>
+          <h1 style={{ margin: "0px 0px 0.35rem", fontFamily: "var(--font-display)", fontSize: "1.5rem" }}>Master Data Santri</h1>
+          <p style={{ margin: 0, color: "rgba(255, 255, 255, 0.86)", fontSize: "0.86rem" }}>
+            Kelola data pokok santri aktif, alumni, dan keluar agar siap dipakai modul ERP lain.
+          </p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.45rem", flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(50, 220, 100, 0.2)", border: "1px solid rgba(50, 220, 100, 0.4)", borderRadius: "999px", padding: "0.23rem 0.58rem", fontSize: "0.74rem", fontWeight: 700, color: "rgb(167, 243, 196)" }}>
+              ● Sistem Normal
+            </span>
+            <button type="button" className="asf-button asf-button-secondary" onClick={loadStudents} style={{ padding: "0.22rem 0.64rem", borderRadius: "999px", fontSize: "0.76rem" }}>
+              ⟳ Sinkronkan Data
+            </button>
+          </div>
+          <p style={{ margin: "0.55rem 0px 0px", fontSize: "0.7rem", color: "rgba(255, 255, 255, 0.65)" }}>
+            Update terakhir: {lastUpdated} WIB
+          </p>
+        </div>
+      </section>
+
+      <section className="asf-module-wrap asf-module-wrap--gradient">
 
       <div className="asf-kpi-grid">
         <article className="asf-kpi-card"><p>Total Santri</p><strong>{total}</strong></article>
@@ -213,7 +234,7 @@ export default function AdministrasiSantriPage() {
           </table>
         </div>
       </article>
-    </section>
+      </section>
+    </>
   );
 }
-

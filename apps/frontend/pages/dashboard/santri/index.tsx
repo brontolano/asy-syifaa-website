@@ -129,7 +129,18 @@ export default function SantriDashboardPage() {
   const tableRows = useMemo(() => items, [items]);
 
   return (
-    <main style={{ padding: 16, maxWidth: 1080, margin: "0 auto" }}>
+    <main
+      style={{
+        padding: 16,
+        maxWidth: 1080,
+        margin: "0 auto",
+        minHeight: "100vh",
+        backgroundImage: "var(--erp-panel-bg-image), linear-gradient(160deg, var(--erp-panel-grad-from), var(--erp-panel-grad-to))",
+        backgroundSize: "cover, cover",
+        backgroundPosition: "center, center",
+        backgroundBlendMode: "multiply, normal"
+      }}
+    >
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
         <input
           value={search}

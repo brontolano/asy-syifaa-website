@@ -50,13 +50,51 @@
         }
 
         // =====================
-        // Animasi Counter Stat (dari index.html)
-        // Ini hanya akan berjalan jika elemen .stat-number ada di halaman
+        // Sinkronisasi statistik website dengan ERP + animasi counter
         // =====================
-        const counters = document.querySelectorAll('.stat-number');
-        if (counters.length > 0) {
-            const speed = 2000; // durasi animasi
+        async function syncWebsiteStats() {
+            const counters = Array.from(document.querySelectorAll(".stat-number"));
+            if (counters.length === 0) return;
 
+            const API_BASE = "http://localhost:4000";
+            const fetchJson = async (path) => {
+                const response = await fetch(`${API_BASE}${path}`, { cache: "no-store" });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            };
+
+            try {
+                const [studentsRes, staffRes] = await Promise.all([
+                    fetchJson("/api/public/students"),
+                    fetchJson("/api/public/staff?status=aktif")
+                ]);
+
+                const students = Array.isArray(studentsRes?.data) ? studentsRes.data : [];
+                const staff = Array.isArray(staffRes?.data) ? staffRes.data : [];
+
+                const banin = students.filter((row) => String(row.status || "").toLowerCase() === "aktif" && String(row.gender || "").toUpperCase() === "L").length;
+                const banat = students.filter((row) => String(row.status || "").toLowerCase() === "aktif" && String(row.gender || "").toUpperCase() === "P").length;
+                const alumni = students.filter((row) => String(row.status || "").toLowerCase() === "alumni").length;
+                const pendidik = staff.length;
+
+                counters.forEach((counter) => {
+                    const labelEl = counter.closest(".stat-box")?.querySelector(".stat-label");
+                    const label = (labelEl?.textContent || "").trim().toLowerCase();
+                    if (label === "santri banin") counter.setAttribute("data-target", String(banin));
+                    if (label === "santri banat") counter.setAttribute("data-target", String(banat));
+                    if (label === "alumni") counter.setAttribute("data-target", String(alumni));
+                    if (label === "pendidik") counter.setAttribute("data-target", String(pendidik));
+                    counter.innerText = "0";
+                });
+            } catch (_error) {
+                // fallback: tetap gunakan angka hardcoded data-target jika API belum aktif
+            }
+        }
+
+        function initStatCounterAnimation() {
+            const counters = document.querySelectorAll('.stat-number');
+            if (counters.length === 0) return;
+            const speed = 2000;
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -65,7 +103,6 @@
                             const target = +counter.getAttribute('data-target');
                             const count = +counter.innerText.replace(/,/g, '');
                             const increment = Math.ceil(target / (speed / 20));
-
                             if (count < target) {
                                 counter.innerText = (count + increment).toLocaleString();
                                 setTimeout(updateCount, 20);
@@ -74,15 +111,72 @@
                             }
                         };
                         updateCount();
-                        observer.unobserve(counter); // Hentikan observasi setelah animasi dimulai
+                        observer.unobserve(counter);
                     }
                 });
-            }, { threshold: 0.6 }); // Mulai saat 60% elemen terlihat
-
-            counters.forEach(counter => {
-                observer.observe(counter);
-            });
+            }, { threshold: 0.6 });
+            counters.forEach(counter => observer.observe(counter));
         }
+
+        syncWebsiteStats().finally(() => initStatCounterAnimation());
+
+        // =====================
+        // Sinkronisasi blok Guru & Staf dari ERP
+        // =====================
+        async function syncGuruStafFromErp() {
+            const guruTrack = document.getElementById("guruTrack");
+            if (!guruTrack) return;
+            const API_BASE = "http://localhost:4000";
+
+            const esc = (value) => String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+            try {
+                const response = await fetch(`${API_BASE}/api/public/staff?status=aktif`, { cache: "no-store" });
+                if (!response.ok) return;
+                const payload = await response.json();
+                const staffRows = Array.isArray(payload?.data) ? payload.data : [];
+                if (staffRows.length === 0) return;
+
+                const html = staffRows.slice(0, 24).map((row, index) => {
+                    const name = esc(row.full_name || "Pengajar");
+                    const role = esc(row.role || "Pengajar");
+                    const initials = name
+                        .split(" ")
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .map((part) => part[0]?.toUpperCase() || "")
+                        .join("") || "U";
+                    const tone = index % 2 === 0 ? "206c4e" : "1a3e2c";
+                    const photo = `https://placehold.co/600x750/${tone}/FFF?text=${encodeURIComponent(initials)}`;
+                    return `
+<div class="guru-card">
+    <div class="guru-img-container">
+        <img src="${photo}" alt="${name}" loading="lazy">
+        <div class="guru-overlay"></div>
+    </div>
+    <div class="guru-content">
+        <div class="guru-jabatan">${role}</div>
+        <h4 class="guru-nama">${name}</h4>
+        <div class="guru-line"></div>
+    </div>
+</div>`;
+                }).join("");
+
+                guruTrack.innerHTML = html;
+            } catch (_error) {
+                // fallback: biarkan konten hardcoded jika API belum aktif
+            }
+        }
+
+        syncGuruStafFromErp();
+
+        // Catatan: Feed pengumuman/agenda dikelola di modul ERP Website (CMS),
+        // bukan diinjeksi langsung ke halaman website publik.
 
 
         // ------------------------------------------------

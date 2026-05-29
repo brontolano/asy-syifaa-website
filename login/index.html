@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Asy-Syifaa</title>
+  <style>
+    :root {
+      --bg: #f3f6f4;
+      --surface: #ffffff;
+      --surface-muted: #f5f8f6;
+      --line: #d7e3db;
+      --text: #123325;
+      --text-muted: #557061;
+      --accent: #1f6b43;
+      --accent-2: #2d8a59;
+      --danger-bg: #fdecea;
+      --danger-fg: #8e2c22;
+      --font-display: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font-display);
+      color: var(--text);
+      background: var(--bg);
+    }
+    .root {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+    }
+    .left {
+      flex: 0 0 42%;
+      min-width: 0;
+      background: linear-gradient(160deg, #0a2d1c 0%, #1f6b43 55%, #2a8a57 100%);
+      color: #fff;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .left::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 60% 30%, rgba(255,255,255,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 3rem; position: relative; }
+    .logo {
+      width: 2.4rem; height: 2.4rem; border-radius: 999px;
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+      display: grid; place-items: center; font-weight: 900; font-size: 0.75rem;
+    }
+    .title-main {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 1rem;
+      position: relative;
+    }
+    .desc {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0 0 2rem;
+      max-width: 340px;
+      position: relative;
+    }
+    .feature { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; margin-bottom: 0.65rem; position: relative; }
+    .feature-icon {
+      width: 1.6rem; height: 1.6rem; border-radius: 0.4rem; background: rgba(255,255,255,0.12);
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .feature-text { color: rgba(255,255,255,0.82); }
+    .copyright { margin: 0; font-size: 0.72rem; color: rgba(255,255,255,0.45); position: relative; }
+    .right {
+      flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem; background: var(--bg);
+    }
+    .card { width: 100%; max-width: 400px; }
+    .mobile-brand { display: none; text-align: center; margin-bottom: 1.5rem; }
+    .mobile-brand-inner { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.1rem; }
+    .mobile-logo {
+      width: 2rem; height: 2rem; border-radius: 999px; background: var(--accent); color: #fff;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 900;
+    }
+    .title-login { font-size: 1.5rem; font-weight: 700; margin: 0 0 0.25rem; text-align: center; }
+    .subtitle-login { color: var(--text-muted); font-size: 0.88rem; text-align: center; margin: 0 0 1.2rem; }
+    .form { display: flex; flex-direction: column; gap: 0.85rem; }
+    .field { display: grid; gap: 0.3rem; }
+    .label { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
+    .input {
+      padding: 0.65rem 0.85rem; font-size: 0.95rem;
+      border: 1px solid var(--line); border-radius: 0.65rem; background: var(--surface); color: var(--text);
+    }
+    .role-box {
+      padding: 0.6rem 0.7rem; border-radius: 0.7rem; border: 1px solid var(--line);
+      background: var(--surface-muted);
+    }
+    .role-main { margin: 0; font-size: 0.78rem; color: var(--text-muted); }
+    .role-sub { margin: 0.2rem 0 0; font-size: 0.74rem; color: var(--text-muted); }
+    .error {
+      display: none;
+      padding: 0.6rem 0.85rem;
+      border-radius: 0.65rem;
+      background: var(--danger-bg);
+      color: var(--danger-fg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(178,58,47,0.2);
+    }
+    .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      border: 0;
+      border-radius: 0.7rem;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    .btn[disabled] { opacity: 0.7; cursor: wait; }
+    .foot-note {
+      margin-top: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .links {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+    .links a { text-decoration: none; }
+    .link-muted { color: var(--text-muted); }
+    .link-accent { color: var(--accent); font-weight: 600; }
+    @media (max-width: 980px) {
+      .left { display: none; }
+      .mobile-brand { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="root">
+    <section class="left">
+      <div>
+        <div class="brand">
+          <span class="logo">ERP</span>
+          <span style="font-weight:700;font-size:1.1rem;">Asy-Syifaa</span>
+        </div>
+        <h1 class="title-main">Sistem ERP Pesantren<br>All-in-One</h1>
+        <p class="desc">Platform manajemen terpadu untuk akademik, tahfidz, asrama, keuangan, dan SDM pesantren.</p>
+        <div class="feature"><span class="feature-icon">ð</span><span class="feature-text">Dashboard role-based sesuai tanggung jawab kerja</span></div>
+        <div class="feature"><span class="feature-icon">ð°</span><span class="feature-text">Keuangan, billing, dan validasi pembayaran harian</span></div>
+        <div class="feature"><span class="feature-icon">ðï¸</span><span class="feature-text">Monitoring asrama, izin, dan ketertiban santri</span></div>
+        <div class="feature"><span class="feature-icon">ð</span><span class="feature-text">Tracking tahfidz harian dan progress mingguan</span></div>
+        <div class="feature"><span class="feature-icon">ð¡ï¸</span><span class="feature-text">System health, audit log, dan kontrol akses</span></div>
+      </div>
+      <p class="copyright">Â© <span id="yearNow"></span> Asy-Syifaa ERP v2.0 Â· Hak Cipta Dilindungi</p>
+    </section>
+
+    <section class="right">
+      <div class="card">
+        <div class="mobile-brand">
+          <div class="mobile-brand-inner"><span class="mobile-logo">ERP</span>Asy-Syifaa</div>
+        </div>
+
+        <h2 class="title-login">Masuk ke Sistem</h2>
+        <p class="subtitle-login">Role terdeteksi otomatis dari akun yang login.</p>
+
+        <form id="loginForm" class="form">
+          <div class="field">
+            <label class="label" for="username">Username / NIP</label>
+            <input class="input" id="username" name="username" autocomplete="username" placeholder="Masukkan username atau NIP" required>
+          </div>
+          <div class="field">
+            <label class="label" for="password">Password</label>
+            <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required>
+          </div>
+          <div class="role-box">
+            <p class="role-main">Role terdeteksi: <strong id="detectedRole">Pengguna Umum</strong></p>
+            <p class="role-sub">Akun staff diarahkan ke ERP, akun umum kembali ke website.</p>
+          </div>
+          <div id="errorBox" class="error"></div>
+          <button id="submitBtn" type="submit" class="btn">ð Masuk ke ERP</button>
+        </form>
+
+        <div class="foot-note">Sesi akan berakhir otomatis. Silakan login ulang jika waktu sesi habis.</div>
+        <div class="links">
+          <a class="link-muted" href="/">â Beranda</a>
+          <a class="link-accent" href="/daftar-sekarang">Daftar (PPDB) â</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      const INTERNAL_ROLES = new Set([
+        "superadmin",
+        "mudir_aam",
+        "pengasuh",
+        "ustadz",
+        "ustadzah",
+        "bendahara",
+        "admin_keuangan",
+        "kepala_sekolah",
+        "staff_umum",
+        "admin_kesantrian",
+        "calon_santri"
+      ]);
+
+      const ROLE_LABEL = {
+        superadmin: "Super Admin",
+        mudir_aam: "Mudir Aam",
+        pengasuh: "Pengasuh / Pimpinan",
+        ustadz: "Ustadz",
+        ustadzah: "Ustadzah",
+        bendahara: "Bendahara",
+        admin_keuangan: "Admin Keuangan",
+        kepala_sekolah: "Kepala Sekolah",
+        staff_umum: "Staff Umum",
+        admin_kesantrian: "Admin Kesantrian & Asrama",
+        wali: "Wali Santri",
+        calon_santri: "Calon Santri (PPDB)",
+        umum: "Pengguna Umum"
+      };
+
+      const form = document.getElementById("loginForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const errorBox = document.getElementById("errorBox");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const detectedRoleEl = document.getElementById("detectedRole");
+      document.getElementById("yearNow").textContent = String(new Date().getFullYear());
+
+      function hostMode() {
+        const host = (window.location.hostname || "").toLowerCase();
+        const local = host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+        return {
+          apiBase: local ? "http://localhost:4000" : "https://api.asy-syifaa.com",
+          erpBase: local ? "http://localhost:8080" : "https://erp.asy-syifaa.com",
+          webBase: local ? "http://localhost:5050" : "https://asy-syifaa.com"
+        };
+      }
+
+      function normalizeRole(value) {
+        const role = String(value || "").trim().toLowerCase();
+        if (!role) return "umum";
+        const map = {
+          "super_admin": "superadmin",
+          "super-admin": "superadmin",
+          "mudir": "mudir_aam",
+          "kepsek": "kepala_sekolah",
+          "admin finance": "admin_keuangan",
+          "admin_finance": "admin_keuangan",
+          "admin-kesantrian": "admin_kesantrian",
+          "admin kesantrian": "admin_kesantrian"
+        };
+        return map[role] || role;
+      }
+
+      function inferRole(identity) {
+        const text = String(identity || "").trim().toLowerCase();
+        if (!text) return "umum";
+        if (text.includes("super")) return "superadmin";
+        if (text.includes("pengasuh") || text.includes("mudir") || text.includes("pimpinan")) return "pengasuh";
+        if (text.includes("keuangan") || text.includes("bendahara")) return "admin_keuangan";
+        if (text.includes("kesantrian") || text.includes("asrama")) return "admin_kesantrian";
+        if (text.includes("ppdb") || text.includes("calon")) return "calon_santri";
+        if (text.includes("wali")) return "wali";
+        return "umum";
+      }
+
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.style.display = "block";
+      }
+
+      function hideError() {
+        errorBox.textContent = "";
+        errorBox.style.display = "none";
+      }
+
+      function getDetectedRole() {
+        return normalizeRole(inferRole(usernameInput.value));
+      }
+
+      function renderDetectedRole() {
+        const role = getDetectedRole();
+        detectedRoleEl.textContent = ROLE_LABEL[role] || role;
+      }
+
+      usernameInput.addEventListener("input", renderDetectedRole);
+      renderDetectedRole();
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        hideError();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        if (!username || !password) {
+          showError("Username dan password wajib diisi.");
+          return;
+        }
+
+        const detectedRole = normalizeRole(inferRole(username));
+        const env = hostMode();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Memverifikasi...";
+
+        try {
+          const response = await fetch(env.apiBase + "/api/v1/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({
+              login: username,
+              password: password
+            })
+          });
+
+          const payload = await response.json().catch(function () { return null; });
+          if (!response.ok || !payload || payload.ok === false) {
+            throw new Error((payload && (payload.message || payload.error)) || "Login gagal. Periksa kredensial Anda.");
+          }
+
+          const roles = (payload.user && payload.user.roles) || [];
+          const role = roles.length > 0 ? normalizeRole(roles[0]) : normalizeRole(detectedRole);
+          const isStaff = INTERNAL_ROLES.has(role);
+          const redirectBase = payload.redirect || env.erpBase;
+          if (isStaff) {
+            const sso = new URLSearchParams({
+              token: payload.token,
+              role: role,
+              name: String((payload.user && (payload.user.full_name || payload.user.name)) || username)
+            });
+            window.location.replace(redirectBase + "/login?sso=1&" + sso.toString());
+            return;
+          }
+
+          window.location.replace(env.webBase + "/");
+        } catch (error) {
+          showError(String((error && error.message) || error || "Login gagal."));
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "ð Masuk ke ERP";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+# === Dependencies ===
+/vendor/
+node_modules/
+
+# === Environment & secrets ===
+.env
+.env.*
+!.env.example
+
+# === Logs & cache ===
+storage/logs/*.log
+storage/cache/
+*.log
+
+# === Bulk media / content (backed up locally, NOT in git) ===
+/img/
+/images/
+/Galeri/
+/Abuya/
+/assets/media/
+/assets/img/
+/css/img/
+
+# === Deploy artifacts ===
+*.zip
+*.b64
+website-deploy.zip
+
+# === OS / editor ===
+.DS_Store
+Thumbs.db

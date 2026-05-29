@@ -1,0 +1,46 @@
+RewriteEngine On
+
+# === Canonical gallery routes (clean URL) ===
+RewriteRule ^galeri/?$ /galeri.php [L,QSA,NC]
+RewriteRule ^galeri/([^/]+)/?$ /galeri-detail.php?slug=$1 [L,QSA,NC]
+RewriteRule ^galeri-([^/]+)(?:\.html)?/?$ /galeri-detail.php?slug=galeri-$1 [L,QSA,NC]
+
+# === Extensionless route support (/slug -> /slug.html) ===
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^([^/]+)/?$ $1.php [L,NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L,NC]
+
+# === Compatibility: .htm to canonical .php ===
+RewriteRule ^alur-pendaftaran\.htm$ /alur-pendaftaran.php [R=301,L,NC]
+
+# === Legacy capitalized/space filenames → canonical lowercase-dash ===
+RewriteRule ^Profile\.html$ /mahad.php [R=301,L,NC]
+RewriteRule ^Kurikulum\.html$ /profil-kurikulum.php [R=301,L,NC]
+RewriteRule ^Ekstrakulikuler\.html$ /profil-ekskul.php [R=301,L,NC]
+RewriteRule ^Guru\.html$ /profil-guru.php [R=301,L,NC]
+RewriteRule ^Fasilitas[%20\ ]+Pesantren\.html$ /fasilitas-pesantren.php [R=301,L,NC]
+RewriteRule ^Profile[%20\ ]+Abuya\.html$ /profil-abuya.php [R=301,L,NC]
+RewriteRule ^Profile[%20\ ]+Pondok[%20\ ]+Pesantren\.html$ /profil-pondok-pesantren.php [R=301,L,NC]
+RewriteRule ^Struktur[%20\ ]+Organisasi\.html$ /struktur-organisasi.php [R=301,L,NC]
+RewriteRule ^Visi[%20\ ]+Dan[%20\ ]+Misi\.html$ /visi-dan-misi.php [R=301,L,NC]
+
+# === Old profile- prefix → profil- standard ===
+RewriteRule ^profile-abuya\.html$ /profil-abuya.php [R=301,L,NC]
+RewriteRule ^profile-pondok-pesantren\.html$ /profil-pondok-pesantren.php [R=301,L,NC]
+RewriteRule ^profil\.html$ /mahad.php [R=301,L,NC]
+
+# === Duplicate profil- variants → canonical pages ===
+RewriteRule ^profil-fasilitas\.html$ /fasilitas-pesantren.php [R=301,L,NC]
+RewriteRule ^profil-pondok\.html$ /profil-pondok-pesantren.php [R=301,L,NC]
+RewriteRule ^profil-struktur\.html$ /struktur-organisasi.php [R=301,L,NC]
+RewriteRule ^profil-visi-misi\.html$ /visi-dan-misi.php [R=301,L,NC]
+RewriteRule ^info-raport\.html$ /e-raport.php [R=301,L,NC]
+
+# === Old direktori split pages → unified ===
+RewriteRule ^direktori-banat\.html$ /direktori-santri.php [R=301,L,NC]
+RewriteRule ^direktori-banin\.html$ /direktori-santri.php [R=301,L,NC]

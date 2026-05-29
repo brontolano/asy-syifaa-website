@@ -19,12 +19,12 @@
   }
 
   var SPECIAL_IMAGE_BY_SLUG = {
-    "galeri-wisuda-vi": "/img/Wisuda%20VI/Dokumentasi%20Wisuda%20VI%200.jpg"
+    "galeri-wisuda-vi": "/assets/media/gallery/Wisuda%20VI/Dokumentasi%20Wisuda%20VI%200.jpg"
   };
 
   function resolveImageFromFolder(folderName, fallbackFile) {
     if (!folderName) return "";
-    return "/img/" + encodeURIComponent(folderName) + "/" + encodeURIComponent(fallbackFile || "1.jpg");
+    return "/assets/media/gallery/" + encodeURIComponent(folderName) + "/" + encodeURIComponent(fallbackFile || "1.jpg");
   }
 
   function resolveGalleryImage(row, slug) {

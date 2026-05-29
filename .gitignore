@@ -7,9 +7,10 @@ node_modules/
 .env.*
 !.env.example
 
-# === Logs & cache ===
+# === Logs, cache & runtime ===
 storage/logs/*.log
 storage/cache/
+storage/sessions/
 *.log
 
 # === Bulk media / content (backed up locally, NOT in git) ===

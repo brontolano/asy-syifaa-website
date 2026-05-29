@@ -1,5 +1,8 @@
 name: Website CI
 
+# Catatan: workflow ini HANYA validasi di runner GitHub (lint + smoke lokal).
+# TIDAK melakukan deploy apa pun ke Hostinger / server live.
+
 on:
   workflow_dispatch:
   push:
@@ -8,35 +11,27 @@ on:
     branches: ["main"]
 
 jobs:
-  static-smoke:
+  php-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          node-version: 20
-          cache: npm
-
-      - name: Install deps
-        run: npm ci
+          php-version: "8.2"
 
       - name: Validate key files
         run: |
-          test -f index.html
+          test -f index.php
           test -f login/index.html
           test -f assets/js/main.js
-          test -f daftar-sekarang.html
+          test -f daftar-sekarang.php
 
-      - name: Start static server
-        run: npx serve . -l 5000 &
-
-      - name: Smoke check endpoints
+      - name: PHP syntax lint (semua *.php)
         run: |
-          sleep 3
-          curl -f http://localhost:5000/
-          curl -f http://localhost:5000/login/
-          curl -f http://localhost:5000/daftar-sekarang.html
-
+          find . -type f -name '*.php' \
+            -not -path './vendor/*' \
+            -not -path './node_modules/*' \
+            -print0 | xargs -0 -n1 -P4 php -l

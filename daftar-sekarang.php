@@ -643,14 +643,19 @@
   }
 
   function normalizeGuardianPhone(value) {
-      const raw = String(value || "").trim().replace(/[^\d+]/g, "");
+      let raw = String(value || "").trim().replace(/[^\d+]/g, "");
       if (!raw) return "";
-      const canonical = raw.startsWith("+62") ? `62${raw.slice(3)}` : raw;
-      return canonical.startsWith("0") ? `62${canonical.slice(1)}` : canonical;
+      if (raw.startsWith("+")) raw = raw.slice(1);          // buang tanda +
+      raw = raw.replace(/^0+(?=62)/, "");                    // 062.. -> 62..
+      if (raw.startsWith("62")) return raw;                 // sudah pakai kode negara
+      if (raw.startsWith("0")) return `62${raw.slice(1)}`;  // 08xx -> 628xx
+      if (raw.startsWith("8")) return `62${raw}`;           // 8xx (tanpa 0) -> 628xx
+      return raw;
   }
 
   function isValidGuardianPhone(value) {
-      return /^628[1-9][0-9]{7,12}$/.test(value);
+      // 08 + 8..12 digit (format 62: 628 + [1-9] + 6..11 digit)
+      return /^628[1-9][0-9]{6,11}$/.test(value);
   }
 
   function buildEticket(id) {
@@ -724,29 +729,43 @@
                   `kepala_keluarga:${fd.get("kepala_keluarga") || "-"}`
               ].join(" | ");
 
+              const jk = String(fd.get("jenis_kelamin") || "").toLowerCase();
+              const gender = jk.startsWith("p") ? "P" : "L";
+              const tahun = new Date().getFullYear();
+              const academicYear = `${tahun}/${tahun + 1}`;
+
               const payload = {
                   student_name: namaLengkap,
+                  nik: String(fd.get("nik_santri") || "").trim(),
+                  nisn: String(fd.get("nisn") || "").trim() || null,
+                  gender,
+                  birth_place: String(fd.get("tempat_lahir") || "").trim() || null,
+                  birth_date: String(fd.get("tgl_lahir") || "").trim() || null,
                   origin_school: String(fd.get("pendidikan_terakhir") || "").trim() || null,
-                  guardian_name: [namaAyah, namaIbu].filter(Boolean).join(" / ") || null,
+                  parent_name: [namaAyah, namaIbu].filter(Boolean).join(" / ") || null,
+                  parent_phone: guardianPhone,
                   guardian_phone: guardianPhone,
                   participant_phone: noWaPeserta,
-                  notes,
-                  source_page: "/daftar-sekarang"
+                  academic_year: academicYear,
+                  source: "website",
+                  notes
               };
 
               const apiBase = window.ASF_API_BASE || "";
               const response = await fetch(apiBase + "/api/v1/spmb/register", {
                   method: "POST",
-                  headers: { "Content-Type": "application/json" },
+                  headers: { "Content-Type": "application/json", "Accept": "application/json" },
                   body: JSON.stringify(payload)
               });
               const result = await response.json().catch(() => ({}));
-              if (!response.ok || !result?.ok) {
-                  throw new Error(result?.message || "Pendaftaran gagal dikirim.");
+              if (!response.ok || !(result?.success || result?.ok)) {
+                  const firstErr = result?.errors ? Object.values(result.errors)[0]?.[0] : null;
+                  throw new Error(firstErr || result?.message || "Pendaftaran gagal dikirim.");
               }
 
-              const eticket = result?.data?.eticket_no || buildEticket(result?.data?.id);
-              const username = result?.account?.username || result?.data?.erp_username || "-";
+              const data = result?.data || {};
+              const eticket = data.eticket_no || data.registration_number || buildEticket(data.id);
+              const username = data.username || data.erp_username || result?.account?.username || "-";
               const qrPayload = `ETICKET:${eticket}|NAMA:${namaLengkap}|WA:${noWaPeserta}|USER:${username}`;
               renderEticketQr(qrPayload);
               const eticketNoEl = document.getElementById("eticketNoText");

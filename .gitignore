@@ -13,14 +13,8 @@ storage/cache/
 storage/sessions/
 *.log
 
-# === Bulk media / content (backed up locally, NOT in git) ===
-/img/
-/images/
-/Galeri/
-/Abuya/
-/assets/media/
-/assets/img/
-/css/img/
+# === Bulk media / content ===
+# Catatan: untuk mencegah broken image di production, aset gambar dipakai website harus ikut di Git.
 
 # === Deploy artifacts ===
 *.zip

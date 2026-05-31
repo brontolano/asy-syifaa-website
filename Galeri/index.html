@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Galeri Foto Kegiatan & Prestasi Santri | Ponpes Asy-Syifaa Wal Mahmuudiyyah</title>
+<meta name="description" content="Lihat dokumentasi lengkap kegiatan santri, acara besar (Wisuda, Maulid, Rajaban), dan prestasi juara MQK di Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah Sumedang.">
+<meta name="keywords" content="Galeri Foto Pesantren, Asy-Syifaa Wal Mahmuudiyyah, Foto Kegiatan Santri, Dokumentasi Wisuda, Juara MQK, Pesantren Sumedang, Prestasi Santri">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link rel="icon" href="/assets/media/images/logo.png" type="image/png" sizes="32x32">
+
+  <link rel="stylesheet" href="/css/style.css?v=20260517" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source Sans 3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/footer.css?v=20260517">
+
+  
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ <link rel="stylesheet" href="/assets/css/main.css?v=20260519">
+<script src="/assets/js/main.js"></script>
+<style>
+
+/* Container Grid yang Responsif */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px; /* Jarak antar kartu lebih lega */
+    padding-bottom: 50px;
+}
+
+@media (max-width: 991.98px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Kartu Galeri Modern (Portrait 4:5) */
+.gallery-item {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5; /* Rasio Portrait */
+    border-radius: 16px; /* Sudut lebih melengkung (modern look) */
+    overflow: hidden; /* Agar gambar tidak keluar dari lengkungan */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Bayangan awal halus */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animasi gerakan sangat halus */
+    text-decoration: none; /* Hilangkan garis bawah link */
+}
+
+/* Style Gambar */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); /* Zoom lambat yang mewah */
+}
+
+/* Layer Gelap (Gradient) di atas gambar */
+/* Ini trik agar tulisan terbaca tanpa menutupi seluruh gambar */
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* Gradasi hanya di 60% bagian bawah */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0.8;
+    transition: opacity 0.4s ease;
+}
+
+/* Informasi/Tulisan */
+.gallery-item-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 2; /* Agar di atas layer gelap */
+    transform: translateY(10px); /* Posisi awal agak turun */
+    transition: transform 0.4s ease;
+}
+
+.gallery-item-info h3 {
+    font-family: 'Merriweather', serif; /* Font elegan yang sudah Abah load */
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.gallery-item-info p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85); /* Putih agak transparan */
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+/* --- EFEK HOVER (SAAT KURSOR DIARAHKAN) --- */
+
+/* Kartu mengangkat sedikit & bayangan menebal */
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Gambar nge-zoom */
+.gallery-item:hover img {
+    transform: scale(1.15); /* Zoom in 15% */
+}
+
+/* Gradasi jadi lebih gelap sedikit agar tulisan makin jelas */
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+/* Tulisan naik sedikit ke posisi normal */
+.gallery-item:hover .gallery-item-info {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   TOMBOL KEMBALI KE BERANDA (CUSTOM)
+   ========================================= */
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 35px;
+    background-color: white; /* Dasar Putih */
+    color: var(--dark-green); /* Teks Hijau Tua */
+    border: 2px solid var(--primary-green); /* Garis Pinggir Hijau */
+    border-radius: 50px; /* Membulat (Pill Shape) */
+    text-decoration: none; /* Hilangkan garis bawah link */
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Bayangan Halus */
+}
+
+/* Efek saat Mouse Menempel (Hover) */
+.btn-back-home:hover {
+    background-color: var(--primary-green); /* Berubah jadi Hijau */
+    color: white; /* Teks jadi Putih */
+    border-color: var(--primary-green);
+    transform: translateY(-5px); /* Tombol naik sedikit */
+    box-shadow: 0 10px 20px rgba(32, 108, 78, 0.2); /* Bayangan makin nyata */
+}
+
+/* Animasi Panah saat Hover */
+.btn-back-home:hover i {
+    transform: translateX(-5px); /* Panah bergerak ke kiri */
+    transition: transform 0.3s ease;
+}
+    
+/* ============================================================ */
+/* FIX: UKURAN TEKS GALERI KHUSUS MOBILE (DIPERKECIL)           */
+/* ============================================================ */
+
+@media (max-width: 767.98px) {
+    /* 1. Mengatur Container Info agar lebih rapat */
+    .gallery-item-info {
+        bottom: 10px;       /* Jarak dari bawah dikurangi */
+        left: 10px;         /* Jarak dari kiri dikurangi */
+        right: 10px;        /* Jarak dari kanan dikurangi */
+        transform: translateY(5px); /* Posisi awal sedikit disesuaikan */
+    }
+
+    /* 2. Mengecilkan Judul Foto (h3) */
+    .gallery-item-info h3 {
+        font-size: 0.95rem !important; /* Ukuran font judul jadi kecil (sebelumnya 1.5rem) */
+        margin-bottom: 3px;            /* Jarak ke deskripsi dipersempit */
+        line-height: 1.2;              /* Jarak antar baris judul dipersempit */
+        text-shadow: 0 1px 3px rgba(0,0,0,0.8); /* Shadow dipertegas agar terbaca */
+    }
+
+    /* 3. Mengecilkan Deskripsi Foto (p) */
+    .gallery-item-info p {
+        font-size: 0.7rem !important;  /* Ukuran deskripsi jadi sangat kecil (sebelumnya 0.9rem) */
+        line-height: 1.2;              /* Baris lebih rapat */
+        opacity: 0.9;                  /* Sedikit lebih terang */
+        display: -webkit-box;          /* Teknik memotong teks jika terlalu panjang */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* 4. Memastikan teks naik penuh saat disentuh/hover di HP */
+    .gallery-item:hover .gallery-item-info,
+    .gallery-item:active .gallery-item-info {
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+</style>
+</head>
+
+ 
+<body id="top">
+
+
+
+
+    
+<nav class="navbar navbar-expand-xl asf-public-navbar fixed-top">
+  <div class="container-fluid px-3 px-xl-4">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/index.html">
+      <img src="/assets/media/images/logo.png" alt="Logo Asy-Syifaa Wal Mahmuudiyyah" width="56" height="56" class="me-2">
+      <span class="fs-5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#asfPublicNavbar" aria-controls="asfPublicNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="asfPublicNavbar">
+      <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="fa-solid fa-house"></i> Beranda</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/mahad" id="asfMaHadDropdown" role="button" aria-expanded="false"><i class="fa-solid fa-school"></i> Ma'had</a>
+          <ul class="dropdown-menu" aria-labelledby="asfMaHadDropdown">
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/profil-pondok-pesantren">Pesantren</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/visi-dan-misi">Visi Misi</a></li>
+                <li><a class="dropdown-item" href="/fasilitas-pesantren">Fasilitas</a></li>
+                <li><a class="dropdown-item" href="/profil-kurikulum">Kurikulum</a></li>
+                <li><a class="dropdown-item" href="/profil-ekskul">Ekskul</a></li>
+                <li><a class="dropdown-item" href="/kegiatan-harian">Agenda 24 Jam</a></li>
+                <li><a class="dropdown-item" href="/kegiatan-mingguan">Agenda Rutin</a></li>
+              </ul>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/profil-abuya">Abuya</a></li>
+            <li><a class="dropdown-item" href="/profil-guru">Para Guru</a></li>
+            <li><a class="dropdown-item" href="/struktur-organisasi">Pengurus</a></li>
+            <li><a class="dropdown-item" href="/direktori-pengajar">Pengajar</a></li>
+            <li><a class="dropdown-item" href="/direktori-santri">Santri</a></li>
+            <li><a class="dropdown-item" href="/direktori-alumni">Alumni</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/galeri"><i class="fa-solid fa-images"></i> Galeri</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="asfInformasiDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-info"></i> Informasi</a>
+          <ul class="dropdown-menu" aria-labelledby="asfInformasiDropdown">
+            <li><a class="dropdown-item" href="/info-pengumuman">Pengumuman</a></li>
+            <li><a class="dropdown-item" href="/info-prestasi">Prestasi</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/asy-syifaa-tv"><i class="fa-solid fa-tv"></i> Asy-Syifaa TV</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="asfPpdbDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user-plus"></i> Pendaftaran Santri</a>
+          <ul class="dropdown-menu" aria-labelledby="asfPpdbDropdown">
+            <li><a class="dropdown-item" href="/alur-pendaftaran">Alur Pendaftaran Santri</a></li>
+            <li><a class="dropdown-item" href="/daftar-sekarang">Daftar Santri</a></li>
+            <li><a class="dropdown-item" href="/hasil-seleksi">Hasil Seleksi</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-xl-3 asf-public-navbar-right">
+        <li class="nav-item" id="loginNavItem"><a class="nav-link" href="/login" id="apps-erp-link"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="toggleSearch" title="Pencarian"><i class="fa-solid fa-search"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="container gallery-page-container">
+    <div class="section-header" data-aos="fade-up"> <h2>Galeri Foto <span style="color: var(--primary-green);">Pondok Pesantren</span></h2>
+    </div>
+
+    <p id="galleryLoading" class="text-muted text-center">Memuat galeri...</p>
+    <div id="galleryEmpty" class="alert alert-warning d-none">Belum ada data galeri.</div>
+    <div class="gallery-grid" id="galleryGridRoot">
+       
+       
+        <a href="/galeri-psb-2026.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/PSB 2026/1.jpg" alt="PSB 2026">
+            <div class="gallery-item-info">
+                <h3>PSB 2026</h3>
+                <p>Pendaftaran Santri Baru Tahun Ajaran 2026</p>
+            </div>
+        </a>
+
+ <a href="/galeri-wisuda-vi.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Wisuda VI/Dokumentasi Wisuda VI 0.jpg" alt="Wisuda VI">
+            <div class="gallery-item-info">
+                <h3>Wisuda VI</h3>
+                <p>Wisuda Santri Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah VI</p>
+            </div>
+        </a>
+
+       <a href="/galeri-malam-nishfu-sya-ban.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Malam Nishfu Sya'ban/1.jpg" alt="Malam Nishfu Sya'ban">
+            <div class="gallery-item-info">
+                <h3>Malam Nishfu Sya'ban</h3>
+                <p>Kegiatan Malam Nishfu Sya'ban di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+        
+               <a href="/galeri-rajaban-akbar-1447-h.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Rajaban Akbar 1447 H/1.jpg" alt="Rajaban Akbar 1447 H">
+            <div class="gallery-item-info">
+                <h3>Rajaban Akbar 1447 H</h3>
+                <p>Kegiatan Rajaban Akbar di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+                 <a href="/galeri-sholat-ghoib-habib-umar-al-jaelani.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Sholat Ghoib Habib Umar Al-Jaelani/1.jpg" alt="Sholat Ghoib Habib Umar Al-Jaelani">
+            <div class="gallery-item-info">
+                <h3>Sholat Ghoib Habib Umar Al-Jaelani</h3>
+                <p>Kegiatan Sholat Ghoib Habib Umar Al-Jaelani di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+         <a href="/galeri-dars-fajr-al-haddar.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dars Fajr Al Haddar/1.jpg" alt="Dars Fajr Al Haddar">
+            <div class="gallery-item-info">
+                <h3>Dars Fajr Al Haddar</h3>
+                <p>Kegiatan Dars Fajr Al Haddar di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+         <a href="/galeri-mqk-sumedang-2025.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/MQK SUMEDANG 2025/1.jpg" alt="MQK SUMEDANG 2025">
+            <div class="gallery-item-info">
+                <h3>JUARA MQK SUMEDANG 2025</h3>
+                <p>Santri-Santri Asy-Syifaa Wal Mahmuudiyyah yang menjuarai MQK SUMEDANG 2025</p>
+            </div>
+        </a>
+
+         <a href="/galeri-dauroh-ilmiyyah-lora-ismail.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dauroh Ilmiyyah Lora Ismail/1.jpg" alt="Dauroh Ilmiyyah Lora Ismail">
+            <div class="gallery-item-info">
+                <h3>Dauroh Ilmiyyah Lora Ismail</h3>
+                <p>Kegiatan Dauroh Ilmiyyah Lora Ismail di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+                <a href="/galeri-dars-fajr-sayyid-alwi.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dars Fajr Sayyid Alwi/1.jpg" alt="Dars Fajr Sayyid Alwi">
+            <div class="gallery-item-info">
+                <h3>Dars Fajr Sayyid Alwi</h3>
+                <p>Kegiatan Dars Fajr Sayyid Alwi di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+ 
+
+         <a href="/galeri-tabligh-akbar-habib-muhammad-al-habsy.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Tabligh Akbar Habib Muhammad Al-Habsy/1.jpg" alt="Tabligh Akbar Habib Muhammad Al-Habsy">
+            <div class="gallery-item-info">
+                <h3>Tabligh Akbar Habib Muhammad Al-Habsy</h3>
+                <p>Kegiatan Tabligh Akbar Habib Muhammad Al-Habsy di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+
+         <a href="/galeri-upacara-hari-santri.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Upacara Hari Santri/1.jpg" alt="Upacara Hari Santri">
+            <div class="gallery-item-info">
+                <h3>Upacara Hari Santri</h3>
+                <p>Kegiatan Upacara Hari Santri di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+         <a href="/galeri-juara-mqki.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/JUARA MQKI/1.jpg" alt="JUARA MQKI">
+            <div class="gallery-item-info">
+                <h3>JUARA MQKI</h3>
+                <p>Santri-Santri Asy-Syifaa Wal Mahmuudiyyah yang menjuarai MQKI</p>
+            </div>
+        </a>
+
+         <a href="/galeri-mqki-i.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/MQKI-I/1.jpg" alt="MQKI-I">
+            <div class="gallery-item-info">
+                <h3>MQKI-I</h3>
+                <p>Momentum MQKI-I di Pondok Pesantren As'adiyyah Wajo, Sulawesi Selatan</p>
+            </div>
+        </a>
+
+         <a href="/galeri-dauroh-ilmiyyah-syeikh-sholeh.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dauroh Ilmiyyah Syeikh Sholeh/1.jpg" alt="Dauroh Ilmiyyah Syeikh Sholeh">
+            <div class="gallery-item-info">
+                <h3>Dauroh Ilmiyyah Syeikh Sholeh</h3>
+                <p>Kegiatan Dauroh Ilmiyyah Syeikh Sholeh di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+
+         <a href="/galeri-dauroh-ilmiyyah-al-munsib-al-athos.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dauroh Ilmiyyah Al Munsib Al Athos/1.jpg" alt="Dauroh Ilmiyyah Al Munsib Al Athos">
+            <div class="gallery-item-info">
+                <h3>Dauroh Ilmiyyah Al Munsib Al Athos</h3>
+                <p>Kegiatan Dauroh Ilmiyyah Al Munsib Al Athos di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-maulid-akbar-1447-h.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Maulid Akbar 1447 H/1.jpg" alt="Maulid Akbar 1447 H">
+            <div class="gallery-item-info">
+                <h3>Maulid Akbar 1447 H</h3>
+                <p>Kegiatan Maulid Akbar 1447 H di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-prepare-maulid-akbar-1447-h.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Maulid Akbar 1447 H/1.jpg" alt="Maulid Akbar 1447 H">
+            <div class="gallery-item-info">
+                <h3>Prepare Maulid Akbar 1447 H</h3>
+                <p>Prepare Maulid Akbar 1447 H di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-maulid-pusaka-1447-h.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Maulid Pusaka 1447 H/1.jpg" alt="Maulid Pusaka 1447 H">
+            <div class="gallery-item-info">
+                <h3>Maulid Pusaka 1447 H</h3>
+                <p>Kegiatan Maulid Pusaka 1447 H di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-dauroh-ilmiyyah-qiro-ah.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Dauroh Ilmiyyah Qiro'ah/1.jpg" alt="Dauroh Ilmiyyah Qiro'ah">
+            <div class="gallery-item-info">
+                <h3>Dauroh Ilmiyyah Qiro'ah</h3>
+                <p>Kegiatan Dauroh Ilmiyyah Qiro'ah Bersama Syeikh Ya'qub bin Sholeh bin Salim</p>
+            </div>
+        </a>
+
+      <a href="/galeri-lomba-agustusan.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Lomba Agustusan/1.jpg" alt="Lomba Agustusan">
+            <div class="gallery-item-info">
+                <h3>Lomba Agustusan</h3>
+                <p>Kegiatan Lomba Agustusan di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-17-agustus-2025.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/17 Agustus 2025/1.jpg" alt="Upacara 17 Agustus 2025">
+            <div class="gallery-item-info">
+                <h3>Upacara 17 Agustus 2025</h3>
+                <p>Kegiatan Upacara 17 Agustus 2025 di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+      <a href="/galeri-juara-mqkn-jabar.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/JUARA MQKN JABAR/1.jpg" alt="JUARA MQKN JABAR">
+            <div class="gallery-item-info">
+                <h3>JUARA MQKN JABAR</h3>
+                <p>Santri-Santri yang menjuarai MQKN JABAR 2025</p>
+            </div>
+        </a>
+
+
+      <a href="/galeri-perkenalan-santri-baru-2025.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Perkenalan Santri baru 2025/1.jpg" alt="Perkenalan Santri Baru 2025">
+            <div class="gallery-item-info">
+                <h3>Perkenalan Santri Baru 2025</h3>
+                <p>Perkenalan Santri Baru 2025 di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+
+      <a href="/galeri-kedatangan-santri-baru.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Kedatangan Santri baru/1.jpg" alt="Kedatangan Santri Baru">
+            <div class="gallery-item-info">
+                <h3>Kedatangan Santri Baru</h3>
+                <p>Moment Kedatangan Santri Baru 2025 di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+
+      <a href="/galeri-selamat-kuliah.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Selamat Kuliah/1.jpg" alt="Selamat Kuliah">
+            <div class="gallery-item-info">
+                <h3>Selamat & Sukses</h3>
+                <p>Selamat & Sukses🔥Untuk santri Alumni Asy-Syifaa Yang Telah Lulus Seleksi UM-PTKIN, UIN Sunan Gunung Jati, Bandung.</p>
+            </div>
+        </a>
+
+     <a href="/galeri-pawai-obor-tahun-baru-islam-1447-h.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Pawai Obor Tahun Baru Islam 1447 H/1.jpg" alt="Pawai Obor Tahun Baru Islam 1447 H">
+            <div class="gallery-item-info">
+                <h3>Pawai Obor Tahun Baru Islam 1447 H</h3>
+                <p>Pawai Obor Tahun Baru Islam 1447 H di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+     <a href="/galeri-acara-puncak-tasyrik.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/Acara Puncak Tasyrik/1.jpg" alt="Acara Puncak Tasyrik">
+            <div class="gallery-item-info">
+                <h3>Acara Puncak Tasyrik</h3>
+                <p>Acara Puncak Tasyrik di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+     <a href="/galeri-tasyrik-championship.html" class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/TASYRIK CHAMPIONSHIP/1.jpg" alt="TASYRIK CHAMPIONSHIP">
+            <div class="gallery-item-info">
+                <h3>TASYRIK CHAMPIONSHIP</h3>
+                <p>TASYRIK CHAMPIONSHIP di Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</p>
+            </div>
+        </a>
+
+ 
+    </div>
+</div>
+
+ <div class="container text-center mb-5 mt-4">
+          <a href="/index.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Beranda
+          </a>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="modern-footer pt-5" id="kontak">
+    <div class="container pb-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-section">
+                    <div class="footer-title-container mb-3">
+                        <img src="/assets/media/images/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                    </div>
+                    <p class="small text-white-50">
+                        Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.
+                    </p>
+                    <div class="footer-social mt-4">
+                        <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@AsySyifaaTVOfficial" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@asysyifaapusat" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-section">
+                    <h4>Tautan Penting</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/visi-dan-misi.html">Visi & Misi</a></li>
+                        <li><a href="/alur-pendaftaran.html">Alur&Syarat Pendaftaran</a></li>                        <li><a href="/direktori-santri.html">Direktori Santri Aktif</a></li>
+                        <li><a href="/kegiatan-harian.html">Kegiatan Santri</a></li>
+                        <li><a href="/profil-kurikulum.html">Kurikulum Santri</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div class="text-white-50 small">
+                                Haurngombong, Kec. Pamulihan,
+                                Kabupaten Sumedang, Jawa Barat 45365
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6285322170007">0853-2217-0007</a>
+                                <span class="d-block small text-white-50">Administrasi</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                             <i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i>
+                            <div>
+                                <a href="https://wa.me/6281776476495">0817-7647-6495</a>
+                                <span class="d-block small text-white-50">Muadalah</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                 <div class="footer-section h-100 d-flex flex-column">
+                    <h4>Lokasi Kami</h4>
+                    <div class="map-container flex-grow-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.94427321582!2d107.82905607481875!3d-6.897268967496455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68daea5822cbff%3A0xdfe3d87acad09232!2sAsy-Syifaa%20Pusat!5e0!3m2!1sid!2sid!4v1750775764062!5m2!1sid!2sid" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-bottom text-center small py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <p class="m-0 text-white-50">PT Rojo Brontolano © 2026 Pondok Pesantren Islam Internasional Terpadu Asy-Syifaa Wal Mahmuudiyyah. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<a href="#top" id="backToTop" title="Kembali ke atas">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+    <path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"></path>
+  </svg>
+</a>
+
+<div id="searchOverlay">
+  <span id="closeSearch" class="close-search" title="Tutup">×</span>
+  <div class="search-box">
+    <form class="d-flex gap-2" action="/pencarian.html" method="GET">
+      <input type="text" name="s" class="form-control" autocomplete="off" placeholder="Cari di seluruh situs..." required />
+      <button type="submit"><i class="bi bi-search"></i> CARI</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/api-config.js"></script>
+<script src="/assets/js/gallery-pages.js"></script>
+<script>
+ // JavaScript untuk mengambil data dari URL dan menampilkannya di halaman detail
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const imageSrc = params.get('src');
+        // Decode URI component untuk menangani spasi dan karakter khusus lainnya
+        const imageTitle = decodeURIComponent(params.get('title') || 'Judul Foto');
+        const imageDesc = decodeURIComponent(params.get('desc') || 'Deskripsi foto ini belum tersedia.');
+
+        document.getElementById('detailImage').src = imageSrc;
+        document.getElementById('detailImage').alt = imageTitle.replace(/_/g, ' '); // Ganti underscore dengan spasi untuk alt
+        document.getElementById('detailTitle').innerText = imageTitle.replace(/_/g, ' '); // Ganti underscore dengan spasi untuk tampilan
+        document.getElementById('detailDescription').innerText = imageDesc;
+    });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+

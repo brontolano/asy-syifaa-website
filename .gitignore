@@ -30,3 +30,6 @@ website-deploy.zip
 # === OS / editor ===
 .DS_Store
 Thumbs.db
+# Local-only deploy key generated for GitHub Actions
+.github/gha_vps_ed25519
+.github/gha_vps_ed25519.pub

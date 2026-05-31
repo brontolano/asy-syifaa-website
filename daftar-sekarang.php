@@ -1,3 +1,9 @@
+<?php
+// Cegah browser/CDN menyimpan HTML lama (inline JS selalu ikut versi terbaru)
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>

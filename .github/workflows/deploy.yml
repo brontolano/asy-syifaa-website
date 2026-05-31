@@ -33,4 +33,14 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
-          ssh "$VPS_USER@$VPS_HOST" "cd /var/www/asy-syifaa && git pull origin main"
+          ssh "$VPS_USER@$VPS_HOST" bash -s <<'DEPLOY'
+            set -e
+            cd /opt/asy-syifaa/website/src
+            git pull origin main
+
+            # Restart containers
+            cd /opt/asy-syifaa/website
+            docker compose restart 2>/dev/null || true
+
+            echo "Website deployed successfully at $(date)"
+          DEPLOY

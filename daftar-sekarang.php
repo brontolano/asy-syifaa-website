@@ -331,7 +331,7 @@ header('Expires: 0');
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <select class="form-select" name="status_ayah" required>
+                                        <select class="form-select" name="status_ayah">
                                             <option value="Hidup">Masih Hidup</option>
                                             <option value="Meninggal">Meninggal</option>
                                         </select>
@@ -346,7 +346,7 @@ header('Expires: 0');
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <select class="form-select" name="pekerjaan_ayah" required>
+                                        <select class="form-select" name="pekerjaan_ayah">
                                             <option value="Wiraswasta">Wiraswasta</option>
                                             <option value="PNS">PNS</option>
                                             <option value="Petani">Petani</option>
@@ -358,7 +358,7 @@ header('Expires: 0');
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <select class="form-select" name="penghasilan_ayah" required>
+                                        <select class="form-select" name="penghasilan_ayah">
                                             <option value="< 1 Juta">< Rp 1.000.000</option>
                                             <option value="1-3 Juta">Rp 1.000.000 - 3.000.000</option>
                                             <option value="> 3 Juta">> Rp 3.000.000</option>
@@ -368,13 +368,13 @@ header('Expires: 0');
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="no_wa_ayah" placeholder="WhatsApp" required>
+                                        <input type="text" class="form-control" name="no_wa_ayah" placeholder="WhatsApp">
                                         <label>No. WhatsApp Ayah</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" name="alamat_ayah" id="alamatAyah" style="height: 100px" placeholder="Alamat" required></textarea>
+                                        <textarea class="form-control" name="alamat_ayah" id="alamatAyah" style="height: 100px" placeholder="Alamat"></textarea>
                                         <label>Alamat Lengkap Ayah</label>
                                     </div>
                                 </div>
@@ -714,7 +714,7 @@ header('Expires: 0');
               const noWaPeserta = normalizeGuardianPhone(fd.get("no_wa_peserta"));
               const guardianPhone = noWaAyah || noWaIbu;
 
-              if (!guardianPhone || !isValidGuardianPhone(guardianPhone)) {
+              if (guardianPhone && !isValidGuardianPhone(guardianPhone)) {
                   alert("Nomor WhatsApp wali tidak valid. Gunakan format 08xxxxxxxxxx.");
                   return;
               }

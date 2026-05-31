@@ -57,7 +57,7 @@
           <li class="nav-item"><a class="nav-link" href="<?= htmlspecialchars($dashboardUrl) ?>"><i class="fa-solid fa-user"></i> <?= htmlspecialchars($displayName) ?></a></li>
           <li class="nav-item"><a class="nav-link" href="/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
         <?php else: ?>
-          <li class="nav-item" id="loginNavItem"><a class="nav-link" href="/login" id="apps-erp-link"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a></li>
+          <li class="nav-item" id="loginNavItem"><a class="nav-link" href="https://erp.asy-syifaa.com" id="apps-erp-link"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="#" id="toggleSearch" title="Pencarian"><i class="fa-solid fa-search"></i></a></li>
       </ul>

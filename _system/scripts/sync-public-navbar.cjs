@@ -68,7 +68,7 @@ const NAVBAR = `<nav class="navbar navbar-expand-xl asf-public-navbar fixed-top"
         </li>
       </ul>
       <ul class="navbar-nav ms-xl-3 asf-public-navbar-right">
-        <li class="nav-item" id="loginNavItem"><a class="nav-link" href="/login" id="apps-erp-link"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a></li>
+        <li class="nav-item" id="loginNavItem"><a class="nav-link" href="https://erp.asy-syifaa.com" id="apps-erp-link"><i class="fa-solid fa-right-to-bracket"></i> Login / Signup</a></li>
         <li class="nav-item"><a class="nav-link" href="#" id="toggleSearch" title="Pencarian"><i class="fa-solid fa-search"></i></a></li>
       </ul>
     </div>

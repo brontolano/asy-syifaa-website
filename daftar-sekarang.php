@@ -446,10 +446,47 @@ header('Expires: 0');
                         </div>
 
                         <div class="form-step d-none" id="step4">
-                            <h5 class="mb-4 fw-bold text-secondary border-bottom pb-2"><i class="fa-solid fa-check-double me-2"></i>Konfirmasi & Wali</h5>
-                            
+                            <h5 class="mb-4 fw-bold text-secondary border-bottom pb-2"><i class="fa-solid fa-check-double me-2"></i>Alamat & Data KK</h5>
+
                             <div class="row g-3">
                                 <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" name="alamat_jalan" id="alamatJalan" style="height: 80px" placeholder="Alamat" required></textarea>
+                                        <label>Alamat Jalan (RT/RW, Gang, No. Rumah)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Provinsi <span class="required-mark">*</span></label>
+                                    <select class="form-select" name="province_code" id="wProvinsi" required>
+                                        <option value="">— Pilih Provinsi —</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Kabupaten/Kota <span class="required-mark">*</span></label>
+                                    <select class="form-select" name="city_code" id="wKota" disabled required>
+                                        <option value="">— Pilih Kab/Kota —</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Kecamatan <span class="required-mark">*</span></label>
+                                    <select class="form-select" name="district_code" id="wKecamatan" disabled required>
+                                        <option value="">— Pilih Kecamatan —</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Desa/Kelurahan <span class="required-mark">*</span></label>
+                                    <select class="form-select" name="village_code" id="wDesa" disabled required>
+                                        <option value="">— Pilih Desa/Kelurahan —</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" name="kode_pos" id="wKodePos" placeholder="Kode Pos" readonly>
+                                        <label>Kode Pos</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-4">
                                     <label class="form-label fw-bold">Pembiaya Pesantren</label>
                                     <select class="form-select" name="pembiaya">
                                         <option value="Orang Tua">Orang Tua Kandung</option>
@@ -513,7 +550,7 @@ header('Expires: 0');
                                   <strong>Langkah selanjutnya:</strong> Login ke Portal PPDB untuk melengkapi data diri dan upload dokumen persyaratan (KK, KTP Ortu, Ijazah, Akta Lahir, Foto, Surat Sehat).
                                 </div>
                                 <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
-                                  <a href="/login/" class="btn btn-primary rounded-pill px-4"><i class="fa-solid fa-right-to-bracket me-1"></i> Login ke Portal PPDB</a>
+                                  <a href="https://erp.asy-syifaa.com" class="btn btn-primary rounded-pill px-4"><i class="fa-solid fa-right-to-bracket me-1"></i> Login ke Portal PPDB</a>
                                   <a href="/" class="btn btn-outline-secondary rounded-pill px-4">Kembali ke Beranda</a>
                                 </div>
                             </div>
@@ -648,6 +685,57 @@ header('Expires: 0');
       }
   }
 
+  // ── Cascading Wilayah Select ──────────────────────────────────
+  (function() {
+    const apiBase = (window.ASF_API_BASE || '') + '/api/v1';
+    const prov = document.getElementById('wProvinsi');
+    const city = document.getElementById('wKota');
+    const dist = document.getElementById('wKecamatan');
+    const vill = document.getElementById('wDesa');
+    const post = document.getElementById('wKodePos');
+    if (!prov) return;
+
+    let villagesCache = [];
+
+    async function fj(url) {
+      const r = await fetch(url);
+      const j = await r.json();
+      return j.data || [];
+    }
+    function fill(el, items, valKey, lblKey) {
+      el.innerHTML = '<option value="">— Pilih —</option>';
+      items.forEach(i => {
+        const o = document.createElement('option');
+        o.value = i[valKey]; o.textContent = i[lblKey];
+        el.appendChild(o);
+      });
+      el.disabled = items.length === 0;
+    }
+    function reset(...els) {
+      els.forEach(el => { el.innerHTML = '<option value="">— Pilih —</option>'; el.disabled = true; });
+      if (post) post.value = '';
+    }
+
+    fj(apiBase + '/wilayah/provinces').then(d => fill(prov, d, 'code', 'name'));
+
+    prov.addEventListener('change', function() {
+      reset(city, dist, vill); villagesCache = [];
+      if (this.value) fj(apiBase + '/wilayah/cities/' + this.value).then(d => fill(city, d, 'code', 'name'));
+    });
+    city.addEventListener('change', function() {
+      reset(dist, vill); villagesCache = [];
+      if (this.value) fj(apiBase + '/wilayah/districts/' + this.value).then(d => fill(dist, d, 'code', 'name'));
+    });
+    dist.addEventListener('change', function() {
+      reset(vill); villagesCache = [];
+      if (this.value) fj(apiBase + '/wilayah/villages/' + this.value).then(d => { villagesCache = d; fill(vill, d, 'code', 'name'); });
+    });
+    vill.addEventListener('change', function() {
+      const match = villagesCache.find(v => v.code === this.value);
+      if (post) post.value = match?.postal_code || '';
+    });
+  })();
+
   function normalizeGuardianPhone(value) {
       let raw = String(value || "").trim().replace(/[^\d+]/g, "");
       if (!raw) return "";
@@ -748,6 +836,8 @@ header('Expires: 0');
                   birth_place: String(fd.get("tempat_lahir") || "").trim() || null,
                   birth_date: String(fd.get("tgl_lahir") || "").trim() || null,
                   origin_school: String(fd.get("pendidikan_terakhir") || "").trim() || null,
+                  address: String(fd.get("alamat_jalan") || "").trim() || null,
+                  village_code: String(fd.get("village_code") || "").trim() || null,
                   parent_name: [namaAyah, namaIbu].filter(Boolean).join(" / ") || null,
                   parent_phone: guardianPhone,
                   guardian_phone: guardianPhone,

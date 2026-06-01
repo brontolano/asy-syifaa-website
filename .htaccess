@@ -1,5 +1,14 @@
 RewriteEngine On
 
+# === Safety guards: ensure pages render in browser (not downloaded) ===
+AddType text/html .html .htm .php
+AddDefaultCharset UTF-8
+
+<IfModule mod_headers.c>
+  Header always unset Content-Disposition
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
 # === Canonical gallery routes (clean URL) ===
 RewriteRule ^galeri/?$ /galeri.php [L,QSA,NC]
 RewriteRule ^galeri/([^/]+)/?$ /galeri-detail.php?slug=$1 [L,QSA,NC]

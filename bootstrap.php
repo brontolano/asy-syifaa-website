@@ -1,6 +1,32 @@
 <?php
 declare(strict_types=1);
 
+// Minimal .env loader (tanpa dependency eksternal).
+$envPath = __DIR__ . DIRECTORY_SEPARATOR . '.env';
+if (is_file($envPath) && is_readable($envPath)) {
+    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (is_array($lines)) {
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || str_starts_with($line, '#')) {
+                continue;
+            }
+            $pair = explode('=', $line, 2);
+            if (count($pair) !== 2) {
+                continue;
+            }
+            $key = trim($pair[0]);
+            $value = trim($pair[1]);
+            $value = trim($value, "\"'");
+            if ($key !== '' && getenv($key) === false) {
+                putenv($key . '=' . $value);
+                $_ENV[$key] = $value;
+                $_SERVER[$key] = $value;
+            }
+        }
+    }
+}
+
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     $sessionPathCandidates = [
         __DIR__ . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'sessions',

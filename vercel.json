@@ -1,15 +1,9 @@
 {
-  "buildCommand": "",
-  "outputDirectory": "",
-  "framework": null,
-  "functions": {
-    "api/**/*.php": {
-      "runtime": "vercel-php@0.7.2"
-    },
-    "*.php": {
-      "runtime": "vercel-php@0.7.2"
-    }
-  },
+  "builds": [
+    { "src": "*.php", "use": "vercel-php@0.7.2" },
+    { "src": "api/**/*.php", "use": "vercel-php@0.7.2" },
+    { "src": "assets/**", "use": "@vercel/static" }
+  ],
   "routes": [
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
 
@@ -29,7 +23,8 @@
     { "src": "/direktori-banat\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
     { "src": "/direktori-banin\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
 
-    { "src": "/((?!api/)[^/]+)/?$", "dest": "/$1.php" }
+    { "src": "/(.*)\\.php$", "dest": "/$1.php" },
+    { "src": "/((?!api/)[^./]+)/?$", "dest": "/$1.php" }
   ],
   "headers": [
     {

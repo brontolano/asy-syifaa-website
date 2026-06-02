@@ -1,7 +1,10 @@
 RewriteEngine On
 
-# === Safety guards: ensure pages render in browser (not downloaded) ===
-AddType text/html .html .htm .php
+# === Force PHP handler (works on LiteSpeed & Apache) ===
+AddHandler application/x-httpd-php .php
+
+# === Safety guards ===
+AddType text/html .html .htm
 AddDefaultCharset UTF-8
 
 <IfModule mod_headers.c>

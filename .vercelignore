@@ -13,8 +13,13 @@ Dockerfile
 nginx.conf
 .htaccess
 
-# Root PHP files (already copied to api/pages/)
+# Legacy system
+_system
+
+# Root PHP files (already in api/pages/)
 *.php
 !api/**
+
+# Misc
 src
 storage

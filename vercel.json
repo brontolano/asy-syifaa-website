@@ -1,19 +1,14 @@
 {
-  "functions": {
-    "api/render.php": {
-      "runtime": "vercel-php@0.7.2",
-      "maxDuration": 10,
-      "excludeFiles": "{assets/**,Galeri/**,Abuya/**,AsySyifaa.ico}"
-    },
-    "api/wilayah.php": {
-      "runtime": "vercel-php@0.7.2",
-      "excludeFiles": "{assets/**,Galeri/**,Abuya/**,AsySyifaa.ico}"
-    },
-    "api/auth/*.php": {
-      "runtime": "vercel-php@0.7.2",
-      "excludeFiles": "{assets/**,Galeri/**,Abuya/**,AsySyifaa.ico}"
-    }
-  },
+  "builds": [
+    { "src": "api/render.php", "use": "vercel-php@0.7.2", "config": { "includeFiles": "api/pages/**" } },
+    { "src": "api/wilayah.php", "use": "vercel-php@0.7.2" },
+    { "src": "api/auth/login.php", "use": "vercel-php@0.7.2" },
+    { "src": "api/auth/register-spmb.php", "use": "vercel-php@0.7.2" },
+    { "src": "assets/**", "use": "@vercel/static" },
+    { "src": "Galeri/**", "use": "@vercel/static" },
+    { "src": "Abuya/**", "use": "@vercel/static" },
+    { "src": "AsySyifaa.ico", "use": "@vercel/static" }
+  ],
   "routes": [
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/Abuya/(.*)", "dest": "/Abuya/$1" },

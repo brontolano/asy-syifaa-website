@@ -1,8 +1,15 @@
 {
   "functions": {
-    "api/**/*.php": {
+    "api/render.php": {
       "runtime": "vercel-php@0.7.2",
-      "includeFiles": "**/*.php"
+      "includeFiles": "{partials.*.php,bootstrap.php,src/**/*.php,*.php}",
+      "maxDuration": 10
+    },
+    "api/wilayah.php": {
+      "runtime": "vercel-php@0.7.2"
+    },
+    "api/auth/*.php": {
+      "runtime": "vercel-php@0.7.2"
     }
   },
   "routes": [

@@ -1,0 +1,18 @@
+# Git
+.git
+.github
+
+# Large media folders (serve from CDN or keep minimal)
+Galeri
+Abuya
+assets/media/gallery
+assets/media/profile-pondok
+
+# Dev files
+.env
+.env.local
+*.log
+node_modules
+Dockerfile
+.dockerignore
+nginx.conf

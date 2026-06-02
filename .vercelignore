@@ -2,12 +2,6 @@
 .git
 .github
 
-# ALL large media (serve from CDN instead)
-assets/media
-Galeri
-Abuya
-assets/img
-
 # Dev/Docker files
 .env
 .env.local

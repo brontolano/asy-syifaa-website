@@ -1,18 +1,26 @@
-# Git
+# Git & CI
 .git
 .github
 
-# Large media folders (serve from CDN or keep minimal)
+# ALL large media (serve from CDN instead)
+assets/media
 Galeri
 Abuya
-assets/media/gallery
-assets/media/profile-pondok
+assets/img
 
-# Dev files
+# Dev/Docker files
 .env
 .env.local
+.env.example
 *.log
 node_modules
 Dockerfile
 .dockerignore
 nginx.conf
+.htaccess
+
+# Root PHP files (already copied to api/pages/)
+*.php
+!api/**
+src
+storage

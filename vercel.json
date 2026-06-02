@@ -2,7 +2,6 @@
   "functions": {
     "api/render.php": {
       "runtime": "vercel-php@0.7.2",
-      "includeFiles": "{partials.*.php,bootstrap.php,src/**/*.php,*.php}",
       "maxDuration": 10
     },
     "api/wilayah.php": {

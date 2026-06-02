@@ -1026,7 +1026,7 @@ Tempel di `<head>` index.html (sesuaikan per halaman lain):
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://website-pondok.com/">
+<meta property="og:url" content="https://asy-syifaa.com/">
 <meta property="og:title" content="Ponpes Asy-Syifaa Wal Mahmuudiyyah Sumedang">
 <meta property="og:description" content="Pondok Pesantren Islam Internasional Terpadu. Membangun Generasi Qur'ani dan Berwawasan Global.">
 <meta property="og:image" content="assets/img/slider1.jpg">

@@ -10,7 +10,7 @@
   
   <meta name="author" content="Tim IT Asy-Syifaa Wal Mahmuudiyyah">
   <meta name="robots" content="index, follow"> <meta name="theme-color" content="#206c4e"> <meta property="og:type" content="website">
-  <meta property="og:url" content="https://website-pondok.com/"> 
+  <meta property="og:url" content="https://asy-syifaa.com/"> 
   <meta property="og:title" content="Ponpes Asy-Syifaa Wal Mahmuudiyyah Sumedang">
   <meta property="og:description" content="Pondok Pesantren Islam Internasional Terpadu Terpadu. Membangun Generasi Qur'ani dan Berwawasan Global.">
   <meta property="og:image" content="assets/img/slider1.jpg"> <meta property="og:image:alt" content="Gedung Utama Asy-Syifaa Wal Mahmuudiyyah">

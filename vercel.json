@@ -1,30 +1,34 @@
 {
-  "builds": [
-    { "src": "*.php", "use": "vercel-php@0.7.2" },
-    { "src": "api/**/*.php", "use": "vercel-php@0.7.2" },
-    { "src": "assets/**", "use": "@vercel/static" }
-  ],
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.7.2",
+      "includeFiles": "**/*.php"
+    }
+  },
   "routes": [
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/AsySyifaa\\.ico", "dest": "/AsySyifaa.ico" },
 
-    { "src": "/galeri/([^/]+)/?$", "dest": "/galeri-detail.php?slug=$1" },
-    { "src": "/galeri/?$", "dest": "/galeri.php" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
 
-    { "src": "/daftar/?$", "dest": "/daftar-sekarang.php" },
-    { "src": "/psb/?$", "dest": "/daftar-sekarang.php" },
-    { "src": "/pendaftaran/?$", "dest": "/daftar-sekarang.php" },
+    { "src": "/galeri/([^/]+)/?$", "dest": "/api/render.php?page=galeri-detail&slug=$1" },
+    { "src": "/galeri/?$", "dest": "/api/render.php?page=galeri" },
 
-    { "src": "/Profile\\.html$", "status": 301, "headers": { "Location": "/mahad.php" } },
-    { "src": "/Kurikulum\\.html$", "status": 301, "headers": { "Location": "/profil-kurikulum.php" } },
-    { "src": "/Ekstrakulikuler\\.html$", "status": 301, "headers": { "Location": "/profil-ekskul.php" } },
-    { "src": "/Guru\\.html$", "status": 301, "headers": { "Location": "/profil-guru.php" } },
-    { "src": "/profil\\.html$", "status": 301, "headers": { "Location": "/mahad.php" } },
+    { "src": "/daftar/?$", "dest": "/api/render.php?page=daftar-sekarang" },
+    { "src": "/psb/?$", "dest": "/api/render.php?page=daftar-sekarang" },
+    { "src": "/pendaftaran/?$", "dest": "/api/render.php?page=daftar-sekarang" },
 
-    { "src": "/direktori-banat\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
-    { "src": "/direktori-banin\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
+    { "src": "/Profile\\.html$", "status": 301, "headers": { "Location": "/mahad" } },
+    { "src": "/Kurikulum\\.html$", "status": 301, "headers": { "Location": "/profil-kurikulum" } },
+    { "src": "/Ekstrakulikuler\\.html$", "status": 301, "headers": { "Location": "/profil-ekskul" } },
+    { "src": "/Guru\\.html$", "status": 301, "headers": { "Location": "/profil-guru" } },
+    { "src": "/profil\\.html$", "status": 301, "headers": { "Location": "/mahad" } },
+    { "src": "/direktori-banat\\.html$", "status": 301, "headers": { "Location": "/direktori-santri" } },
+    { "src": "/direktori-banin\\.html$", "status": 301, "headers": { "Location": "/direktori-santri" } },
 
-    { "src": "/(.*)\\.php$", "dest": "/$1.php" },
-    { "src": "/((?!api/)[^./]+)/?$", "dest": "/$1.php" }
+    { "src": "/([^./]+)\\.php$", "dest": "/api/render.php?page=$1" },
+    { "src": "/([^./]+)/?$", "dest": "/api/render.php?page=$1" },
+    { "src": "/", "dest": "/api/render.php?page=index" }
   ],
   "headers": [
     {
@@ -32,8 +36,7 @@
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
       ]
     },
     {

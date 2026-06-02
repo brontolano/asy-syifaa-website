@@ -1,12 +1,12 @@
 # Asy-Syifaa Platform (Website asy-syifaa.com)
 
 Source code website resmi Pondok Pesantren Asy-Syifaa — situs PHP native dinamis
-(front-controller + clean URL via `.htaccess`). Repo ini berisi **source code saja**;
+(front-controller + clean URL via `router.php`). Repo ini berisi **source code saja**;
 media/aset besar disimpan terpisah (lihat bagian Backup Media).
 
 - **Live:** https://asy-syifaa.com
 - **Repo:** https://github.com/brontolano/asy-syifaa-
-- **Stack:** PHP 8.2, HTML/CSS/JS, Bootstrap, `.htaccess` rewrite
+- **Stack:** PHP 8.2, HTML/CSS/JS, Bootstrap, Nginx + PHP-FPM, `.htaccess` for Apache compatibility
 
 ---
 
@@ -16,17 +16,17 @@ media/aset besar disimpan terpisah (lihat bagian Backup Media).
 asy-syifaa-platform/
 ├── index.php, profil-*.php, galeri*.php, ...   # Halaman PHP (41 file)
 ├── partials.*.php                              # Header/footer/bootstrap partial
-├── bootstrap.php, router.php                    # Front controller
-├── .htaccess                                    # Rewrite clean URL
-├── assets/                                       # css, js, data (media di-gitignore)
+├── bootstrap.php, router.php                   # Front controller
+├── .htaccess, nginx.conf                       # Rewrite/routing configs
+├── assets/                                     # css, js, data (media di-gitignore)
 │   ├── css/  js/  data/
 │   ├── media/        (gitignored — gambar)
 │   └── img/          (gitignored — gambar)
 ├── login/index.html                            # Halaman login SSO aktif
 ├── api/  src/  erp/                            # Helper API & legacy
-├── _system/                                     # Arsip docs + backend-legacy
-├── storage/                                      # Runtime (logs/cache/sessions gitignored)
-└── .github/workflows/ci.yml                     # CI: php -l lint (TIDAK deploy)
+├── _system/                                    # Arsip docs + backend-legacy
+├── storage/                                    # Runtime (logs/cache/sessions gitignored)
+└── .github/workflows/ci.yml                    # CI: php -l lint (TIDAK deploy)
 ```
 
 ---
@@ -65,14 +65,15 @@ Folder dirapikan agar **lokal = cermin GitHub** (source-only). Sebelum penghapus
 
 ## Deploy
 
-Hosting: **Hostinger shared** (bukan VPS). Tanpa SSH — hanya File Manager.
+Live saat ini diasumsikan berjalan di **VPS Nginx + PHP-FPM**, bukan Hostinger shared.
+Source aktif website dipasang di **`/opt/asy-syifaa/website/src`** sesuai workflow reinstall.
 
-1. Source PHP: edit/upload via hPanel File Manager ke `public_html/`.
-2. Media: upload `assets_restore.zip` ke `public_html` → **Extract** (jadi `public_html/assets/...`).
-3. Path gambar galeri sudah distandarkan ke `/assets/media/gallery/...` (`assets/js/gallery-pages.js`).
+1. Deploy utama memakai GitHub Actions: [`.github/workflows/reinstall-website.yml`](C:/Users/maula/Downloads/ABDM/_Agent%20Manager/ERP-Pesantren/.github/workflows/reinstall-website.yml).
+2. Workflow menyalin isi `asy-syifaa-website/` ke `/opt/asy-syifaa/website/src`, lalu memasang `nginx.conf` menjadi site config aktif.
+3. Clean URL publik harus masuk ke `router.php`; jangan ubah fallback Nginx ke `index.php` karena itu membuat semua route non-file tampil seperti beranda.
+4. Path gambar galeri tetap distandarkan ke `/assets/media/gallery/...` (`assets/js/gallery-pages.js`).
 
-CI (`.github/workflows/ci.yml`) hanya menjalankan `php -l` di runner GitHub —
-**tidak melakukan deploy apa pun ke server live.**
+CI [`asy-syifaa-website/.github/workflows/ci.yml`](C:/Users/maula/Downloads/ABDM/_Agent%20Manager/ERP-Pesantren/asy-syifaa-website/.github/workflows/ci.yml) hanya menjalankan `php -l` di runner GitHub. Deploy live website ditangani oleh workflow di root repo.
 
 ---
 
@@ -80,3 +81,4 @@ CI (`.github/workflows/ci.yml`) hanya menjalankan `php -l` di runner GitHub —
 
 - Media besar **sengaja** di-gitignore agar repo kecil & andal (lihat `.gitignore`).
 - Untuk memulihkan media ke lokal: ekstrak kedua zip di folder induk ke dalam folder ini.
+- File `.htaccess` tetap dipertahankan untuk kompatibilitas Apache/LiteSpeed, tetapi source of truth live routing untuk website ini adalah `nginx.conf` + `router.php`.

@@ -1,0 +1,57 @@
+{
+  "buildCommand": "",
+  "outputDirectory": "",
+  "framework": null,
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.7.2"
+    },
+    "*.php": {
+      "runtime": "vercel-php@0.7.2"
+    }
+  },
+  "routes": [
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+
+    { "src": "/galeri/([^/]+)/?$", "dest": "/galeri-detail.php?slug=$1" },
+    { "src": "/galeri/?$", "dest": "/galeri.php" },
+
+    { "src": "/daftar/?$", "dest": "/daftar-sekarang.php" },
+    { "src": "/psb/?$", "dest": "/daftar-sekarang.php" },
+    { "src": "/pendaftaran/?$", "dest": "/daftar-sekarang.php" },
+
+    { "src": "/Profile\\.html$", "status": 301, "headers": { "Location": "/mahad.php" } },
+    { "src": "/Kurikulum\\.html$", "status": 301, "headers": { "Location": "/profil-kurikulum.php" } },
+    { "src": "/Ekstrakulikuler\\.html$", "status": 301, "headers": { "Location": "/profil-ekskul.php" } },
+    { "src": "/Guru\\.html$", "status": 301, "headers": { "Location": "/profil-guru.php" } },
+    { "src": "/profil\\.html$", "status": 301, "headers": { "Location": "/mahad.php" } },
+
+    { "src": "/direktori-banat\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
+    { "src": "/direktori-banin\\.html$", "status": 301, "headers": { "Location": "/direktori-santri.php" } },
+
+    { "src": "/((?!api/)[^/]+)/?$", "dest": "/$1.php" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.(?:js|css)$",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.(?:png|jpg|jpeg|webp|svg|ico|gif)$",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

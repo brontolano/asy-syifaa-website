@@ -1,36 +1,103 @@
-RewriteEngine On
+# ============================================================
+# .htaccess - Asy-Syifaa Website (Hostinger LiteSpeed)
+# ============================================================
 
-# === Force PHP handler (works on LiteSpeed & Apache) ===
+# --- PHP Handler ---
 AddHandler application/x-httpd-php .php
 
-# === Safety guards ===
-AddType text/html .html .htm
+# --- Charset & Security Headers ---
 AddDefaultCharset UTF-8
 
 <IfModule mod_headers.c>
-  Header always unset Content-Disposition
-  Header always set X-Content-Type-Options "nosniff"
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# === Canonical gallery routes (clean URL) ===
+# --- HTTPS Redirect ---
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- WWW to non-WWW ---
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# --- Directory Index ---
+DirectoryIndex index.php index.html
+
+# --- Block Hidden Files (except .htaccess) ---
+<FilesMatch "^\.(?!htaccess)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order Allow,Deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# --- Block Sensitive Files ---
+<FilesMatch "\.(env|log|bak|sql|git|ini)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order Allow,Deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# --- Caching Static Assets ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
+# --- GZIP Compression ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ============================================================
+# ROUTING
+# ============================================================
+
+# --- Clean URL: Galeri ---
 RewriteRule ^galeri/?$ /galeri.php [L,QSA,NC]
 RewriteRule ^galeri/([^/]+)/?$ /galeri-detail.php?slug=$1 [L,QSA,NC]
 RewriteRule ^galeri-([^/]+)(?:\.html)?/?$ /galeri-detail.php?slug=galeri-$1 [L,QSA,NC]
 
-# === Extensionless route support (/slug -> /slug.html) ===
+# --- Clean URL: Extensionless (.php fallback, then .html) ---
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1.php -f
 RewriteRule ^([^/]+)/?$ $1.php [L,NC]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^([^/]+)/?$ $1.html [L,NC]
 
-# === Compatibility: .htm to canonical .php ===
+# ============================================================
+# LEGACY REDIRECTS (301 permanent)
+# ============================================================
+
+# --- .htm compatibility ---
 RewriteRule ^alur-pendaftaran\.htm$ /alur-pendaftaran.php [R=301,L,NC]
 
-# === Legacy capitalized/space filenames → canonical lowercase-dash ===
+# --- Old capitalized/space filenames ---
 RewriteRule ^Profile\.html$ /mahad.php [R=301,L,NC]
 RewriteRule ^Kurikulum\.html$ /profil-kurikulum.php [R=301,L,NC]
 RewriteRule ^Ekstrakulikuler\.html$ /profil-ekskul.php [R=301,L,NC]
@@ -41,18 +108,23 @@ RewriteRule ^Profile[%20\ ]+Pondok[%20\ ]+Pesantren\.html$ /profil-pondok-pesant
 RewriteRule ^Struktur[%20\ ]+Organisasi\.html$ /struktur-organisasi.php [R=301,L,NC]
 RewriteRule ^Visi[%20\ ]+Dan[%20\ ]+Misi\.html$ /visi-dan-misi.php [R=301,L,NC]
 
-# === Old profile- prefix → profil- standard ===
+# --- Old profile- prefix ---
 RewriteRule ^profile-abuya\.html$ /profil-abuya.php [R=301,L,NC]
 RewriteRule ^profile-pondok-pesantren\.html$ /profil-pondok-pesantren.php [R=301,L,NC]
 RewriteRule ^profil\.html$ /mahad.php [R=301,L,NC]
 
-# === Duplicate profil- variants → canonical pages ===
+# --- Duplicate profil- variants ---
 RewriteRule ^profil-fasilitas\.html$ /fasilitas-pesantren.php [R=301,L,NC]
 RewriteRule ^profil-pondok\.html$ /profil-pondok-pesantren.php [R=301,L,NC]
 RewriteRule ^profil-struktur\.html$ /struktur-organisasi.php [R=301,L,NC]
 RewriteRule ^profil-visi-misi\.html$ /visi-dan-misi.php [R=301,L,NC]
 RewriteRule ^info-raport\.html$ /e-raport.php [R=301,L,NC]
 
-# === Old direktori split pages → unified ===
+# --- Old direktori split ---
 RewriteRule ^direktori-banat\.html$ /direktori-santri.php [R=301,L,NC]
 RewriteRule ^direktori-banin\.html$ /direktori-santri.php [R=301,L,NC]
+
+# --- Daftar Sekarang (PSB) clean URL ---
+RewriteRule ^daftar/?$ /daftar-sekarang.php [L,QSA,NC]
+RewriteRule ^psb/?$ /daftar-sekarang.php [L,QSA,NC]
+RewriteRule ^pendaftaran/?$ /daftar-sekarang.php [L,QSA,NC]

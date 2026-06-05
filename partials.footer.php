@@ -32,7 +32,7 @@
                 <div class="footer-section">
                     <h4>Hubungi Kami</h4>
                     <ul class="list-unstyled footer-contact">
-                        <li class="d-flex align-items-start mb-3"><i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i><div class="text-white-50 small">Haurngombong, Kec. Pamulihan, Kabupaten Sumedang, Jawa Barat 45365</div></li>
+                        <li class="d-flex align-items-start mb-3"><i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i><div class="text-white-50 small"><?= htmlspecialchars(\Website\Support\CmsContent::contact('address', 'Haurngombong, Kec. Pamulihan, Kabupaten Sumedang, Jawa Barat 45365'), ENT_QUOTES) ?></div></li>
                         <li class="d-flex align-items-start mb-3"><i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i><div><a href="https://wa.me/6285322170007">0853-2217-0007</a><span class="d-block small text-white-50">Administrasi</span></div></li>
                         <li class="d-flex align-items-start"><i class="bi bi-whatsapp me-3 mt-1" style="font-size: 1.2rem; color: var(--accent-gold);"></i><div><a href="https://wa.me/6281776476495">0817-7647-6495</a><span class="d-block small text-white-50">Muadalah</span></div></li>
                     </ul>

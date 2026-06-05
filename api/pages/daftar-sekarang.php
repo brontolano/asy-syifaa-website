@@ -755,7 +755,7 @@ header('Expires: 0');
                                   <strong>Langkah selanjutnya:</strong> Login ke Portal PPDB untuk melengkapi data diri dan upload dokumen persyaratan (KK, KTP Ortu, Ijazah, Akta Lahir, Foto, Surat Sehat).
                                 </div>
                                 <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
-                                  <a href="https://pesantren.asy-syifaa.com/portal" class="btn btn-primary rounded-pill px-4"><i class="fa-solid fa-right-to-bracket me-1"></i> Login ke Portal PPDB</a>
+                                  <a href="https://pesantren.asy-syifaa.com/" class="btn btn-primary rounded-pill px-4"><i class="fa-solid fa-right-to-bracket me-1"></i> Login ke Portal PPDB</a>
                                   <a href="/" class="btn btn-outline-secondary rounded-pill px-4">Kembali ke Beranda</a>
                                 </div>
                             </div>

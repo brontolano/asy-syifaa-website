@@ -95,7 +95,7 @@ function get_erp_storage_url(string $path): string
 
 // Try API first, fallback to local JSON
 $cards = [];
-$apiResponse = ApiClient::fetchJson('/api/v1/galleries', ['limit' => '50']);
+$apiResponse = ApiClient::fetchJson('/api/public/content/gallery', ['limit' => '200']);
 
 if (($apiResponse['ok'] ?? false) === true && !empty($apiResponse['data'])) {
     // Use API data from ERP CMS
@@ -106,12 +106,7 @@ if (($apiResponse['ok'] ?? false) === true && !empty($apiResponse['data'])) {
         $title = trim((string)($gallery['title'] ?? 'Galeri'));
         $description = trim((string)($gallery['description'] ?? 'Dokumentasi kegiatan'));
 
-        // Try to get cover from first item or featured image
-        $cover = '/assets/media/images/hero-background.jpg';
-        if (!empty($gallery['items']) && is_array($gallery['items'])) {
-            $firstItem = $gallery['items'][0];
-            $cover = get_erp_storage_url($firstItem['image_path'] ?? '');
-        }
+        $cover = trim((string)($gallery['cover_url'] ?? '')) ?: '/assets/media/images/hero-background.jpg';
 
         $cards[] = [
             'url' => '/galeri/' . $slug,
@@ -279,8 +274,6 @@ usort($cards, static fn(array $a, array $b): int => strcmp($a['title'], $b['titl
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="/assets/js/main.js"></script>
-<script src="/assets/js/api-config.js"></script>
-<script src="/assets/js/gallery-pages.js"></script>
 <script>AOS.init({ duration: 700, once: true });</script>
 </body>
 </html>

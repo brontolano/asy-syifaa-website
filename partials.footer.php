@@ -4,10 +4,10 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-section">
                     <div class="footer-title-container mb-3">
-                        <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" alt="Logo Asy-Syifaa" class="footer-logo">
-                        <h3 class="h5 mb-0">Asy-Syifaa Wal Mahmuudiyyah</h3>
+                        <img loading="lazy" decoding="async" src="<?= htmlspecialchars(\Website\Support\CmsContent::branding('logoUrl', '/assets/media/images/logo.png'), ENT_QUOTES) ?>" alt="Logo Asy-Syifaa" class="footer-logo">
+                        <h3 class="h5 mb-0"><?= htmlspecialchars(\Website\Support\CmsContent::branding('name', 'Asy-Syifaa Wal Mahmuudiyyah'), ENT_QUOTES) ?></h3>
                     </div>
-                    <p class="small text-white-50">Pesantren unggul &amp; terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.</p>
+                    <p class="small text-white-50"><?= htmlspecialchars(\Website\Support\CmsContent::branding('tagline', 'Pesantren unggul & terpercaya dalam membangun generasi Muslim yang berakhlakul karimah, cerdas, dan siap menjadi pemimpin masa depan.'), ENT_QUOTES) ?></p>
                     <div class="footer-social mt-4">
                         <a href="https://www.facebook.com/AsySyifaaTV" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/asysyifaapusat/" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>

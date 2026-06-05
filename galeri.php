@@ -279,6 +279,8 @@ usort($cards, static fn(array $a, array $b): int => strcmp($a['title'], $b['titl
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/api-config.js"></script>
+<script src="/assets/js/gallery-pages.js"></script>
 <script>AOS.init({ duration: 700, once: true });</script>
 </body>
 </html>

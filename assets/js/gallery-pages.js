@@ -111,7 +111,7 @@
         var slug = row.slug || ("galeri-" + slugify(row.title));
         var image = resolveGalleryImage(row, slug);
         return '<a href="/galeri/' + esc(slug) + '" class="gallery-item" data-aos="fade-up" data-aos-delay="' + String((idx % 6) * 60 + 100) + '">' +
-          '<img src="' + esc(image) + '" alt="' + esc(row.title) + '" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
+          '<img loading="lazy" decoding="async" src="' + esc(image) + '" alt="' + esc(row.title) + '" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
           '<div class="gallery-item-info">' +
           '<h3>' + esc(row.title) + '</h3>' +
           '<p>' + esc(row.description || row.category || "Dokumentasi kegiatan") + '</p>' +
@@ -162,7 +162,7 @@
         var slug = row.slug || ("galeri-" + slugify(row.title));
         var image = resolveGalleryImage(row, slug);
         return '<a href="/galeri/' + esc(slug) + '" class="gallery-item" data-aos="fade-up" data-aos-delay="' + String((idx % 6) * 60 + 100) + '">' +
-          '<img src="' + esc(image) + '" alt="' + esc(row.title) + '" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
+          '<img loading="lazy" decoding="async" src="' + esc(image) + '" alt="' + esc(row.title) + '" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
           '<div class="gallery-item-info">' +
           '<h3>' + esc(row.title) + '</h3>' +
           '<p>' + esc(row.description || row.category || "Dokumentasi kegiatan") + '</p>' +
@@ -213,7 +213,7 @@
       detailRoot.innerHTML = '<section class="container py-5">' +
         '<h1 class="mb-2">' + esc(row.title) + '</h1>' +
         '<p class="text-muted mb-4">' + esc(row.date) + ' • ' + esc(row.category || "Galeri") + '</p>' +
-        '<img src="' + esc(image) + '" alt="' + esc(row.title) + '" class="img-fluid rounded-4 mb-3" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
+        '<img loading="lazy" decoding="async" src="' + esc(image) + '" alt="' + esc(row.title) + '" class="img-fluid rounded-4 mb-3" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
         '<p>' + esc(row.description || "Detail galeri.") + '</p>' +
         '<a href="/galeri" class="btn btn-outline-success rounded-pill px-4 mt-2">Kembali ke Galeri</a>' +
         '</section>';

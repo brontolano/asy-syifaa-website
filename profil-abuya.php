@@ -872,7 +872,7 @@
             
             <div class="col-lg-5 mt-5 mt-lg-0" data-aos="fade-left">
                 <div class="hero-image-wrapper">
-                    <img src="Abuya/500x600.png" class="placeholder-img-1" alt="Foto Abuya">
+                    <img loading="lazy" decoding="async" src="Abuya/500x600.png" class="placeholder-img-1" alt="Foto Abuya">
                 </div>
             </div>
         </div>
@@ -884,7 +884,7 @@
         <div class="row gx-5">
             <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-up">
                 <div class="img-frame-accent mb-4">
-<img src="Abuya/600x800.png" class="placeholder-img-2 w-100" style="object-fit: cover;" alt="Foto Mengajar">
+<img loading="lazy" decoding="async" src="Abuya/600x800.png" class="placeholder-img-2 w-100" style="object-fit: cover;" alt="Foto Mengajar">
                 </div>
                 
 
@@ -1179,7 +1179,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5 order-lg-2 mb-4 mb-lg-0" data-aos="fade-left">
-<img src="Abuya/500x700.png" class="img-fluid rounded-4 shadow-sm w-100" alt="Foto Nasab/Keluarga">
+<img loading="lazy" decoding="async" src="Abuya/500x700.png" class="img-fluid rounded-4 shadow-sm w-100" alt="Foto Nasab/Keluarga">
             </div>
 
 

@@ -154,7 +154,7 @@
             <div class="card shadow-lg border-0 overflow-hidden">
                 
                 <div class="card-header text-white text-center py-4" style="background: var(--primary-green);">
-                    <img src="assets/img/logo.png" alt="Logo" width="60" class="mb-2 bg-white rounded-circle p-1">
+                    <img loading="lazy" decoding="async" src="assets/img/logo.png" alt="Logo" width="60" class="mb-2 bg-white rounded-circle p-1">
                     <h3 class="h4 mb-0 fw-bold">Pondok Pesantren Asy-Syifaa Wal Mahmuudiyyah</h3>
                     <p class="mb-0 small opacity-75">Laporan Hasil Belajar Santri (E-Raport)</p>
                 </div>

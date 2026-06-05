@@ -623,7 +623,7 @@ if ($slug === '' || ($gallery === null && $apiGallery === null && $photoCount ==
         <div class="gallery-photo-grid">
           <?php foreach ($images as $index => $imageUrl): ?>
             <button type="button" class="gallery-photo-btn js-gallery-photo" data-index="<?= $index ?>">
-              <img src="<?= htmlspecialchars($imageUrl, ENT_QUOTES) ?>" alt="<?= htmlspecialchars(($title !== '' ? $title : 'Galeri') . ' foto ' . ($index + 1), ENT_QUOTES) ?>" loading="lazy">
+              <img loading="lazy" decoding="async" src="<?= htmlspecialchars($imageUrl, ENT_QUOTES) ?>" alt="<?= htmlspecialchars(($title !== '' ? $title : 'Galeri') . ' foto ' . ($index + 1), ENT_QUOTES) ?>" loading="lazy">
             </button>
           <?php endforeach; ?>
         </div>
@@ -664,7 +664,7 @@ if ($slug === '' || ($gallery === null && $apiGallery === null && $photoCount ==
     </button>
   </div>
 
-  <img id="lightboxImage" src="" alt="Foto galeri">
+  <img loading="lazy" decoding="async" id="lightboxImage" src="" alt="Foto galeri">
   <p class="gallery-lightbox-caption" id="lightboxCaption"></p>
 </div>
 

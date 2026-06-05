@@ -245,7 +245,7 @@ usort($cards, static fn(array $a, array $b): int => strcmp($a['title'], $b['titl
     <div class="gallery-grid" id="galleryGridRoot">
       <?php foreach ($cards as $index => $card): ?>
         <a href="<?= e($card['url']) ?>" class="gallery-item" data-aos="fade-up" data-aos-delay="<?= (int)(($index % 6) * 60) ?>">
-          <img src="<?= e($card['cover']) ?>" alt="<?= e($card['title']) ?>">
+          <img loading="lazy" decoding="async" src="<?= e($card['cover']) ?>" alt="<?= e($card['title']) ?>">
           <div class="gallery-item-info">
             <h3><?= e($card['title']) ?></h3>
             <p><?= e($card['description']) ?></p>

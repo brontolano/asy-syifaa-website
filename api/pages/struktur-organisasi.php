@@ -314,7 +314,7 @@
             <div class="leader-card-wrapper">
                 <div class="org-card leader-card">
                     <div class="org-img-wrapper">
-                        <img src="/assets/media/images/foto-mudir.jpg" 
+                        <img loading="lazy" decoding="async" src="/assets/media/images/foto-mudir.jpg" 
                              onerror="this.src='https://ui-avatars.com/api/?name=Muhyiddin+Al+Manafi&background=206c4e&color=fff&size=200'" 
                              alt="Mudir 'Aam" class="org-img">
                     </div>
@@ -332,7 +332,7 @@
             <div class="leader-card-wrapper">
                 <div class="org-card leader-card">
                     <div class="org-img-wrapper">
-                        <img src="/assets/media/images/foto-rais.jpg" 
+                        <img loading="lazy" decoding="async" src="/assets/media/images/foto-rais.jpg" 
                              onerror="this.src='https://ui-avatars.com/api/?name=Sabit+Al+Manafi&background=1a3e2c&color=fff&size=200'" 
                              alt="Rais 'Aam" class="org-img">
                     </div>
@@ -357,7 +357,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-delay="100">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Umar+Al+Kaff&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Umar+Al+Kaff&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">KEAMANAN</span>
                 <h5 class="org-name">Habib Umar Al-Kaff</h5>
@@ -371,7 +371,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-delay="150">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Qomar&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Qomar&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">'UBUDIYYAH</span>
                 <h5 class="org-name">Muallim Qomar</h5>
@@ -385,7 +385,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-delay="200">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Adnan&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Adnan&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">KESEHATAN</span>
                 <h5 class="org-name">Muallim Adnan</h5>
@@ -398,7 +398,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-delay="250">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Yasin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Yasin&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">KEBERSIHAN</span>
                 <h5 class="org-name">Muallim Yasin</h5>
@@ -411,7 +411,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Najib+Zibril&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Najib+Zibril&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">PENASEHAT</span>
                 <h5 class="org-name">Muallim Najib Zibril</h5>
@@ -424,7 +424,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Hambali&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Hambali&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">KEDISIPLINAN</span>
                 <h5 class="org-name">Muallim Hambali</h5>
@@ -437,7 +437,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Salman&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Salman&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">AROBIYYAH</span>
                 <h5 class="org-name">Muallim Salman</h5>
@@ -451,7 +451,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jalaluddin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jalaluddin&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">TO'AM (LOGISTIK)</span>
                 <h5 class="org-name">Muallim Jalaluddin</h5>
@@ -464,7 +464,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Nuruddin+Cahya&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Nuruddin+Cahya&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">LAUNDRY & EKSKUL</span>
                 <h5 class="org-name">Muallim Nuruddin (Cahya)</h5>
@@ -477,7 +477,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Maulana&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Maulana&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">DATABASE & IT</span>
                 <h5 class="org-name">Muallim Maulana</h5>
@@ -490,7 +490,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Ade+Jafar&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Ade+Jafar&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">KEPALA KANTOR</span>
                 <h5 class="org-name">Ustadz Ade Ja`far Sodiq</h5>
@@ -503,7 +503,7 @@
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
             <div class="org-card">
                 <div class="org-img-wrapper">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Abdul+Muhyi&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Abdul+Muhyi&background=random&color=fff'" class="org-img">
                 </div>
                 <span class="org-role">RIYADHOH</span>
                 <h5 class="org-name">Muallim Abdul Muhyi</h5>
@@ -525,7 +525,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 6A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Didin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Didin&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Didin</h6>
             </div>
@@ -534,7 +534,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 6B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Ahmad&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Ahmad&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Ahmad</h6>
             </div>
@@ -544,7 +544,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 5A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Najib+Zibril&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Najib+Zibril&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">M. Najib Zibril</h6>
             </div>
@@ -553,7 +553,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 5B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Qomar&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Qomar&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Qomar</h6>
             </div>
@@ -562,7 +562,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 5C</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Muhammad&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Muhammad&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Muhammad</h6>
             </div>
@@ -572,7 +572,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 4A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Yasiin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Yasiin&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Yasiin</h6>
             </div>
@@ -581,7 +581,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 4B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Wail&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Wail&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Wail A.J</h6>
             </div>
@@ -590,7 +590,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 4C</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Hambali&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Hambali&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Hambali</h6>
             </div>
@@ -600,7 +600,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 3A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Nuruddin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Nuruddin&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Nuruddin</h6>
             </div>
@@ -609,7 +609,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 3B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jamaluddin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jamaluddin&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">M. Jamaluddin</h6>
             </div>
@@ -618,7 +618,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 3C</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Muwafaq&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Muwafaq&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Muwafaq</h6>
             </div>
@@ -628,7 +628,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 2A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Solahudien&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Solahudien&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">M. Solahudieun</h6>
             </div>
@@ -637,7 +637,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 2B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Abdul+Muhyi&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Abdul+Muhyi&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">M. Abdul Muhyi</h6>
             </div>
@@ -646,7 +646,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 2C</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Deden&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Deden&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">M. Deden T.</h6>
             </div>
@@ -656,7 +656,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 1A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jalaluddin&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Jalaluddin&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Jalaluddin</h6>
             </div>
@@ -665,7 +665,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">KELAS 1B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Adnan&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Adnan&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Adnan</h6>
             </div>
@@ -675,7 +675,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">TAMHIDI A</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Azali&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Azali&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Azali D.</h6>
             </div>
@@ -684,7 +684,7 @@
             <div class="org-card p-3">
                 <span class="badge bg-secondary mb-2">TAMHIDI B</span>
                 <div class="org-img-wrapper" style="width: 60px; height: 60px;">
-                    <img src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Farhan&background=random&color=fff'" class="org-img">
+                    <img loading="lazy" decoding="async" src="/assets/media/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=Farhan&background=random&color=fff'" class="org-img">
                 </div>
                 <h6 class="org-name fs-6">Muallim Farhan</h6>
             </div>

@@ -1714,7 +1714,7 @@ body#top::after {
 <div class="chapter-spacer" style="height: 10px;"></div> <div class="chapter-header-box">
     <span class="chapter-number">BAB I</span>
     <h1 class="chapter-title-main">PENDAHULUAN</h1>
-    <img src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+    <img loading="lazy" decoding="async" src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
 </div>
 
 
@@ -1799,7 +1799,7 @@ body#top::after {
 <div class="chapter-spacer" style="height: 50px;"></div> <div class="chapter-header-box">
     <span class="chapter-number">BAB II</span>
     <h1 class="chapter-title-main">Perkembangan Pembangunan Fisik</h1>
-    <img src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+    <img loading="lazy" decoding="async" src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
 </div>
 
 <article class="paper-card" id="bab-2-content">
@@ -1919,7 +1919,7 @@ body#top::after {
 <div class="chapter-header-box">
     <span class="chapter-number">BAB III</span>
     <h1 class="chapter-title-main">Perkembangan Kepesantrenan</h1>
-    <img src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+    <img loading="lazy" decoding="async" src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
 </div>
 
 <article class="paper-card" id="bab-3-content">
@@ -2133,7 +2133,7 @@ body#top::after {
 <div class="chapter-header-box">
     <span class="chapter-number">BAB IV</span>
     <h1 class="chapter-title-main">Silsilah Sanad Keilmuan</h1>
-    <img src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+    <img loading="lazy" decoding="async" src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
 </div>
 
 <article class="paper-card" id="bab-4-content">
@@ -2316,7 +2316,7 @@ body#top::after {
 <div class="chapter-header-box">
     <span class="chapter-number">BAB V</span>
     <h1 class="chapter-title-main">Keunggulan & Keberkahan Mondok</h1>
-    <img src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
+    <img loading="lazy" decoding="async" src="/assets/media/images/divider-gold.webp" alt="" style="height: 3px; width: 80px; margin-top:10px; background:var(--accent-gold);">
 </div>
 
 <article class="paper-card" id="bab-5-content">

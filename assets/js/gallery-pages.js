@@ -210,12 +210,18 @@
       var rowSlug = row.slug || ("galeri-" + slugify(row.title));
       var image = resolveGalleryImage(row, rowSlug);
       document.title = row.title + " | Galeri Asy-Syifaa";
+      var imgsHtml = (Array.isArray(row.images) && row.images.length)
+        ? row.images.map(function (im) {
+            var u = (im && im.url) ? im.url : im;
+            return '<div class="col-6 col-md-4 col-lg-3"><img loading="lazy" decoding="async" src="' + esc(u) + '" alt="' + esc(row.title) + '" class="img-fluid rounded-3 w-100" style="aspect-ratio:1;object-fit:cover" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'"></div>';
+          }).join('')
+        : '<div class="col-12"><img loading="lazy" decoding="async" src="' + esc(image) + '" alt="' + esc(row.title) + '" class="img-fluid rounded-4"></div>';
       detailRoot.innerHTML = '<section class="container py-5">' +
         '<h1 class="mb-2">' + esc(row.title) + '</h1>' +
-        '<p class="text-muted mb-4">' + esc(row.date) + ' • ' + esc(row.category || "Galeri") + '</p>' +
-        '<img loading="lazy" decoding="async" src="' + esc(image) + '" alt="' + esc(row.title) + '" class="img-fluid rounded-4 mb-3" onerror="this.onerror=null;this.src=\'/assets/media/images/hero-background.jpg\'">' +
-        '<p>' + esc(row.description || "Detail galeri.") + '</p>' +
-        '<a href="/galeri" class="btn btn-outline-success rounded-pill px-4 mt-2">Kembali ke Galeri</a>' +
+        '<p class="text-muted mb-4">' + esc(row.date || '') + ' • ' + esc(row.category || "Galeri") + '</p>' +
+        (row.description ? '<p class="mb-4">' + esc(row.description) + '</p>' : '') +
+        '<div class="row g-3">' + imgsHtml + '</div>' +
+        '<a href="/galeri" class="btn btn-outline-success rounded-pill px-4 mt-4">Kembali ke Galeri</a>' +
         '</section>';
     } catch (_e) {
       detailRoot.innerHTML = '<section class="container py-5"><div class="alert alert-warning">Detail galeri tidak ditemukan.</div><a href="/galeri" class="btn btn-outline-success rounded-pill px-4">Kembali ke Galeri</a></section>';

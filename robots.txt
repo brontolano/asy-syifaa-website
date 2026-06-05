@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://asy-syifaa.com/sitemap.xml

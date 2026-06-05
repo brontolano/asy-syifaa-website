@@ -27,3 +27,6 @@ Thumbs.db
 # Local-only deploy key generated for GitHub Actions
 .github/gha_vps_ed25519
 .github/gha_vps_ed25519.pub
+
+# WebP hasil optimasi (di-generate, bukan sumber)
+/storage/webp/
